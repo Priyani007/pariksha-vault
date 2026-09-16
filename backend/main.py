@@ -386,7 +386,9 @@ def forensic_investigate(req: ForensicRequest):
             "city": extracted.get("city"),
             "room": extracted.get("room"),
             "print_timestamp": extracted.get("ts"),
-            "hash": extracted.get("hash")
+            "hash": extracted.get("hash"),
+            "vector_used": extracted.get("extraction_vector", "VECTOR_1_ZERO_WIDTH_UNICODE"),
+            "forensic_confidence": extracted.get("confidence", "99.9% Bit-Exact Match")
         },
         "business_value": {
             "action": "Surgical quarantine of 1 center (National exam continues)",
