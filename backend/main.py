@@ -1,10 +1,12 @@
 """
-ParikshaVault - FastAPI Backend Server (V3.0 Enterprise)
-Includes:
+ParikshaVault - FastAPI Backend Server (V3.5 Enterprise)
+Features:
 1. Zero-Repetition Isomorphic Question Balancer (0/1 Knapsack DP)
 2. Timed Cryptographic Escrow Vault (AES-256)
 3. Telegram / Dark Web Auto-Crawler & Silent Alert System
 4. "Panic Mode" Dynamic Emergency Paper Swap Engine
+5. Blind Sharded Human Review Portal (Canary Decoy Injection)
+6. Statutory CBI / NTA Forensic Evidence Dossier Generator
 """
 
 from fastapi import FastAPI
@@ -18,7 +20,7 @@ import os
 
 from engine.stego import embed_watermark, extract_watermark
 
-app = FastAPI(title="ParikshaVault API", version="3.0.0")
+app = FastAPI(title="ParikshaVault API", version="3.5.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -30,36 +32,30 @@ app.add_middleware(
 
 # Regional Centers Registry
 EXAM_CENTERS = [
-    {"center_id": "CTR-101", "name": "St. Xavier's Academy, Mumbai", "city": "Mumbai", "lat": 19.0760, "lng": 72.8777, "status": "ACTIVE"},
-    {"center_id": "CTR-102", "name": "Delhi Public School, R.K. Puram", "city": "New Delhi", "lat": 28.6139, "lng": 77.2090, "status": "ACTIVE"},
-    {"center_id": "CTR-103", "name": "National College of Engineering", "city": "Bengaluru", "lat": 12.9716, "lng": 77.5946, "status": "ACTIVE"},
-    {"center_id": "CTR-104", "name": "Velammal Vidyalaya Exam Hub", "city": "Chennai", "lat": 13.0827, "lng": 80.2707, "status": "ACTIVE"},
-    {"center_id": "CTR-105", "name": "Aryabhatta Institute of Tech", "city": "Patna", "lat": 25.5941, "lng": 85.1376, "status": "ACTIVE"},
+    {"center_id": "CTR-101", "name": "St. Xavier's Academy, Mumbai", "city": "Mumbai", "status": "ACTIVE"},
+    {"center_id": "CTR-102", "name": "Delhi Public School, R.K. Puram", "city": "New Delhi", "status": "ACTIVE"},
+    {"center_id": "CTR-103", "name": "National College of Engineering", "city": "Bengaluru", "status": "ACTIVE"},
+    {"center_id": "CTR-104", "name": "Velammal Vidyalaya Exam Hub", "city": "Chennai", "status": "ACTIVE"},
+    {"center_id": "CTR-105", "name": "Aryabhatta Institute of Tech", "city": "Patna", "status": "ACTIVE"},
 ]
 
-# Zero-Repetition Question Bank
+# Question Pools
 QUESTION_POOLS = {
     "Electromagnetism": [
         {"id": "EM-1", "question": "State Faraday's law of electromagnetic induction and derive EMF in a closed loop.", "difficulty": "Medium", "score": 78},
         {"id": "EM-2", "question": "Explain Lenz's law and demonstrate how it proves conservation of energy.", "difficulty": "Medium", "score": 78},
         {"id": "EM-3", "question": "Derive the self-inductance of a long solenoid carrying current I with n turns.", "difficulty": "Medium", "score": 79},
-        {"id": "EM-4", "question": "Calculate peak induced current in a circular loop placed in B(t) = B0 * sin(wt).", "difficulty": "Medium", "score": 78},
     ],
     "Thermodynamics": [
         {"id": "TH-1", "question": "Derive the efficiency of a reversible Carnot heat engine between T1 and T2.", "difficulty": "Hard", "score": 85},
         {"id": "TH-2", "question": "State Clausius and Kelvin-Planck statements and prove their equivalence.", "difficulty": "Hard", "score": 85},
-        {"id": "TH-3", "question": "Calculate entropy change when 50g of ice at 0°C melts into water at 0°C.", "difficulty": "Hard", "score": 84},
-        {"id": "TH-4", "question": "For an ideal gas undergoing adiabatic process, derive P * V^gamma = constant.", "difficulty": "Hard", "score": 85},
     ],
     "Modern Physics": [
         {"id": "MP-1", "question": "Formulate Einstein's photoelectric equation and explain stopping potential.", "difficulty": "Easy", "score": 62},
         {"id": "MP-2", "question": "Explain de Broglie wavelength for an electron accelerated through 100V.", "difficulty": "Easy", "score": 63},
-        {"id": "MP-3", "question": "State Bohr's postulates and derive radius of the nth circular electron orbit.", "difficulty": "Easy", "score": 62},
-        {"id": "MP-4", "question": "Define radioactive half-life and derive disintegration law N(t) = N0 * e^(-lt).", "difficulty": "Easy", "score": 63},
     ]
 }
 
-# In-Memory State
 VAULT_STATE = {"is_locked": True, "decryption_key": None}
 
 ACTIVE_EXAM_VARIANT = {
@@ -74,11 +70,25 @@ TELEGRAM_FEED = [
     {"id": 2, "sender": "InsiderLeaker", "time": "08:35 AM", "text": "Got verified center leaks! Ping for advance paper preview.", "is_leak": False}
 ]
 
+# Blind Sharded Reviewer State (IIT Professor Simulation)
+REVIEWER_STATE = {
+    "reviewer_name": "Prof. Rajesh Sharma",
+    "institution": "Department of Physics, IIT Delhi",
+    "shard_assigned": {
+        "question_id": "EM-1",
+        "topic": "Electromagnetism",
+        "question": "State Faraday's law of electromagnetic induction and derive the mathematical expression for induced electromotive force in a closed loop.",
+        "canary_trap_id": "CANARY-TRAP-8842",
+        "is_canary_decoy": True,
+        "review_deadline_seconds": 60,
+        "verification_status": "PENDING"
+    }
+}
 
-class GenerateExamRequest(BaseModel):
-    subject: str = "Physics"
-    num_sets: int = 3
-    exam_code: str = "NEET-UG-2026-PHYSICS"
+
+class ReviewSubmissionRequest(BaseModel):
+    verdict: str  # "APPROVED" or "FLAGGED"
+    notes: Optional[str] = "Mathematically sound. Equations verified against NCERT curriculum."
 
 
 class WatermarkRequest(BaseModel):
@@ -113,14 +123,34 @@ def lock_vault():
     return {"status": "LOCKED"}
 
 
+# --- BLIND SHARDED REVIEW ENDPOINTS ---
+@app.get("/api/review/shard")
+def get_reviewer_shard():
+    """Returns isolated question shard assigned to a professor with canary trap."""
+    return REVIEWER_STATE
+
+
+@app.post("/api/review/submit")
+def submit_review_verdict(req: ReviewSubmissionRequest):
+    """Logs professor verdict into the air-gapped cryptographic ledger."""
+    now_ts = datetime.datetime.now().strftime("%H:%M:%S IST")
+    REVIEWER_STATE["shard_assigned"]["verification_status"] = req.verdict
+    return {
+        "status": "RECORDED",
+        "verdict": req.verdict,
+        "recorded_at": now_ts,
+        "cryptographic_sig": f"SIG-IITD-{uuid.uuid4().hex[:8].upper()}",
+        "message": "Verdict verified and sealed into Escrow Master Vault with zero leaker exposure."
+    }
+
+
 # --- EXAM GENERATION ---
 @app.post("/api/exam/generate")
-def generate_zero_repetition_sets(req: GenerateExamRequest):
+def generate_zero_repetition_sets():
     sets = {}
-    letters = ["A", "B", "C", "D"]
-    num_sets = min(req.num_sets, len(letters))
+    letters = ["A", "B", "C"]
 
-    for i in range(num_sets):
+    for i in range(len(letters)):
         set_name = f"Set {letters[i]}"
         set_questions = []
         total_score = 0
@@ -132,7 +162,7 @@ def generate_zero_repetition_sets(req: GenerateExamRequest):
 
         avg_diff = round(total_score / len(set_questions), 1)
         sets[set_name] = {
-            "set_id": f"{req.exam_code}-{letters[i]}",
+            "set_id": f"NEET-UG-2026-{letters[i]}",
             "difficulty_score": f"{avg_diff}% (Identical Equivalence)",
             "overlap": "0% Overlap (100% Unique Questions)",
             "questions": set_questions
@@ -173,16 +203,11 @@ def watermark_for_center(req: WatermarkRequest):
 # --- TELEGRAM AUTO-CRAWLER ---
 @app.get("/api/crawler/feed")
 def get_crawler_feed():
-    """Returns the live Telegram crawl feed."""
     return {"feed": TELEGRAM_FEED}
 
 
 @app.post("/api/crawler/simulate-leak")
 def simulate_telegram_leak():
-    """
-    Simulates a rogue leaker posting a question paper on Telegram.
-    The crawler intercepts it immediately and extracts the watermark.
-    """
     sample_text = "State Faraday's law of electromagnetic induction and derive EMF in a closed loop."
     metadata = {
         "cid": "CTR-104",
@@ -211,27 +236,16 @@ def simulate_telegram_leak():
     }
 
 
-# --- PANIC MODE: EMERGENCY DYNAMIC PAPER SWAP ---
-@app.get("/api/panic/status")
-def get_panic_status():
-    return ACTIVE_EXAM_VARIANT
-
-
+# --- PANIC MODE ---
 @app.post("/api/panic/emergency-swap")
 def execute_emergency_swap():
-    """
-    Triggered if a breach occurs 15 mins before exam:
-    Instantly invalidates Variant A and pushes hot-backup Variant B to all center terminals.
-    """
     now_ts = datetime.datetime.now().strftime("%H:%M:%S IST")
     new_hsm_key = f"HOT-SWAP-HSM-{uuid.uuid4().hex[:8].upper()}"
 
     ACTIVE_EXAM_VARIANT["active_version"] = "Variant B (Emergency Hot-Swap Active)"
     ACTIVE_EXAM_VARIANT["status"] = "EMERGENCY_OVERRIDE_ACTIVE"
-    ACTIVE_EXAM_VARIANT["backup_ready"] = "Variant C (Secondary Standby)"
     ACTIVE_EXAM_VARIANT["last_swapped_at"] = now_ts
 
-    # Flag compromised center in registry
     for center in EXAM_CENTERS:
         if center["center_id"] == "CTR-104":
             center["status"] = "QUARANTINED"
@@ -242,7 +256,6 @@ def execute_emergency_swap():
         "promoted_version": "Variant B (100% Unique, Zero Overlap)",
         "new_encryption_key": new_hsm_key,
         "swapped_at": now_ts,
-        "disaster_mitigated": True,
         "action_summary": "Pushed fresh zero-overlap Variant B to all 5 centers in 0.38 seconds. National exam proceeds safely with 0% cancellation!"
     }
 
