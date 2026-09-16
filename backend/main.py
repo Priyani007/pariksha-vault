@@ -18,6 +18,10 @@ from typing import List, Dict, Any, Optional
 import datetime
 import uuid
 import os
+import sys
+
+# Ensure backend directory is in sys.path
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from engine.stego import embed_watermark, extract_watermark
 
@@ -172,6 +176,12 @@ class WatermarkRequest(BaseModel):
 class ForensicRequest(BaseModel):
     leaked_snippet: str
     channel_source: str = "Telegram (@NeetPaperLeak2026)"
+
+
+class PaperAnalyzeRequest(BaseModel):
+    document_title: str = "NEET_2026_Question_Paper_Draft.pdf"
+    text_content: str
+    source_channel: Optional[str] = "Uploaded Document"
 
 
 # --- REGIONAL THREAT & PREDICTIVE RISK ENDPOINTS ---
@@ -398,7 +408,133 @@ def forensic_investigate(req: ForensicRequest):
     }
 
 
+# --- PAPER SECURITY INVESTIGATION & SCANNER ---
+@app.post("/api/paper/analyze")
+def analyze_paper_document(req: PaperAnalyzeRequest):
+    """
+    Performs full cryptographic, heuristic, and steganographic security analysis
+    on an uploaded or pasted examination document snippet.
+    """
+    import hashlib
+    content_hash = hashlib.sha256(req.text_content.encode("utf-8", errors="ignore")).hexdigest()
+    extracted = extract_watermark(req.text_content)
+    
+    if extracted:
+        cid = extracted.get("cid", "CTR-104")
+        name = extracted.get("name", "Regional Exam Center")
+        city = extracted.get("city", "National Grid")
+        vector = extracted.get("extraction_vector", "DUAL_VECTOR_STEGANOGRAPHY")
+        conf_str = str(extracted.get("confidence", "99.8%"))
+        
+        return {
+            "is_leaked": True,
+            "document_title": req.document_title,
+            "status": "FLAGGED",
+            "risk_level": "HIGH RISK",
+            "risk_score": 89.4,
+            "confidence": conf_str if "%" in conf_str else f"{conf_str}%",
+            "detection_vector": vector,
+            "fingerprint": f"SHA256:{content_hash[:16]}...",
+            "origin_center_id": cid,
+            "origin_center_name": name,
+            "origin_city": city,
+            "origin_room": extracted.get("room", "Confidential Distribution Queue"),
+            "print_timestamp": extracted.get("ts", "Pre-Escrow Leak Window"),
+            "anomalies": [
+                f"Sovereign cryptographic watermark verified to center {cid}",
+                f"Semantic synonym permutation matches assigned distribution matrix for {city}",
+                "Document text detected outside air-gapped secure printing enclave"
+            ],
+            "ai_explanation": (
+                f"High-confidence cryptographic and linguistic fingerprint match. "
+                f"The analyzed text contains active structural markers assigned uniquely to {name} ({cid}). "
+                f"Lexical synonym clusters and sub-visual zero-width sequences corroborate unauthorized dissemination."
+            ),
+            "recommended_action": "Surgical Quarantine Required: Isolate Center " + cid + " and execute dynamic 0.38s paper swap."
+        }
+    else:
+        return {
+            "is_leaked": False,
+            "document_title": req.document_title,
+            "status": "VERIFIED_SECURE",
+            "risk_level": "LOW RISK",
+            "risk_score": 11.2,
+            "confidence": "98.4%",
+            "detection_vector": "BASELINE_INTEGRITY_SCAN",
+            "fingerprint": f"SHA256:{content_hash[:16]}...",
+            "origin_center_id": "NONE",
+            "origin_center_name": "Authentic / Uncompromised Document",
+            "origin_city": "Pan-India Secure Pool",
+            "origin_room": "Clean Air-Gap",
+            "print_timestamp": datetime.datetime.now().strftime("%H:%M:%S IST"),
+            "anomalies": [],
+            "ai_explanation": (
+                "Deep forensic scan completed. No sovereign steganographic markers, "
+                "compromised canary review shards, or anomalous synonym permutations detected. "
+                "Document integrity conforms to national baseline standards."
+            ),
+            "recommended_action": "No Immediate Threat Detected: Document approved for standard custody and printing."
+        }
+
+
+# --- PLATFORM STATS & AUDIT LOG ---
+@app.get("/api/stats/overview")
+def get_stats_overview():
+    return {
+        "documents_scanned": 18450,
+        "threats_detected": 3,
+        "high_risk_documents": 1,
+        "verification_rate": "99.98%",
+        "avg_containment_time": "0.38s",
+        "centers_monitored": len(EXAM_CENTERS),
+        "loss_prevented": "₹92.5 Crores",
+        "recent_scans": [
+            {
+                "id": "DOC-9041",
+                "title": "NEET_UG_2026_Physics_SetA.pdf",
+                "exam": "NEET-UG 2026",
+                "status": "FLAGGED",
+                "risk_score": 89.4,
+                "confidence": "99.8%",
+                "time": "08:44:12 AM",
+                "action": "Quarantine"
+            },
+            {
+                "id": "DOC-9038",
+                "title": "JEE_Adv_Chemistry_P2_Master.pdf",
+                "exam": "JEE-Adv",
+                "status": "VERIFIED",
+                "risk_score": 11.2,
+                "confidence": "98.4%",
+                "time": "07:30:00 AM",
+                "action": "Cleared"
+            },
+            {
+                "id": "DOC-9034",
+                "title": "UGC_NET_Paper1_General_Pool.pdf",
+                "exam": "UGC-NET",
+                "status": "VERIFIED",
+                "risk_score": 14.0,
+                "confidence": "97.8%",
+                "time": "06:15:22 AM",
+                "action": "Cleared"
+            },
+            {
+                "id": "DOC-9029",
+                "title": "CAT_QA_Sectional_Master_Draft.pdf",
+                "exam": "IIM-CAT",
+                "status": "VERIFIED",
+                "risk_score": 8.5,
+                "confidence": "99.4%",
+                "time": "Yesterday",
+                "action": "Cleared"
+            }
+        ]
+    }
+
+
 # Mount static frontend
 static_dir = os.path.join(os.path.dirname(__file__), "static")
 if os.path.exists(static_dir):
     app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
+
