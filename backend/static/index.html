@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ParikshaVault - Sovereign Anti-Leak Exam Intelligence Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @keyframes radar-pulse {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.05); opacity: 0.3; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .radar-active { animation: radar-pulse 2s infinite ease-in-out; }
+    .neon-red { box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
+    .neon-yellow { box-shadow: 0 0 20px rgba(234, 179, 8, 0.4); }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-emerald-500 selection:text-black">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold text-xl shadow-lg shadow-emerald-500/10">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-emerald-400 to-teal-200 bg-clip-text text-transparent">PARIKSHA<span class="text-white">VAULT</span></span>
+            <span class="px-2 py-0.5 text-xs font-semibold bg-emerald-500/20 text-emerald-300 rounded-full border border-emerald-500/30">v3.0 Enterprise</span>
+          </div>
+          <p class="text-xs text-slate-400">Sovereign Exam DRM, Telegram Crawler & Dynamic Panic-Swap Engine</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-3">
+        <!-- Variant Status Badge -->
+        <div id="nav-variant-badge" class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-slate-300 font-mono">
+          ACTIVE: <strong class="text-emerald-400" id="current-variant-text">Variant A (Primary)</strong>
+        </div>
+
+        <!-- Panic Mode Emergency Swap Button -->
+        <button onclick="triggerEmergencySwap()" id="btn-panic-mode" class="px-3.5 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition flex items-center space-x-1.5 shadow-lg shadow-red-600/30 animate-pulse">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span>PANIC MODE: SWAP PAPER</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-8">
+
+    <!-- Emergency Swap Alert Banner (Hidden by default, triggered on swap) -->
+    <div id="panic-alert-banner" class="hidden mb-6 bg-red-950/80 border-2 border-red-500 rounded-2xl p-5 text-white neon-red">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center text-white text-xl animate-bounce">
+            <i class="fa-solid fa-arrows-rotate"></i>
+          </div>
+          <div>
+            <h4 class="font-extrabold text-sm text-red-200 tracking-wider">🚨 EMERGENCY DYNAMIC PAPER SWAP EXECUTED IN 0.38s</h4>
+            <p class="text-xs text-red-300 mt-0.5" id="panic-banner-details">
+              Variant A blacklisted due to Telegram leak. Pushed fresh zero-overlap <strong>Variant B</strong> to all 5 centers. National exam proceeding with ZERO cancellation!
+            </p>
+          </div>
+        </div>
+        <span class="px-3 py-1 text-xs font-mono font-bold bg-black/40 text-emerald-300 rounded-lg border border-emerald-500/40">
+          STATUS: 100% CONTINUITY
+        </span>
+      </div>
+    </div>
+
+    <!-- Escrow Timed Lock Banner -->
+    <div class="mb-8 bg-slate-900 border border-red-500/40 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+        </div>
+        <div>
+          <h4 class="font-bold text-white text-sm">TIMED CRYPTOGRAPHIC ESCROW VAULT (AES-256)</h4>
+          <p class="text-xs text-slate-400">Question papers remain scrambled in ciphertext until 10:00:00 AM IST.</p>
+        </div>
+      </div>
+      <button onclick="toggleEscrowLock()" id="btn-toggle-escrow" class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs transition shadow-lg shadow-red-600/30">
+        Simulate 10:00 AM Release Key
+      </button>
+    </div>
+
+    <!-- Top Metric Overview -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 hover:border-slate-700 transition">
+        <div class="flex justify-between items-center text-slate-400 text-xs mb-2">
+          <span>STATUTORY LOSS PREVENTED</span>
+          <i class="fa-solid fa-indian-rupee-sign text-emerald-400"></i>
+        </div>
+        <div class="text-2xl font-bold text-emerald-400">₹92.5 Crores</div>
+        <p class="text-xs text-slate-500 mt-1">Surgical containment avoids national re-test</p>
+      </div>
+
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 hover:border-slate-700 transition">
+        <div class="flex justify-between items-center text-slate-400 text-xs mb-2">
+          <span>ZERO-QUESTION OVERLAP</span>
+          <i class="fa-solid fa-check-double text-teal-400"></i>
+        </div>
+        <div class="text-2xl font-bold text-teal-300">0% Overlap</div>
+        <p class="text-xs text-slate-500 mt-1">100% unique questions across Set A, B, C</p>
+      </div>
+
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 hover:border-slate-700 transition">
+        <div class="flex justify-between items-center text-slate-400 text-xs mb-2">
+          <span>TELEGRAM AUTO-CRAWLER</span>
+          <i class="fa-brands fa-telegram text-blue-400"></i>
+        </div>
+        <div class="text-2xl font-bold text-blue-400">ACTIVE (0.5s)</div>
+        <p class="text-xs text-slate-500 mt-1">Silent background interceptor online</p>
+      </div>
+
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 hover:border-slate-700 transition">
+        <div class="flex justify-between items-center text-slate-400 text-xs mb-2">
+          <span>HOT-SWAP LATENCY</span>
+          <i class="fa-solid fa-bolt text-yellow-400"></i>
+        </div>
+        <div class="text-2xl font-bold text-yellow-400">0.38s</div>
+        <p class="text-xs text-slate-500 mt-1">Instant panic-mode variant promotion</p>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="flex border-b border-slate-800 mb-8 space-x-6 text-sm">
+      <button onclick="switchTab('tab-crawler')" id="btn-tab-crawler" class="tab-btn pb-4 font-bold text-emerald-400 border-b-2 border-emerald-500 flex items-center space-x-2">
+        <i class="fa-brands fa-telegram text-blue-400"></i>
+        <span>1. Telegram Auto-Crawler (Live Stream)</span>
+      </button>
+      <button onclick="switchTab('tab-generate')" id="btn-tab-generate" class="tab-btn pb-4 font-bold text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center space-x-2">
+        <i class="fa-solid fa-cubes-stacked"></i>
+        <span>2. Zero-Overlap Sets</span>
+      </button>
+      <button onclick="switchTab('tab-watermark')" id="btn-tab-watermark" class="tab-btn pb-4 font-bold text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center space-x-2">
+        <i class="fa-solid fa-fingerprint"></i>
+        <span>3. Invisible Watermark Matrix</span>
+      </button>
+      <button onclick="switchTab('tab-forensic')" id="btn-tab-forensic" class="tab-btn pb-4 font-bold text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center space-x-2">
+        <i class="fa-solid fa-radar text-red-400"></i>
+        <span>4. Forensic Radar Decoder</span>
+      </button>
+    </div>
+
+    <!-- TAB 1: Telegram Auto-Crawler (THE SHOWSTOPPER DEMO) -->
+    <div id="tab-crawler" class="tab-content block">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left: Simulated Telegram Channel -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col h-[480px]">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+            <div class="flex items-center space-x-2.5">
+              <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white">
+                <i class="fa-brands fa-telegram"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-xs text-white">@NeetPaperLeak2026</h4>
+                <span class="text-[10px] text-slate-400">42,810 subscribers • public channel</span>
+              </div>
+            </div>
+            <span class="px-2 py-0.5 text-[10px] font-mono bg-blue-500/20 text-blue-300 rounded border border-blue-500/30">
+              MONITORED
+            </span>
+          </div>
+
+          <!-- Live Feed Message Box -->
+          <div id="telegram-feed-box" class="flex-1 overflow-y-auto space-y-3 pr-2 font-sans text-xs">
+            <!-- Messages inserted dynamically -->
+          </div>
+
+          <div class="pt-3 border-t border-slate-800 mt-2">
+            <button onclick="simulateTelegramPost()" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-2.5 rounded-xl transition text-xs flex items-center justify-center space-x-2 shadow-lg shadow-red-600/30">
+              <i class="fa-solid fa-bullhorn"></i>
+              <span>Simulate Rogue Leak Post on Telegram</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Background Crawler Detection & Live Interactive Map -->
+        <div class="lg:col-span-2 space-y-4">
+          
+          <!-- Silent Interceptor Banner -->
+          <div id="crawler-status-card" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 text-center">
+            <div class="w-16 h-16 rounded-full bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 text-2xl mx-auto mb-3">
+              <i class="fa-solid fa-satellite-dish animate-pulse"></i>
+            </div>
+            <h4 class="font-bold text-white text-sm mb-1">Silent Telegram Crawler Active</h4>
+            <p class="text-xs text-slate-400 max-w-md mx-auto">
+              Scanning 150+ monitored channels every 500ms. Click <strong>"Simulate Rogue Leak Post"</strong> to watch the crawler instantly intercept the post, extract the hidden zero-width watermark, and trace the breach coordinates!
+            </p>
+          </div>
+
+          <!-- Regional Centers Live Status Grid -->
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-400 mb-3 flex items-center justify-between">
+              <span>National Centers Health Status (Real-Time Mesh)</span>
+              <span class="text-[10px] text-emerald-400 font-mono">ALL ENCRYPTED</span>
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs" id="centers-status-grid">
+              <div id="card-CTR-101" class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
+                <div>
+                  <div class="font-bold text-white">CTR-101 (Mumbai)</div>
+                  <div class="text-[10px] text-slate-500">St. Xavier's Academy</div>
+                </div>
+                <span class="px-2 py-0.5 text-[10px] font-bold bg-emerald-500/20 text-emerald-300 rounded">HEALTHY</span>
+              </div>
+              <div id="card-CTR-104" class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
+                <div>
+                  <div class="font-bold text-white">CTR-104 (Chennai)</div>
+                  <div class="text-[10px] text-slate-500">Velammal Hub</div>
+                </div>
+                <span id="badge-CTR-104" class="px-2 py-0.5 text-[10px] font-bold bg-emerald-500/20 text-emerald-300 rounded">HEALTHY</span>
+              </div>
+              <div id="card-CTR-102" class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
+                <div>
+                  <div class="font-bold text-white">CTR-102 (Delhi)</div>
+                  <div class="text-[10px] text-slate-500">DPS R.K. Puram</div>
+                </div>
+                <span class="px-2 py-0.5 text-[10px] font-bold bg-emerald-500/20 text-emerald-300 rounded">HEALTHY</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: Zero-Overlap Sets -->
+    <div id="tab-generate" class="tab-content hidden">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="font-bold text-white text-base">Isomorphic Question Permutation (0/1 Knapsack Balancer)</h3>
+        <button onclick="runGenerateSets()" class="bg-emerald-500 text-black font-bold px-4 py-2 rounded-xl text-xs">
+          Generate 3 Balanced Sets
+        </button>
+      </div>
+      <div id="sets-container" class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs"></div>
+    </div>
+
+    <!-- TAB 3: Invisible Watermark Matrix -->
+    <div id="tab-watermark" class="tab-content hidden">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+        <button onclick="runWatermarkCenter()" class="bg-teal-500 text-black font-bold px-4 py-2 rounded-xl text-xs mb-3">
+          Inject Invisible Watermark (CTR-104)
+        </button>
+        <div id="watermarked-preview-box" class="bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono text-xs text-slate-300 leading-relaxed">
+          State Faraday's law of electromagnetic induction and derive EMF in a closed loop.
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: Forensic Radar Decoder -->
+    <div id="tab-forensic" class="tab-content hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+          <textarea id="forensic-input" rows="6" class="w-full bg-slate-950 p-3 rounded-xl text-xs font-mono border border-slate-800" placeholder="Paste leaked snippet here..."></textarea>
+          <button onclick="runForensicScan()" class="w-full bg-red-600 text-white font-bold py-2.5 rounded-xl text-xs mt-3">
+            Scan Forensic Signature
+          </button>
+        </div>
+        <div id="forensic-result-card" class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center justify-center text-xs text-slate-500">
+          Awaiting suspicious text input...
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    let currentWatermarkedText = "";
+    let isVaultLocked = true;
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(el => {
+        el.classList.remove('text-emerald-400', 'border-emerald-500');
+        el.classList.add('text-slate-400', 'border-transparent');
+      });
+
+      document.getElementById(tabId).classList.remove('hidden');
+      const activeBtn = document.getElementById('btn-' + tabId);
+      activeBtn.classList.add('text-emerald-400', 'border-emerald-500');
+      activeBtn.classList.remove('text-slate-400', 'border-transparent');
+    }
+
+    async function toggleEscrowLock() {
+      const btn = document.getElementById('btn-toggle-escrow');
+      if (isVaultLocked) {
+        const res = await fetch('/api/vault/release-key', {method: 'POST'});
+        const d = await res.json();
+        btn.innerText = "Re-Lock Vault";
+        btn.className = "px-4 py-2 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs";
+        isVaultLocked = false;
+        alert("10:00 AM IST! Hardware Key Released to Centers:\n" + d.decryption_key);
+      } else {
+        await fetch('/api/vault/lock', {method: 'POST'});
+        btn.innerText = "Simulate 10:00 AM Release Key";
+        btn.className = "px-4 py-2 rounded-xl bg-red-600 text-white font-bold text-xs";
+        isVaultLocked = true;
+      }
+    }
+
+    async function loadTelegramFeed() {
+      const res = await fetch('/api/crawler/feed');
+      const data = await res.json();
+      const box = document.getElementById('telegram-feed-box');
+      box.innerHTML = data.feed.map(m => `
+        <div class="p-2.5 rounded-lg ${m.is_leak ? 'bg-red-950/80 border border-red-500/50' : 'bg-slate-950 border border-slate-850'}">
+          <div class="flex justify-between items-center text-[10px] mb-1">
+            <span class="font-bold ${m.is_leak ? 'text-red-400' : 'text-blue-400'}">${m.sender}</span>
+            <span class="text-slate-500">${m.time}</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">${m.text}</p>
+        </div>
+      `).join('');
+    }
+
+    async function simulateTelegramPost() {
+      const res = await fetch('/api/crawler/simulate-leak', {method: 'POST'});
+      const data = await res.json();
+      await loadTelegramFeed();
+
+      // Trigger instant crawler interception UI
+      const card = document.getElementById('crawler-status-card');
+      card.className = "bg-slate-900 border-2 border-red-500 rounded-2xl p-6 neon-red text-left";
+      card.innerHTML = `
+        <div class="flex justify-between items-center border-b border-red-500/40 pb-3 mb-3">
+          <div class="flex items-center space-x-2">
+            <span class="w-3 h-3 rounded-full bg-red-500 animate-ping"></span>
+            <span class="font-extrabold text-red-400 text-sm">🚨 TELEGRAM LEAK AUTO-INTERCEPTED IN 0.04s</span>
+          </div>
+          <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-300 font-mono text-[11px]">WATERMARK DECODED</span>
+        </div>
+        <div class="grid grid-cols-3 gap-3 text-xs font-mono mb-3">
+          <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+            <span class="text-slate-500 block text-[10px]">BREACH CENTER</span>
+            <span class="text-white font-bold">${data.intercepted_post.intercepted_watermark.cid}</span>
+            <p class="text-slate-400 text-[10px]">${data.intercepted_post.intercepted_watermark.name}</p>
+          </div>
+          <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+            <span class="text-slate-500 block text-[10px]">LOCALIZED ROOM</span>
+            <span class="text-yellow-400 font-bold">${data.intercepted_post.intercepted_watermark.room}</span>
+          </div>
+          <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+            <span class="text-slate-500 block text-[10px]">TIMESTAMP</span>
+            <span class="text-white font-bold">${data.intercepted_post.intercepted_watermark.ts}</span>
+          </div>
+        </div>
+        <div class="flex items-center justify-between bg-emerald-950/40 border border-emerald-500/30 p-2.5 rounded-lg text-xs">
+          <span class="text-emerald-300"><strong>Recommendation:</strong> Click "PANIC MODE: SWAP PAPER" to instantly roll forward Variant B!</span>
+        </div>
+      `;
+
+      // Red flag on center card
+      const centerCard = document.getElementById('card-CTR-104');
+      centerCard.className = "bg-red-950/60 p-3 rounded-xl border border-red-500 flex justify-between items-center";
+      document.getElementById('badge-CTR-104').className = "px-2 py-0.5 text-[10px] font-bold bg-red-500 text-white rounded animate-pulse";
+      document.getElementById('badge-CTR-104').innerText = "BREACHED";
+    }
+
+    async function triggerEmergencySwap() {
+      const res = await fetch('/api/panic/emergency-swap', {method: 'POST'});
+      const data = await res.json();
+
+      document.getElementById('panic-alert-banner').classList.remove('hidden');
+      document.getElementById('current-variant-text').innerText = "Variant B (Emergency Hot-Swap)";
+      document.getElementById('current-variant-text').className = "text-yellow-400";
+
+      const btn = document.getElementById('btn-panic-mode');
+      btn.className = "px-3.5 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-bold transition flex items-center space-x-1.5";
+      btn.innerHTML = `<i class="fa-solid fa-check"></i><span>SWAP SUCCESSFUL (0.38s)</span>`;
+
+      alert("🚨 EMERGENCY SWAP SUCCESSFUL!\n" + data.action_summary);
+    }
+
+    async function runGenerateSets() {
+      const res = await fetch('/api/exam/generate', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({subject: 'Physics', num_sets: 3})
+      });
+      const d = await res.json();
+      let html = '';
+      for (const [name, s] of Object.entries(d.sets)) {
+        html += `<div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+          <div class="font-bold text-emerald-400 text-sm mb-1">${name} (${s.set_id})</div>
+          <div class="text-[10px] text-teal-400 mb-2 font-mono">0% Overlap | ${s.difficulty_score}</div>
+          <div class="space-y-2">${s.questions.map(q => `<div class="bg-slate-950 p-2 rounded text-[11px] text-slate-300">${q.question}</div>`).join('')}</div>
+        </div>`;
+      }
+      document.getElementById('sets-container').innerHTML = html;
+    }
+
+    async function runWatermarkCenter() {
+      const res = await fetch('/api/exam/watermark', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          center_id: 'CTR-104',
+          room_number: 'Hall B - Room 12',
+          questions: [{question: "State Faraday's law of electromagnetic induction and derive EMF in a closed loop."}]
+        })
+      });
+      const d = await res.json();
+      currentWatermarkedText = d.watermarked_questions[0].question;
+      document.getElementById('watermarked-preview-box').innerText = currentWatermarkedText;
+      document.getElementById('forensic-input').value = currentWatermarkedText;
+    }
+
+    async function runForensicScan() {
+      const text = document.getElementById('forensic-input').value;
+      const res = await fetch('/api/forensic/investigate', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({leaked_snippet: text})
+      });
+      const d = await res.json();
+      const out = document.getElementById('forensic-result-card');
+      if (d.leak_detected) {
+        out.className = "bg-slate-900 border border-red-500 rounded-xl p-5 text-left text-xs font-mono";
+        out.innerHTML = `
+          <div class="text-red-400 font-bold text-sm mb-2">🚨 LEAK SOURCE IDENTIFIED (99.98% Match)</div>
+          <div class="text-white">CENTER: <strong>${d.forensic_report.center_id} (${d.forensic_report.center_name})</strong></div>
+          <div class="text-yellow-400">ROOM: ${d.forensic_report.room} | TIME: ${d.forensic_report.print_timestamp}</div>
+          <div class="mt-3 bg-emerald-950/60 p-2.5 rounded text-emerald-300">
+            SAVINGS: <strong>${d.business_value.loss_prevented}</strong> (${d.business_value.students_saved} students protected)
+          </div>
+        `;
+      }
+    }
+
+    // Init
+    loadTelegramFeed();
+    runWatermarkCenter();
+    runGenerateSets();
+  </script>
+</body>
+</html>

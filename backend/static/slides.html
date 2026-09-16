@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ParikshaVault - Executive Presentation Deck</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .slide { display: none; }
+    .slide.active { display: flex; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans flex flex-col justify-between selection:bg-emerald-500 selection:text-black">
+
+  <!-- Top Bar -->
+  <header class="border-b border-slate-800/80 px-8 py-4 flex items-center justify-between text-xs font-mono text-slate-400 bg-slate-900/40">
+    <div class="flex items-center space-x-2">
+      <i class="fa-solid fa-shield-halved text-emerald-400 text-base"></i>
+      <span class="font-bold text-white tracking-widest uppercase">PARIKSHA-VAULT</span>
+      <span class="text-slate-600">|</span>
+      <span>HACKGRID '26 (VIT × HCLTech)</span>
+    </div>
+    <div class="flex items-center space-x-4">
+      <span id="slide-indicator" class="px-2.5 py-1 bg-slate-800 rounded text-emerald-400 font-bold">SLIDE 1 / 8</span>
+      <span class="text-slate-500 text-[11px]">Use ← / → keys</span>
+    </div>
+  </header>
+
+  <!-- Slide Viewport -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-8 py-10 flex flex-col justify-center">
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide active flex-col items-center text-center space-y-6">
+      <div class="w-20 h-20 rounded-3xl bg-emerald-500/10 border-2 border-emerald-500/30 flex items-center justify-center text-emerald-400 text-4xl shadow-xl shadow-emerald-500/10">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+      <div>
+        <h1 class="text-5xl font-extrabold tracking-tight text-white mb-2">
+          PARIKSHA<span class="text-emerald-400">VAULT</span>
+        </h1>
+        <p class="text-lg text-slate-300 max-w-2xl mx-auto font-light">
+          Sovereign Cryptographic Exam DRM, Anti-Leak Provenance & Dynamic Panic-Swap Platform
+        </p>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-2 pt-2 text-xs font-mono">
+        <span class="px-3 py-1 bg-slate-900 border border-slate-800 rounded-full text-emerald-300">Track: Education</span>
+        <span class="px-3 py-1 bg-slate-900 border border-slate-800 rounded-full text-blue-300">AI Rights: Sovereign Provenance</span>
+        <span class="px-3 py-1 bg-slate-900 border border-slate-800 rounded-full text-teal-300">AI Capability: Multi-Agent Mesh</span>
+        <span class="px-3 py-1 bg-slate-900 border border-slate-800 rounded-full text-purple-300">Segment: Organizations</span>
+      </div>
+
+      <div class="pt-6 border-t border-slate-900 max-w-xl text-slate-400 text-sm italic">
+        "Eliminating India's multi-crore exam cancellation crisis using invisible zero-width Unicode steganography and timed cryptographic escrow."
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Problem Statement -->
+    <div class="slide flex-col space-y-6">
+      <div>
+        <span class="text-xs font-mono text-red-400 uppercase tracking-widest font-bold">The Problem</span>
+        <h2 class="text-3xl font-extrabold text-white mt-1">The ₹500 Crore National Exam Leak Crisis</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 text-xs leading-relaxed">
+        <div class="bg-slate-900/80 border border-red-500/20 rounded-2xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-400 text-lg mb-3">
+            <i class="fa-solid fa-truck-ramp-box"></i>
+          </div>
+          <h4 class="font-bold text-white text-sm mb-1.5">50-Year-Old Analog Logistics</h4>
+          <p class="text-slate-400">Papers printed weeks early, locked in metal trunks, and moved to bank vaults. Any printer or guard with a smartphone can photograph questions.</p>
+        </div>
+
+        <div class="bg-slate-900/80 border border-red-500/20 rounded-2xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-400 text-lg mb-3">
+            <i class="fa-brands fa-telegram"></i>
+          </div>
+          <h4 class="font-bold text-white text-sm mb-1.5">Telegram & WhatsApp Leaks</h4>
+          <p class="text-slate-400">Questions sold on Telegram 6 hours before exams. Leaks spread virally with zero forensic trace of which center or printing terminal breached.</p>
+        </div>
+
+        <div class="bg-slate-900/80 border border-red-500/20 rounded-2xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-400 text-lg mb-3">
+            <i class="fa-solid fa-ban"></i>
+          </div>
+          <h4 class="font-bold text-white text-sm mb-1.5">Catastrophic Cancellation</h4>
+          <p class="text-slate-400">24 Lakh students stranded. Entire national exam canceled, burning ₹50 Cr – ₹100 Cr in logistics. Public trust and academic years destroyed.</p>
+        </div>
+      </div>
+
+      <div class="bg-red-950/30 border border-red-500/30 rounded-xl p-4 text-xs text-red-300 flex items-center space-x-3">
+        <i class="fa-solid fa-scale-unbalanced text-red-400 text-lg"></i>
+        <span><strong>Legal Mandate:</strong> The <em>Public Examinations Act 2024</em> mandates up to 10 years prison and ₹1 Cr fine for leaks. Testing agencies desperately need technical solutions.</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: The Solution -->
+    <div class="slide flex-col space-y-6">
+      <div>
+        <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest font-bold">The Solution</span>
+        <h2 class="text-3xl font-extrabold text-white mt-1">ParikshaVault: Sovereign Exam DRM Infrastructure</h2>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 text-xs">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+          <div class="flex items-center space-x-2 text-emerald-400 font-bold mb-1">
+            <i class="fa-solid fa-check-double"></i>
+            <span>1. Zero-Repetition Isomorphic Sets</span>
+          </div>
+          <p class="text-slate-400">Set A, B, and C have <strong>0% overlapping questions</strong>, yet share mathematically calibrated difficulty scores (75% Bloom's equivalence).</p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+          <div class="flex items-center space-x-2 text-blue-400 font-bold mb-1">
+            <i class="fa-solid fa-lock"></i>
+            <span>2. Timed Cryptographic Escrow Vault</span>
+          </div>
+          <p class="text-slate-400">Papers remain scrambled in <strong>AES-256 ciphertext</strong> until 10:00:00 AM IST. Hardware HSM keys released only at official exam commencement.</p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+          <div class="flex items-center space-x-2 text-teal-400 font-bold mb-1">
+            <i class="fa-solid fa-fingerprint"></i>
+            <span>3. Invisible Unicode Steganography</span>
+          </div>
+          <p class="text-slate-400">Embeds center, hall, and timestamp metadata invisibly into Unicode zero-width characters (<code>\u200B</code>, <code>\u200C</code>). Survives WhatsApp and Telegram forwards.</p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+          <div class="flex items-center space-x-2 text-yellow-400 font-bold mb-1">
+            <i class="fa-solid fa-bolt"></i>
+            <span>4. Panic-Mode Dynamic Hot-Swap</span>
+          </div>
+          <p class="text-slate-400">If a breach occurs 15 mins early, a single click revokes Variant A and pushes freshly generated Variant B to national terminals in <strong>0.38s</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Novelty -->
+    <div class="slide flex-col space-y-6">
+      <div>
+        <span class="text-xs font-mono text-blue-400 uppercase tracking-widest font-bold">Unfair Advantage</span>
+        <h2 class="text-3xl font-extrabold text-white mt-1">Novelty: Why Nothing Like This Exists</h2>
+      </div>
+
+      <div class="border border-slate-800 rounded-2xl overflow-hidden text-xs">
+        <table class="w-full text-left">
+          <thead class="bg-slate-900 text-slate-400 border-b border-slate-800">
+            <tr>
+              <th class="p-3">Capability</th>
+              <th class="p-3">Legacy Physical Exams</th>
+              <th class="p-3">CBT Labs (TCS iON)</th>
+              <th class="p-3 text-emerald-400 font-bold">PARIKSHAVAULT</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-850 text-slate-300">
+            <tr>
+              <td class="p-3 font-semibold">Offline Pen-and-Paper DRM</td>
+              <td class="p-3 text-red-400">❌ None (Paper leaks)</td>
+              <td class="p-3 text-red-400">❌ Only locks screens</td>
+              <td class="p-3 text-emerald-400 font-bold">✅ Full Offline Stego DRM</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-semibold">Telegram / WhatsApp Trace</td>
+              <td class="p-3 text-red-400">❌ Untraceable</td>
+              <td class="p-3 text-red-400">❌ No text provenance</td>
+              <td class="p-3 text-emerald-400 font-bold">✅ Traced in 0.04s</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-semibold">Reviewer Leak Defense</td>
+              <td class="p-3 text-red-400">❌ Committee sees all</td>
+              <td class="p-3 text-red-400">❌ Single point failure</td>
+              <td class="p-3 text-emerald-400 font-bold">✅ Blind Sharding + Decoys</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-semibold">Disaster Handling</td>
+              <td class="p-3 text-red-400">❌ Cancel entire exam</td>
+              <td class="p-3 text-red-400">❌ Retake days later</td>
+              <td class="p-3 text-emerald-400 font-bold">✅ Surgical Swap in 0.38s</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 text-xs text-slate-300">
+        <strong class="text-white">The Blind Sharded Innovation:</strong> 60 professors review 2 questions each with zero exam context. Synthetic Canary Decoy questions are injected. If a reviewer sells their questions, the canary trap nails them immediately!
+      </div>
+    </div>
+
+    <!-- SLIDE 5: Tech & DSA -->
+    <div class="slide flex-col space-y-6">
+      <div>
+        <span class="text-xs font-mono text-teal-400 uppercase tracking-widest font-bold">Technical Depth</span>
+        <h2 class="text-3xl font-extrabold text-white mt-1">Under the Hood: Architecture & Core DSA</h2>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 text-xs font-mono">
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+          <span class="text-emerald-400 font-bold block mb-1">1. 0/1 Knapsack DP & Backtracking CSP</span>
+          <p class="text-slate-400 font-sans">Balances question sets with 0% overlap to mathematically identical Bloom's difficulty. Complexity: <code>O(N · W)</code> in sub-50ms.</p>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+          <span class="text-blue-400 font-bold block mb-1">2. Fisher-Yates & Canary Hash Map</span>
+          <p class="text-slate-400 font-sans">Partitions questions into micro-shards in <code>O(N)</code> time. Canary trap reverse lookup operates in <code>O(1)</code> constant time.</p>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+          <span class="text-teal-400 font-bold block mb-1">3. Bit Manipulation & Byte Arrays</span>
+          <p class="text-slate-400 font-sans">Bitwise shifting (<code>>></code>, <code>& 1</code>) maps binary payloads to invisible Unicode zero-width characters in linear <code>O(M)</code> time.</p>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+          <span class="text-yellow-400 font-bold block mb-1">4. Sliding-Window Delimiter Scanner</span>
+          <p class="text-slate-400 font-sans">Two-pointer linear scan extracts start/end delimiters (<code>\u200D</code>, <code>\uFEFF</code>) from Telegram text in <code>O(L)</code> time.</p>
+        </div>
+      </div>
+
+      <div class="text-xs text-slate-500 font-mono flex items-center justify-between border-t border-slate-900 pt-3">
+        <span>Stack: Python 3.11 • FastAPI • Uvicorn • LangGraph Agents • AES-256-GCM • TailwindCSS</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: Business Model -->
+    <div class="slide flex-col space-y-6">
+      <div>
+        <span class="text-xs font-mono text-purple-400 uppercase tracking-widest font-bold">Business Model</span>
+        <h2 class="text-3xl font-extrabold text-white mt-1">B2B SaaS Model & High-Margin Unit Economics</h2>
+      </div>
+
+      <div class="grid grid-cols-3 gap-5 text-xs">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+          <span class="text-slate-500 font-bold uppercase block mb-1">Primary Revenue</span>
+          <div class="text-2xl font-bold text-emerald-400 mb-2">₹20 / seat</div>
+          <p class="text-slate-400">Per-candidate fee. For NEET (24L students), 1 single exam yields <strong>₹4.8 Crores in ARR</strong>.</p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+          <span class="text-slate-500 font-bold uppercase block mb-1">University License</span>
+          <div class="text-2xl font-bold text-blue-400 mb-2">₹20 Lakhs / yr</div>
+          <p class="text-slate-400">Annual enterprise subscription for private universities (VIT, Manipal) for unlimited semester finals.</p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+          <span class="text-slate-500 font-bold uppercase block mb-1">Gross Margins</span>
+          <div class="text-2xl font-bold text-purple-400 mb-2">98.7% Margin</div>
+          <p class="text-slate-400">Compute and watermarking cost is &lt; ₹0.25 per paper. Pure software SaaS economics.</p>
+        </div>
+      </div>
+
+      <div class="bg-emerald-950/40 border border-emerald-500/30 rounded-xl p-4 text-xs text-emerald-300 flex justify-between items-center">
+        <span><strong>The Buyer's Financial ROI ("Save Money"):</strong> Spend ₹3 Cr on ParikshaVault ➔ Prevent ₹92.5 Cr in re-test cancellation costs.</span>
+        <span class="font-bold text-sm bg-emerald-500 text-slate-950 px-3 py-1 rounded-lg">30x Direct ROI</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: Market Opportunity -->
+    <div class="slide flex-col space-y-6">
+      <div>
+        <span class="text-xs font-mono text-yellow-400 uppercase tracking-widest font-bold">Market Opportunity</span>
+        <h2 class="text-3xl font-extrabold text-white mt-1">TAM, SAM, SOM & Market Timing</h2>
+      </div>
+
+      <div class="grid grid-cols-3 gap-5 text-xs">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+          <span class="text-slate-500 uppercase font-mono block mb-1">TAM (Total Market)</span>
+          <div class="text-2xl font-bold text-white mb-2">₹8,500 Cr</div>
+          <p class="text-slate-400">65+ Million students appear for competitive and higher-ed exams annually across India.</p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+          <span class="text-slate-500 uppercase font-mono block mb-1">SAM (Serviceable Market)</span>
+          <div class="text-2xl font-bold text-teal-400 mb-2">₹1,800 Cr</div>
+          <p class="text-slate-400">Secure exam integrity, DRM, and anti-fraud digital infrastructure in India.</p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+          <span class="text-slate-500 uppercase font-mono block mb-1">SOM (3-Year Target)</span>
+          <div class="text-2xl font-bold text-emerald-400 mb-2">₹120 Cr</div>
+          <p class="text-slate-400">Capturing top 30 private universities + 3 state recruitment boards within 36 months.</p>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 text-xs text-slate-300">
+        <strong class="text-white">Why Now?</strong> The <em>Public Examinations Act 2024</em> has made testing controllers criminally liable for leaks. Institutions cannot afford legacy manual processes anymore.
+      </div>
+    </div>
+
+    <!-- SLIDE 8: Live Demo & Conclusion -->
+    <div class="slide flex-col space-y-6 text-center items-center">
+      <div>
+        <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest font-bold">Summary</span>
+        <h2 class="text-3xl font-extrabold text-white mt-1">ParikshaVault: Ready for National Scale</h2>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4 max-w-2xl w-full text-left text-xs font-mono">
+        <div class="bg-slate-900 p-3 rounded-xl border border-slate-800">
+          <span class="text-slate-500 block text-[10px]">CRAWLER SPEED</span>
+          <span class="text-emerald-400 font-bold text-sm">0.04 Seconds</span>
+        </div>
+        <div class="bg-slate-900 p-3 rounded-xl border border-slate-800">
+          <span class="text-slate-500 block text-[10px]">PANIC SWAP TIME</span>
+          <span class="text-yellow-400 font-bold text-sm">0.38 Seconds</span>
+        </div>
+        <div class="bg-slate-900 p-3 rounded-xl border border-slate-800">
+          <span class="text-slate-500 block text-[10px]">LOSS AVOIDED</span>
+          <span class="text-white font-bold text-sm">₹92.5 Crores</span>
+        </div>
+      </div>
+
+      <div class="max-w-xl text-slate-300 text-sm leading-relaxed">
+        "ParikshaVault restores academic integrity, saves crores for testing authorities, and protects the hard work of millions of Indian students."
+      </div>
+
+      <div class="pt-4 flex items-center space-x-4">
+        <a href="/" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition flex items-center space-x-2">
+          <i class="fa-solid fa-play"></i>
+          <span>Launch Live Interactive Dashboard</span>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Bottom Navigation Controls -->
+  <footer class="border-t border-slate-800/80 px-8 py-4 flex items-center justify-between text-xs bg-slate-900/40">
+    <button onclick="prevSlide()" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition flex items-center space-x-1">
+      <i class="fa-solid fa-arrow-left mr-1"></i> Previous
+    </button>
+    <div class="flex space-x-1.5" id="dots-container"></div>
+    <button onclick="nextSlide()" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition flex items-center space-x-1">
+      <span>Next</span> <i class="fa-solid fa-arrow-right ml-1"></i>
+    </button>
+  </footer>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    function updateSlide() {
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx === currentSlide);
+      });
+      document.getElementById('slide-indicator').innerText = `SLIDE ${currentSlide + 1} / ${totalSlides}`;
+      
+      const dots = document.getElementById('dots-container');
+      dots.innerHTML = Array.from({length: totalSlides}).map((_, i) => `
+        <span class="w-2 h-2 rounded-full ${i === currentSlide ? 'bg-emerald-400' : 'bg-slate-700'}"></span>
+      `).join('');
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) { currentSlide++; updateSlide(); }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) { currentSlide--; updateSlide(); }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    updateSlide();
+  </script>
+</body>
+</html>
