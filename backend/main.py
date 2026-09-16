@@ -1,5 +1,5 @@
 """
-ParikshaVault - FastAPI Backend Server (V3.5 Enterprise)
+ParikshaVault - FastAPI Backend Server (V4.0 Enterprise Intelligence Edition)
 Features:
 1. Zero-Repetition Isomorphic Question Balancer (0/1 Knapsack DP)
 2. Timed Cryptographic Escrow Vault (AES-256)
@@ -7,6 +7,7 @@ Features:
 4. "Panic Mode" Dynamic Emergency Paper Swap Engine
 5. Blind Sharded Human Review Portal (Canary Decoy Injection)
 6. Statutory CBI / NTA Forensic Evidence Dossier Generator
+7. Regional Threat Heatmap & Predictive Risk Intelligence Engine
 """
 
 from fastapi import FastAPI
@@ -20,7 +21,7 @@ import os
 
 from engine.stego import embed_watermark, extract_watermark
 
-app = FastAPI(title="ParikshaVault API", version="3.5.0")
+app = FastAPI(title="ParikshaVault API", version="4.0.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -30,16 +31,88 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Regional Centers Registry
+# Regional Centers with Predictive Threat Scoring & Vulnerability Vectors
 EXAM_CENTERS = [
-    {"center_id": "CTR-101", "name": "St. Xavier's Academy, Mumbai", "city": "Mumbai", "status": "ACTIVE"},
-    {"center_id": "CTR-102", "name": "Delhi Public School, R.K. Puram", "city": "New Delhi", "status": "ACTIVE"},
-    {"center_id": "CTR-103", "name": "National College of Engineering", "city": "Bengaluru", "status": "ACTIVE"},
-    {"center_id": "CTR-104", "name": "Velammal Vidyalaya Exam Hub", "city": "Chennai", "status": "ACTIVE"},
-    {"center_id": "CTR-105", "name": "Aryabhatta Institute of Tech", "city": "Patna", "status": "ACTIVE"},
+    {
+        "center_id": "CTR-105",
+        "name": "Aryabhatta Institute of Tech",
+        "city": "Patna",
+        "state": "Bihar",
+        "risk_score": 88,
+        "risk_tier": "CRITICAL",
+        "coaching_density": "High (Kankarbagh Belt)",
+        "jammer_status": "Active (98% Jamming)",
+        "threat_factors": ["Historical Leak Corridor", "High Local Solvers Mafia Activity"],
+        "security_countermeasure": "Quad-Density Watermarking + Delayed Key Escrow (09:59 AM)",
+        "status": "MONITORED"
+    },
+    {
+        "center_id": "CTR-106",
+        "name": "Allen Global Testing Hub",
+        "city": "Kota",
+        "state": "Rajasthan",
+        "risk_score": 76,
+        "risk_tier": "ELEVATED",
+        "coaching_density": "Extreme (Talwandi Cluster)",
+        "jammer_status": "Active (100% Jamming)",
+        "threat_factors": ["High-Stakes Coaching Pressure", "Unvetted Private Invigilators"],
+        "security_countermeasure": "Dual-Density Watermarking + Camera Enclave Audit",
+        "status": "MONITORED"
+    },
+    {
+        "center_id": "CTR-104",
+        "name": "Velammal Vidyalaya Exam Hub",
+        "city": "Chennai",
+        "state": "Tamil Nadu",
+        "risk_score": 52,
+        "risk_tier": "MODERATE",
+        "coaching_density": "Moderate",
+        "jammer_status": "Active (95% Jamming)",
+        "threat_factors": ["High Volume Center (800+ Candidates)"],
+        "security_countermeasure": "Standard Watermarking + Dynamic Desk Hash",
+        "status": "ACTIVE"
+    },
+    {
+        "center_id": "CTR-102",
+        "name": "Delhi Public School, R.K. Puram",
+        "city": "New Delhi",
+        "state": "Delhi NCR",
+        "risk_score": 24,
+        "risk_tier": "LOW",
+        "coaching_density": "Low",
+        "jammer_status": "Active (100% Jamming)",
+        "threat_factors": ["High Government Oversight"],
+        "security_countermeasure": "Standard Baseline Security",
+        "status": "ACTIVE"
+    },
+    {
+        "center_id": "CTR-101",
+        "name": "St. Xavier's Academy",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "risk_score": 14,
+        "risk_tier": "MINIMAL",
+        "coaching_density": "Low",
+        "jammer_status": "Active (100% Jamming)",
+        "threat_factors": ["Zero Historical Incident Records"],
+        "security_countermeasure": "Standard Baseline Security",
+        "status": "ACTIVE"
+    },
+    {
+        "center_id": "CTR-107",
+        "name": "Gomti Nagar Assessment Arena",
+        "city": "Lucknow",
+        "state": "Uttar Pradesh",
+        "risk_score": 68,
+        "risk_tier": "ELEVATED",
+        "coaching_density": "Moderate-High",
+        "jammer_status": "Active (92% Jamming)",
+        "threat_factors": ["Police Recruitment Breach Recurrence"],
+        "security_countermeasure": "Dual-Density Watermarking + RFID Seal",
+        "status": "MONITORED"
+    }
 ]
 
-# Question Pools
 QUESTION_POOLS = {
     "Electromagnetism": [
         {"id": "EM-1", "question": "State Faraday's law of electromagnetic induction and derive EMF in a closed loop.", "difficulty": "Medium", "score": 78},
@@ -70,7 +143,6 @@ TELEGRAM_FEED = [
     {"id": 2, "sender": "InsiderLeaker", "time": "08:35 AM", "text": "Got verified center leaks! Ping for advance paper preview.", "is_leak": False}
 ]
 
-# Blind Sharded Reviewer State (IIT Professor Simulation)
 REVIEWER_STATE = {
     "reviewer_name": "Prof. Rajesh Sharma",
     "institution": "Department of Physics, IIT Delhi",
@@ -87,8 +159,8 @@ REVIEWER_STATE = {
 
 
 class ReviewSubmissionRequest(BaseModel):
-    verdict: str  # "APPROVED" or "FLAGGED"
-    notes: Optional[str] = "Mathematically sound. Equations verified against NCERT curriculum."
+    verdict: str
+    notes: Optional[str] = "Mathematically sound. Equations verified."
 
 
 class WatermarkRequest(BaseModel):
@@ -100,6 +172,46 @@ class WatermarkRequest(BaseModel):
 class ForensicRequest(BaseModel):
     leaked_snippet: str
     channel_source: str = "Telegram (@NeetPaperLeak2026)"
+
+
+# --- REGIONAL THREAT & PREDICTIVE RISK ENDPOINTS ---
+@app.get("/api/risk/centers")
+def get_risk_centers():
+    """Returns all regional exam centers with predictive threat indices."""
+    total_score = sum(c["risk_score"] for c in EXAM_CENTERS)
+    avg_score = round(total_score / len(EXAM_CENTERS), 1)
+    
+    return {
+        "national_threat_index": avg_score,
+        "national_status": "ELEVATED VIGILANCE" if avg_score > 50 else "MODERATE",
+        "monitored_centers_count": len(EXAM_CENTERS),
+        "critical_centers_count": sum(1 for c in EXAM_CENTERS if c["risk_score"] >= 75),
+        "centers": EXAM_CENTERS
+    }
+
+
+@app.post("/api/risk/escalate/{center_id}")
+def escalate_center_security(center_id: str):
+    """
+    Simulates AI predictive threat intelligence detecting anomalous chatter or signals near a center,
+    automatically escalating its countermeasure protocols.
+    """
+    center = next((c for c in EXAM_CENTERS if c["center_id"] == center_id), None)
+    if not center:
+        center = EXAM_CENTERS[0]
+
+    center["risk_score"] = min(100, center["risk_score"] + 15)
+    center["risk_tier"] = "CRITICAL LOCKDOWN"
+    center["security_countermeasure"] = "ESCALATED: Live Air-Gap Isolation + Double Stego Frequency + Immediate CBI Intercept Dispatched"
+
+    return {
+        "status": "ESCALATED",
+        "center_id": center["center_id"],
+        "name": center["name"],
+        "new_risk_score": center["risk_score"],
+        "new_countermeasure": center["security_countermeasure"],
+        "message": f"Predictive AI escalated threat level for {center['city']}. Automated biometric air-gap triggered."
+    }
 
 
 # --- VAULT ENDPOINTS ---
@@ -126,13 +238,11 @@ def lock_vault():
 # --- BLIND SHARDED REVIEW ENDPOINTS ---
 @app.get("/api/review/shard")
 def get_reviewer_shard():
-    """Returns isolated question shard assigned to a professor with canary trap."""
     return REVIEWER_STATE
 
 
 @app.post("/api/review/submit")
 def submit_review_verdict(req: ReviewSubmissionRequest):
-    """Logs professor verdict into the air-gapped cryptographic ledger."""
     now_ts = datetime.datetime.now().strftime("%H:%M:%S IST")
     REVIEWER_STATE["shard_assigned"]["verification_status"] = req.verdict
     return {

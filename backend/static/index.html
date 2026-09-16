@@ -34,9 +34,9 @@
         <div>
           <div class="flex items-center space-x-2">
             <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-emerald-400 to-teal-200 bg-clip-text text-transparent">PARIKSHA<span class="text-white">VAULT</span></span>
-            <span class="px-2 py-0.5 text-xs font-semibold bg-emerald-500/20 text-emerald-300 rounded-full border border-emerald-500/30">v3.5 Enterprise</span>
+            <span class="px-2 py-0.5 text-xs font-semibold bg-emerald-500/20 text-emerald-300 rounded-full border border-emerald-500/30">v4.0 Enterprise</span>
           </div>
-          <p class="text-xs text-slate-400">Sovereign Exam DRM, Blind Sharding & Statutory CBI Evidence Gateway</p>
+          <p class="text-xs text-slate-400">Sovereign Exam DRM, Predictive Threat Heatmap & Panic-Swap Gateway</p>
         </div>
       </div>
 
@@ -92,27 +92,31 @@
       </button>
     </div>
 
-    <!-- Navigation Tabs (5 Full Enterprise Tabs) -->
+    <!-- Navigation Tabs (6 Full Enterprise Tabs) -->
     <div class="flex border-b border-slate-800 mb-8 space-x-6 text-sm overflow-x-auto pb-1">
       <button onclick="switchTab('tab-crawler')" id="btn-tab-crawler" class="tab-btn pb-4 font-bold text-emerald-400 border-b-2 border-emerald-500 flex items-center space-x-2 shrink-0">
         <i class="fa-brands fa-telegram text-blue-400"></i>
         <span>1. Telegram Auto-Crawler</span>
       </button>
+      <button onclick="switchTab('tab-heatmap')" id="btn-tab-heatmap" class="tab-btn pb-4 font-bold text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center space-x-2 shrink-0">
+        <i class="fa-solid fa-map-location-dot text-amber-400"></i>
+        <span>2. Predictive Threat Heatmap</span>
+      </button>
       <button onclick="switchTab('tab-sharded')" id="btn-tab-sharded" class="tab-btn pb-4 font-bold text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center space-x-2 shrink-0">
         <i class="fa-solid fa-user-graduate text-purple-400"></i>
-        <span>2. Blind Sharded Review (IIT Portal)</span>
+        <span>3. Blind Sharded Review (IIT Portal)</span>
       </button>
       <button onclick="switchTab('tab-generate')" id="btn-tab-generate" class="tab-btn pb-4 font-bold text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center space-x-2 shrink-0">
         <i class="fa-solid fa-cubes-stacked"></i>
-        <span>3. Zero-Overlap Sets</span>
+        <span>4. Zero-Overlap Sets</span>
       </button>
       <button onclick="switchTab('tab-watermark')" id="btn-tab-watermark" class="tab-btn pb-4 font-bold text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center space-x-2 shrink-0">
         <i class="fa-solid fa-fingerprint"></i>
-        <span>4. Watermark Matrix</span>
+        <span>5. Watermark Matrix</span>
       </button>
       <button onclick="switchTab('tab-forensic')" id="btn-tab-forensic" class="tab-btn pb-4 font-bold text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center space-x-2 shrink-0">
         <i class="fa-solid fa-radar text-red-400"></i>
-        <span>5. Forensic Radar Decoder</span>
+        <span>6. Forensic Radar Decoder</span>
       </button>
     </div>
 
@@ -154,7 +158,6 @@
             </p>
           </div>
 
-          <!-- Regional Centers Live Status Grid -->
           <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
             <h4 class="font-bold text-xs uppercase tracking-wider text-slate-400 mb-3 flex items-center justify-between">
               <span>National Centers Health Status (Real-Time Mesh)</span>
@@ -191,11 +194,218 @@
       </div>
     </div>
 
-    <!-- TAB 2: Blind Sharded Human Review Portal (Feature 2) -->
+    <!-- TAB 2: Predictive Regional Threat Heatmap (NEW FEATURE 2!) -->
+    <div id="tab-heatmap" class="tab-content hidden">
+      <div class="space-y-6">
+        
+        <!-- National Threat Overview Banner -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="flex items-center space-x-4">
+            <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-2xl font-bold">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">AI Predictive Vulnerability Engine</span>
+                <span class="px-2 py-0.5 text-[10px] bg-amber-500/20 text-amber-300 rounded-full font-bold">LIVE TELEMETRY</span>
+              </div>
+              <h3 class="text-xl font-extrabold text-white mt-0.5">National Examination Threat Index: <span class="text-amber-400">54% (ELEVATED)</span></h3>
+              <p class="text-xs text-slate-400 mt-1">Pre-exam risk scoring maps coaching corridors, mobile jammer density, and historical leak vectors to dynamically allocate security tiers.</p>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-3 shrink-0">
+            <button onclick="escalatePatnaRisk()" class="px-4 py-2.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs hover:bg-amber-500/30 transition flex items-center space-x-2 shadow-lg shadow-amber-500/10">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              <span>Simulate Threat Spike (Patna Hub)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Regional Center Risk Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="risk-centers-grid">
+          
+          <!-- Patna Card (Critical) -->
+          <div id="risk-card-CTR-105" class="bg-slate-900 border-2 border-red-500/60 rounded-2xl p-5 space-y-4">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-[10px] font-mono text-red-400 font-bold">CTR-105 • PATNA (BIHAR)</span>
+                <h4 class="font-bold text-white text-sm">Aryabhatta Institute of Tech</h4>
+                <p class="text-[11px] text-slate-400">Kankarbagh Coaching Belt</p>
+              </div>
+              <span id="risk-badge-CTR-105" class="px-2 py-0.5 text-[10px] font-bold bg-red-500/20 text-red-300 rounded border border-red-500/40">
+                88% CRITICAL
+              </span>
+            </div>
+
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-[11px]">
+                <span class="text-slate-400">Vulnerability Score</span>
+                <span id="risk-score-CTR-105" class="text-red-400 font-mono font-bold">88 / 100</span>
+              </div>
+              <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden">
+                <div id="risk-bar-CTR-105" class="bg-red-500 h-2 rounded-full transition-all duration-500" style="width: 88%"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] space-y-1 text-slate-300">
+              <div class="text-slate-500 text-[10px] uppercase tracking-wider font-bold">Automated Countermeasure:</div>
+              <p id="countermeasure-CTR-105" class="text-yellow-400 font-mono text-[10.5px]">Quad-Density Stego + Delayed Key Escrow (09:59 AM)</p>
+            </div>
+          </div>
+
+          <!-- Kota Card (Elevated) -->
+          <div class="bg-slate-900 border border-amber-500/40 rounded-2xl p-5 space-y-4">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-[10px] font-mono text-amber-400 font-bold">CTR-106 • KOTA (RAJASTHAN)</span>
+                <h4 class="font-bold text-white text-sm">Allen Global Testing Hub</h4>
+                <p class="text-[11px] text-slate-400">Talwandi Coaching Cluster</p>
+              </div>
+              <span class="px-2 py-0.5 text-[10px] font-bold bg-amber-500/20 text-amber-300 rounded border border-amber-500/40">
+                76% ELEVATED
+              </span>
+            </div>
+
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-[11px]">
+                <span class="text-slate-400">Vulnerability Score</span>
+                <span class="text-amber-400 font-mono font-bold">76 / 100</span>
+              </div>
+              <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden">
+                <div class="bg-amber-500 h-2 rounded-full" style="width: 76%"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] space-y-1 text-slate-300">
+              <div class="text-slate-500 text-[10px] uppercase tracking-wider font-bold">Automated Countermeasure:</div>
+              <p class="text-amber-300 font-mono text-[10.5px]">Dual-Density Watermark + Camera Enclave Audit</p>
+            </div>
+          </div>
+
+          <!-- Lucknow Card (Elevated) -->
+          <div class="bg-slate-900 border border-amber-500/40 rounded-2xl p-5 space-y-4">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-[10px] font-mono text-amber-400 font-bold">CTR-107 • LUCKNOW (UP)</span>
+                <h4 class="font-bold text-white text-sm">Gomti Nagar Assessment Arena</h4>
+                <p class="text-[11px] text-slate-400">Police Recruitment Breach Belt</p>
+              </div>
+              <span class="px-2 py-0.5 text-[10px] font-bold bg-amber-500/20 text-amber-300 rounded border border-amber-500/40">
+                68% ELEVATED
+              </span>
+            </div>
+
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-[11px]">
+                <span class="text-slate-400">Vulnerability Score</span>
+                <span class="text-amber-400 font-mono font-bold">68 / 100</span>
+              </div>
+              <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden">
+                <div class="bg-amber-500 h-2 rounded-full" style="width: 68%"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] space-y-1 text-slate-300">
+              <div class="text-slate-500 text-[10px] uppercase tracking-wider font-bold">Automated Countermeasure:</div>
+              <p class="text-amber-300 font-mono text-[10.5px]">Dual-Density Watermark + RFID Smart Seals</p>
+            </div>
+          </div>
+
+          <!-- Chennai Card (Moderate) -->
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-[10px] font-mono text-teal-400 font-bold">CTR-104 • CHENNAI (TN)</span>
+                <h4 class="font-bold text-white text-sm">Velammal Vidyalaya Exam Hub</h4>
+                <p class="text-[11px] text-slate-400">High Volume Center (800+ Candidates)</p>
+              </div>
+              <span class="px-2 py-0.5 text-[10px] font-bold bg-teal-500/20 text-teal-300 rounded border border-teal-500/40">
+                52% MODERATE
+              </span>
+            </div>
+
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-[11px]">
+                <span class="text-slate-400">Vulnerability Score</span>
+                <span class="text-teal-400 font-mono font-bold">52 / 100</span>
+              </div>
+              <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden">
+                <div class="bg-teal-500 h-2 rounded-full" style="width: 52%"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] space-y-1 text-slate-300">
+              <div class="text-slate-500 text-[10px] uppercase tracking-wider font-bold">Automated Countermeasure:</div>
+              <p class="text-teal-300 font-mono text-[10.5px]">Standard Watermark + Dynamic Desk Hash</p>
+            </div>
+          </div>
+
+          <!-- Delhi Card (Low) -->
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-[10px] font-mono text-emerald-400 font-bold">CTR-102 • NEW DELHI</span>
+                <h4 class="font-bold text-white text-sm">Delhi Public School, R.K. Puram</h4>
+                <p class="text-[11px] text-slate-400">High Government Oversight Zone</p>
+              </div>
+              <span class="px-2 py-0.5 text-[10px] font-bold bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/40">
+                24% LOW
+              </span>
+            </div>
+
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-[11px]">
+                <span class="text-slate-400">Vulnerability Score</span>
+                <span class="text-emerald-400 font-mono font-bold">24 / 100</span>
+              </div>
+              <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden">
+                <div class="bg-emerald-500 h-2 rounded-full" style="width: 24%"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] space-y-1 text-slate-300">
+              <div class="text-slate-500 text-[10px] uppercase tracking-wider font-bold">Automated Countermeasure:</div>
+              <p class="text-emerald-300 font-mono text-[10.5px]">Standard Baseline Security Protocol</p>
+            </div>
+          </div>
+
+          <!-- Mumbai Card (Minimal) -->
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-[10px] font-mono text-emerald-400 font-bold">CTR-101 • MUMBAI</span>
+                <h4 class="font-bold text-white text-sm">St. Xavier's Academy</h4>
+                <p class="text-[11px] text-slate-400">Zero Historical Incident Records</p>
+              </div>
+              <span class="px-2 py-0.5 text-[10px] font-bold bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/40">
+                14% MINIMAL
+              </span>
+            </div>
+
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-[11px]">
+                <span class="text-slate-400">Vulnerability Score</span>
+                <span class="text-emerald-400 font-mono font-bold">14 / 100</span>
+              </div>
+              <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden">
+                <div class="bg-emerald-500 h-2 rounded-full" style="width: 14%"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] space-y-1 text-slate-300">
+              <div class="text-slate-500 text-[10px] uppercase tracking-wider font-bold">Automated Countermeasure:</div>
+              <p class="text-emerald-300 font-mono text-[10.5px]">Standard Baseline Security Protocol</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: Blind Sharded Human Review Portal -->
     <div id="tab-sharded" class="tab-content hidden">
       <div class="max-w-3xl mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6">
-        
-        <!-- Reviewer Identity Banner -->
         <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-5">
           <div class="flex items-center space-x-3">
             <div class="w-11 h-11 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-400 font-bold text-xl">
@@ -209,15 +419,12 @@
               <p class="text-xs text-slate-400">Department of Physics, IIT Delhi • Shard #14 of 180</p>
             </div>
           </div>
-
-          <!-- Countdown Timer -->
           <div class="text-right">
             <span class="text-[10px] uppercase tracking-wider text-slate-500 block">Session Expiry</span>
             <span id="review-timer" class="text-sm font-mono font-extrabold text-yellow-400">00:54s</span>
           </div>
         </div>
 
-        <!-- Sharded Isolation Warning -->
         <div class="mb-4 bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs flex items-center justify-between text-slate-400">
           <div class="flex items-center space-x-2">
             <i class="fa-solid fa-eye-slash text-purple-400"></i>
@@ -228,18 +435,16 @@
           </span>
         </div>
 
-        <!-- The Isolated Question -->
         <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 mb-5">
           <div class="flex justify-between items-center text-xs text-slate-400 mb-2 font-mono">
             <span>QUESTION ID: <strong class="text-purple-400">EM-1 (Electromagnetism)</strong></span>
             <span>BLOOM'S LEVEL: APPLICATION (78%)</span>
           </div>
-          <p class="text-sm text-slate-200 leading-relaxed font-sans font-medium" id="sharded-question-text">
+          <p class="text-sm text-slate-200 leading-relaxed font-sans font-medium">
             "State Faraday's law of electromagnetic induction and derive the mathematical expression for induced electromotive force in a closed loop."
           </p>
         </div>
 
-        <!-- Professor Review Action Buttons -->
         <div id="review-action-panel" class="flex items-center space-x-3">
           <button onclick="submitReview('APPROVED')" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 rounded-xl text-xs transition flex items-center justify-center space-x-2 shadow-lg shadow-emerald-500/20">
             <i class="fa-solid fa-check-circle"></i>
@@ -251,16 +456,14 @@
           </button>
         </div>
 
-        <!-- Verification Sealed Badge (hidden initially) -->
         <div id="review-sealed-card" class="hidden mt-4 bg-emerald-950/40 border border-emerald-500/40 p-3.5 rounded-xl text-xs text-emerald-300 flex items-center justify-between">
           <span>✅ <strong>Review Sealed & Signed:</strong> Recorded into Cryptographic Master Escrow with Zero Full-Paper Visibility.</span>
           <span class="font-mono text-[10px] text-emerald-400 font-bold">SIG-IITD-8842-OK</span>
         </div>
-
       </div>
     </div>
 
-    <!-- TAB 3: Zero-Overlap Sets -->
+    <!-- TAB 4: Zero-Overlap Sets -->
     <div id="tab-generate" class="tab-content hidden">
       <div class="flex justify-between items-center mb-4">
         <h3 class="font-bold text-white text-base">Isomorphic Question Permutation (0/1 Knapsack Balancer)</h3>
@@ -271,7 +474,7 @@
       <div id="sets-container" class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs"></div>
     </div>
 
-    <!-- TAB 4: Watermark Matrix -->
+    <!-- TAB 5: Watermark Matrix -->
     <div id="tab-watermark" class="tab-content hidden">
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
         <button onclick="runWatermarkCenter()" class="bg-teal-500 text-black font-bold px-4 py-2 rounded-xl text-xs mb-3">
@@ -283,7 +486,7 @@
       </div>
     </div>
 
-    <!-- TAB 5: Forensic Radar Decoder -->
+    <!-- TAB 6: Forensic Radar Decoder -->
     <div id="tab-forensic" class="tab-content hidden">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
@@ -306,11 +509,9 @@
 
   </main>
 
-  <!-- 🏛️ STATUTORY CBI FORENSIC EVIDENCE DOSSIER MODAL (Feature 1) -->
+  <!-- 🏛️ STATUTORY CBI FORENSIC EVIDENCE DOSSIER MODAL -->
   <div id="cbi-dossier-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
     <div class="bg-slate-900 border-2 border-slate-700 rounded-3xl max-w-3xl w-full p-8 text-slate-100 shadow-2xl max-h-[90vh] overflow-y-auto">
-      
-      <!-- Official Header -->
       <div class="border-b-2 border-slate-700 pb-4 mb-6 flex justify-between items-start">
         <div class="flex items-center space-x-4">
           <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 text-2xl font-bold">
@@ -327,7 +528,6 @@
         </button>
       </div>
 
-      <!-- Dossier Metadata -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs font-mono mb-6 bg-slate-950 p-4 rounded-2xl border border-slate-800">
         <div>
           <span class="text-slate-500 block text-[10px]">CASE FILE NO.</span>
@@ -347,7 +547,6 @@
         </div>
       </div>
 
-      <!-- Verified Breach Coordinates -->
       <div class="space-y-3 text-xs mb-6">
         <h4 class="font-bold text-amber-300 uppercase tracking-wider text-xs">I. Breach Coordinates & Target Attribution</h4>
         <div class="bg-red-950/30 border border-red-500/30 rounded-xl p-4 space-y-2">
@@ -370,7 +569,6 @@
         </div>
       </div>
 
-      <!-- Cryptographic Verification Signatures -->
       <div class="space-y-3 text-xs mb-6">
         <h4 class="font-bold text-amber-300 uppercase tracking-wider text-xs">II. Cryptographic Forensic Signatures</h4>
         <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono space-y-1.5 text-[11px]">
@@ -380,7 +578,6 @@
         </div>
       </div>
 
-      <!-- Action Taken & Statutory Savings -->
       <div class="bg-emerald-950/40 border border-emerald-500/40 rounded-xl p-4 text-xs mb-6">
         <div class="flex justify-between items-center mb-1">
           <span class="font-bold text-emerald-400 uppercase tracking-wider">III. Disaster Containment & Financial Metric</span>
@@ -393,7 +590,6 @@
         </p>
       </div>
 
-      <!-- Modal Actions -->
       <div class="flex justify-between items-center pt-2 border-t border-slate-800 no-print">
         <span class="text-[10px] text-slate-500 font-mono">Certified Authentic by ParikshaVault Sovereign Security Node</span>
         <div class="flex space-x-3">
@@ -406,7 +602,6 @@
           </button>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -517,7 +712,21 @@
       alert("🚨 EMERGENCY SWAP SUCCESSFUL!\n" + data.action_summary);
     }
 
-    // Blind Sharded Review Logic (Feature 2)
+    // Predictive Risk Escalation (NEW FEATURE 2 LOGIC)
+    async function escalatePatnaRisk() {
+      const res = await fetch('/api/risk/escalate/CTR-105', {method: 'POST'});
+      const data = await res.json();
+
+      document.getElementById('risk-score-CTR-105').innerText = `${data.new_risk_score} / 100 (CRITICAL LOCKDOWN)`;
+      document.getElementById('risk-badge-CTR-105').innerText = "100% LOCKDOWN";
+      document.getElementById('risk-badge-CTR-105').className = "px-2 py-0.5 text-[10px] font-bold bg-red-600 text-white rounded animate-pulse";
+      document.getElementById('risk-bar-CTR-105').style.width = "100%";
+      document.getElementById('countermeasure-CTR-105').innerText = data.new_countermeasure;
+      document.getElementById('risk-card-CTR-105').className = "bg-slate-900 border-2 border-red-500 rounded-2xl p-5 space-y-4 neon-red";
+
+      alert(`🚨 PREDICTIVE AI RISK ALERT!\n${data.message}`);
+    }
+
     async function submitReview(verdict) {
       const res = await fetch('/api/review/submit', {
         method: 'POST',
@@ -531,7 +740,6 @@
       alert(`Veritas Confirmed!\nReviewer verdict [${verdict}] cryptographically signed and sealed into the Master Vault.`);
     }
 
-    // CBI Dossier Modal Logic (Feature 1)
     function openCbiDossier() {
       document.getElementById('cbi-dossier-modal').classList.remove('hidden');
     }
