@@ -66,15 +66,15 @@
         <div class="flex items-center space-x-2">
           <span class="font-semibold text-sm tracking-tight text-[#1D1D1F]">ParikshaVault</span>
           <span class="text-xs text-[#86868B]">/</span>
-          <span class="text-xs font-medium text-[#86868B]">Security Console</span>
+          <span class="text-xs font-medium text-[#86868B]">Examination Security</span>
         </div>
       </div>
     </div>
 
     <!-- Center System Status Pill -->
-    <div class="hidden md:flex items-center space-x-2 bg-black/[0.04] px-3 py-1 rounded-full text-xs text-[#86868B]">
+    <div class="hidden md:flex items-center space-x-2 bg-black/[0.04] px-3.5 py-1 rounded-full text-xs text-[#86868B]">
       <span class="w-1.5 h-1.5 rounded-full bg-[#34C759]"></span>
-      <span class="text-[#1D1D1F] font-medium">Grid Active</span>
+      <span class="text-[#1D1D1F] font-medium">All Systems Normal</span>
       <span>•</span>
       <span>Session: <strong class="text-[#1D1D1F] font-mono">NEET-UG-2026</strong></span>
     </div>
@@ -83,12 +83,12 @@
     <div class="flex items-center space-x-3">
       <button onclick="openWarRoomModal()" id="btn-header-warroom" class="px-3.5 py-1.5 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white text-xs font-semibold transition shadow-sm flex items-center space-x-1.5">
         <i class="fa-solid fa-play text-[10px]"></i>
-        <span>Exam Day War Room</span>
+        <span>Run Simulation</span>
       </button>
 
       <button onclick="openRotationModal()" id="btn-header-rotate" class="px-3.5 py-1.5 rounded-full bg-white hover:bg-slate-50 border border-black/10 text-xs font-medium text-[#FF3B30] transition shadow-xs flex items-center space-x-1.5">
         <i class="fa-solid fa-arrows-rotate text-[11px]"></i>
-        <span>Paper Rotation</span>
+        <span>Rotate Paper</span>
       </button>
 
       <div class="w-7 h-7 rounded-full bg-black/5 text-[#1D1D1F] flex items-center justify-center text-xs font-semibold">
@@ -198,11 +198,11 @@
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h2 class="text-2xl font-bold tracking-tight text-[#1D1D1F]">Overview</h2>
-            <p class="text-xs text-[#86868B] mt-0.5">Real-time status of examination centers, cryptographic custody, and threat monitoring.</p>
+            <p class="text-xs text-[#86868B] mt-0.5">Real-time protection for national examinations. Continuous, autonomous, and tamper-proof.</p>
           </div>
           <div class="flex items-center space-x-2">
             <span class="px-3 py-1 rounded-full bg-white border border-black/5 text-xs text-[#1D1D1F] font-mono shadow-2xs">
-              Active: <strong id="executive-active-paper" class="text-[#0071E3]">Variant A (Primary)</strong>
+              Active: <strong id="executive-active-paper" class="text-[#0071E3]">Master Variant A</strong>
             </span>
           </div>
         </div>
@@ -210,27 +210,27 @@
         <!-- Metric Cards -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div class="apple-card p-5 space-y-1">
-            <span class="text-xs font-medium text-[#86868B]">Papers Protected</span>
+            <span class="text-xs font-medium text-[#86868B]">Protected Candidates</span>
             <div class="text-2xl font-bold tracking-tight text-[#1D1D1F]">499,480</div>
-            <span class="text-[11px] text-[#34C759] font-medium">National Candidates</span>
+            <span class="text-[11px] text-[#34C759] font-medium">Nationwide Coverage</span>
           </div>
 
           <div class="apple-card p-5 space-y-1">
-            <span class="text-xs font-medium text-[#86868B]">Active Centers</span>
+            <span class="text-xs font-medium text-[#86868B]">Active Exam Centers</span>
             <div class="text-2xl font-bold tracking-tight text-[#1D1D1F]">6 Centers</div>
             <span class="text-[11px] text-[#34C759] font-medium">100% Telemetry Active</span>
           </div>
 
           <div class="apple-card p-5 space-y-1">
-            <span class="text-xs font-medium text-[#86868B]">Threats Contained</span>
+            <span class="text-xs font-medium text-[#86868B]">Threats Neutralized</span>
             <div class="text-2xl font-bold tracking-tight text-[#0071E3]" id="kpi-threats-contained">100%</div>
             <span class="text-[11px] text-[#86868B]">0.38s Hot-Swap Time</span>
           </div>
 
           <div class="apple-card p-5 space-y-1">
-            <span class="text-xs font-medium text-[#86868B]">Cancellation Loss Saved</span>
+            <span class="text-xs font-medium text-[#86868B]">Logistics Preserved</span>
             <div class="text-2xl font-bold tracking-tight text-[#1D1D1F]">₹92.5 Cr</div>
-            <span class="text-[11px] text-[#86868B]">Logistics Preserved</span>
+            <span class="text-[11px] text-[#86868B]">Zero Cancellations</span>
           </div>
         </div>
 
@@ -506,12 +506,12 @@
         
         <div class="flex justify-between items-center">
           <div>
-            <h2 class="text-2xl font-bold tracking-tight text-[#1D1D1F]">Isomorphic Question Jumbling Engine</h2>
-            <p class="text-xs text-[#86868B] mt-0.5">Parametric seat-level variant generator with mathematical Bloom's taxonomy equivalence verification.</p>
+            <h2 class="text-2xl font-bold tracking-tight text-[#1D1D1F]">Isomorphic Question Engine</h2>
+            <p class="text-xs text-[#86868B] mt-0.5">Personalized variants for every student. Equal in difficulty. Cryptographically fair.</p>
           </div>
           <button onclick="generateJumbleVariantsUI()" class="px-4 py-2 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white text-xs font-semibold transition shadow-sm flex items-center space-x-1.5">
             <i class="fa-solid fa-shuffle text-[10px]"></i>
-            <span>Generate & Prove Parity</span>
+            <span>Generate Variants</span>
           </button>
         </div>
 
@@ -860,8 +860,8 @@
             <i class="fa-solid fa-play"></i>
           </div>
           <div>
-            <h3 class="font-bold text-base text-[#1D1D1F]">Exam Day War Room — Autonomous Defense Lifecycle</h3>
-            <p class="text-xs text-[#86868B]">End-to-end chronological simulation of threat detection, attribution & automatic swap.</p>
+            <h3 class="font-bold text-base text-[#1D1D1F]">Exam Day Simulation</h3>
+            <p class="text-xs text-[#86868B]">Experience how ParikshaVault detects, attributes, and neutralizes a leak in real time.</p>
           </div>
         </div>
         <button onclick="closeWarRoomModal()" class="text-[#86868B] hover:text-[#1D1D1F] text-lg no-print">&times;</button>
@@ -873,13 +873,13 @@
       <!-- Controls Footer -->
       <div class="pt-4 border-t border-black/5 flex items-center justify-between">
         <div class="text-xs text-[#86868B]">
-          Status: <strong class="text-[#0071E3]" id="war-room-status-badge">READY TO START</strong>
+          Status: <strong class="text-[#0071E3]" id="war-room-status-badge">Ready</strong>
         </div>
         <div class="flex space-x-2">
           <button onclick="resetWarRoomSim()" class="px-4 py-2 rounded-full bg-black/5 hover:bg-black/10 text-xs font-medium text-[#1D1D1F]">Reset</button>
           <button onclick="startWarRoomAutoPlay()" id="war-room-play-btn" class="px-5 py-2 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white text-xs font-semibold shadow-sm flex items-center space-x-2">
             <i class="fa-solid fa-play text-[10px]"></i>
-            <span>Start Automated Simulation</span>
+            <span>Start Simulation</span>
           </button>
         </div>
       </div>
