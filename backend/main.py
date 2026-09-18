@@ -29,6 +29,8 @@ from engine.merkle import merkle_ledger
 from engine.optical_stego import optical_stego_engine
 from engine.mpc_escrow import mpc_vault
 from engine.zkp_verifier import zkp_engine
+from engine.airgap_hardware import airgap_enclave
+from engine.patent_spec_generator import patent_spec_generator
 
 app = FastAPI(title="ParikshaVault API", version="4.0.0")
 
@@ -691,10 +693,57 @@ def verify_zkp_fairness_proof():
     return zkp_engine.verify_proof()
 
 
+# --- PATENT CLAIM #4: OFFLINE AIR-GAPPED OPTICAL HARDWARE ENCLAVE ---
+
+class AirGapTokenRequest(BaseModel):
+    center_id: str = "CTR-109 (Remote Ladakh)"
+    superintendent_id: str = "SUP-LDK-8821"
+
+class AirGapPrintRequest(BaseModel):
+    qr_chaff_payload: str
+    center_id: str = "CTR-109 (Remote Ladakh)"
+    copies_needed: int = 400
+
+@app.post("/api/airgap/generate-fob-token")
+def generate_airgap_token(req: AirGapTokenRequest):
+    """
+    Patent Claim #4: Simulates the biometric hardware key fob generating a dynamic
+    rolling optical QR-chaff token (rotates every 15s) with zero internet/RF emission.
+    """
+    return airgap_enclave.generate_biometric_qr_chaff(req.center_id, req.superintendent_id)
+
+@app.post("/api/airgap/scan-and-print")
+def scan_and_print_airgap(req: AirGapPrintRequest):
+    """
+    Patent Claim #4: Optical scanner ingests dynamic QR-chaff, validates offline time window,
+    decrypts inside TrustZone RAM, and executes monotonic 0x00 memory zeroization after printing.
+    """
+    return airgap_enclave.scan_and_execute_airgap_print(
+        req.qr_chaff_payload, req.center_id, req.copies_needed
+    )
+
+@app.get("/api/airgap/enclave-status")
+def get_airgap_enclave_status():
+    return {
+        "chipset": airgap_enclave.enclave_chipset,
+        "network_interfaces": "DISABLED (100% Galvanically Isolated Air-Gap)",
+        "ram_buffer_state": airgap_enclave.ram_buffer_state,
+        "supported_protocols": ["OPTICAL_2D_DYNAMIC_CHAFF", "HARDWARE_ZEROIZATION_ENGINE"]
+    }
+
+@app.get("/api/patent/generate-form2-draft")
+def get_statutory_patent_specification():
+    """
+    Generates a complete, ready-to-file Form 2 Patent Specification Document with Claims.
+    """
+    return patent_spec_generator.generate_full_patent_document()
+
+
 # Mount static frontend
 static_dir = os.path.join(os.path.dirname(__file__), "static")
 if os.path.exists(static_dir):
     app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
+
 
 
 
