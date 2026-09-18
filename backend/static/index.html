@@ -1,872 +1,1068 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full bg-slate-100">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ParikshaVault - Sovereign Anti-Leak Exam Intelligence Platform</title>
+  <title>ParikshaVault - National Examination Security & Integrity Platform</title>
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    @keyframes radar-pulse {
-      0% { transform: scale(0.95); opacity: 0.8; }
-      50% { transform: scale(1.05); opacity: 0.3; }
-      100% { transform: scale(0.95); opacity: 0.8; }
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Inter & JetBrains Mono Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              navy: '#0f172a',
+              sidebar: '#090d16',
+              accent: '#0284c7',
+              surface: '#ffffff',
+              card: '#f8fafc',
+              border: '#e2e8f0',
+            }
+          }
+        }
+      }
     }
-    .radar-active { animation: radar-pulse 2s infinite ease-in-out; }
-    .neon-red { box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
+  </script>
+  <style>
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    /* Custom scrollbar for enterprise data density */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     @media print {
       body * { visibility: hidden; }
-      #cbi-dossier-modal, #cbi-dossier-modal * { visibility: visible; }
-      #cbi-dossier-modal { position: absolute; left: 0; top: 0; width: 100%; }
+      #cbi-dossier-modal, #cbi-dossier-modal *, #patent-form2-modal, #patent-form2-modal * { visibility: visible; }
+      #cbi-dossier-modal, #patent-form2-modal { position: absolute; left: 0; top: 0; width: 100%; }
       .no-print { display: none !important; }
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-emerald-500 selection:text-black">
+<body class="h-full flex flex-col text-slate-800 antialiased selection:bg-sky-500 selection:text-white bg-slate-100">
 
-  <!-- Header -->
-  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 px-6 py-4">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
+  <!-- TOP ENTERPRISE HEADER -->
+  <header class="bg-slate-900 text-white border-b border-slate-800 z-30 sticky top-0 px-6 py-2.5 flex items-center justify-between shadow-xs">
+    <!-- Brand & Platform Scope -->
+    <div class="flex items-center space-x-4">
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold text-xl shadow-lg shadow-emerald-500/10">
+        <div class="w-8 h-8 rounded bg-sky-600 flex items-center justify-center text-white font-bold text-base shadow-inner">
           <i class="fa-solid fa-shield-halved"></i>
         </div>
         <div>
           <div class="flex items-center space-x-2">
-            <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-emerald-400 to-teal-200 bg-clip-text text-transparent">PARIKSHA<span class="text-white">VAULT</span></span>
-            <span class="px-2 py-0.5 text-xs font-semibold bg-emerald-500/20 text-emerald-300 rounded-full border border-emerald-500/30">v4.0 Enterprise</span>
+            <span class="font-bold text-sm tracking-wider uppercase text-white font-mono">PARIKSHA<span class="text-sky-400">VAULT</span></span>
+            <span class="px-2 py-0.5 text-[10px] font-semibold bg-slate-800 text-slate-300 border border-slate-700 rounded">v5.2 Enterprise</span>
+            <span class="px-2 py-0.5 text-[10px] font-medium bg-amber-500/10 text-amber-300 border border-amber-500/20 rounded">SIMULATION / EVALUATION MODE</span>
           </div>
-          <p class="text-xs text-slate-400">Sovereign Exam DRM, Predictive Threat Heatmap & Panic-Swap Gateway</p>
+          <p class="text-[11px] text-slate-400">National Examination Integrity & Threat Containment System</p>
         </div>
       </div>
+    </div>
 
-      <div class="flex items-center space-x-3">
-        <div id="nav-variant-badge" class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-slate-300 font-mono">
-          ACTIVE: <strong class="text-emerald-400" id="current-variant-text">Variant A (Primary)</strong>
-        </div>
+    <!-- Institutional Status & Controls -->
+    <div class="flex items-center space-x-5 text-xs">
+      <div class="hidden lg:flex items-center space-x-2 text-slate-300">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span class="text-slate-400">System Status:</span>
+        <strong class="text-emerald-400 font-medium">Operational (Telemetry Active)</strong>
+      </div>
 
-        <button onclick="triggerEmergencySwap()" id="btn-panic-mode" class="px-3.5 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition flex items-center space-x-1.5 shadow-lg shadow-red-600/30 animate-pulse">
-          <i class="fa-solid fa-triangle-exclamation"></i>
-          <span>PANIC MODE: SWAP PAPER</span>
+      <div class="hidden md:flex items-center space-x-2 text-slate-400 border-l border-slate-800 pl-4">
+        <span>Session:</span>
+        <strong class="text-slate-200 font-mono">NEET-UG-2026-MAIN</strong>
+      </div>
+
+      <div class="flex items-center space-x-3 border-l border-slate-800 pl-4">
+        <!-- Controlled Paper Rotation Action -->
+        <button onclick="openRotationModal()" id="btn-header-rotate" class="px-3.5 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-red-300 hover:text-red-200 border border-red-500/30 text-xs font-semibold transition flex items-center space-x-1.5 shadow-2xs">
+          <i class="fa-solid fa-arrows-rotate text-red-400"></i>
+          <span>Controlled Paper Rotation</span>
         </button>
+
+        <!-- Role Badge -->
+        <div class="flex items-center space-x-2 bg-slate-800/80 border border-slate-700 px-3 py-1 rounded text-slate-300">
+          <i class="fa-solid fa-user-shield text-sky-400 text-xs"></i>
+          <span class="text-[11px] font-medium">Role: <strong class="text-white">Security Controller</strong></span>
+        </div>
       </div>
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-6 py-8">
+  <!-- BODY LAYOUT (SIDEBAR + MAIN CONTENT AREA) -->
+  <div class="flex-1 flex overflow-hidden">
 
-    <!-- Emergency Swap Alert Banner -->
-    <div id="panic-alert-banner" class="hidden mb-6 bg-red-950/80 border-2 border-red-500 rounded-2xl p-5 text-white neon-red">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center text-white text-xl animate-bounce">
-            <i class="fa-solid fa-arrows-rotate"></i>
-          </div>
-          <div>
-            <h4 class="font-extrabold text-sm text-red-200 tracking-wider">🚨 EMERGENCY DYNAMIC PAPER SWAP EXECUTED IN 0.38s</h4>
-            <p class="text-xs text-red-300 mt-0.5">
-              Variant A blacklisted due to Telegram leak. Pushed fresh zero-overlap <strong>Variant B</strong> to all 5 centers. National exam proceeding with ZERO cancellation!
-            </p>
-          </div>
-        </div>
-        <button onclick="openCbiDossier()" class="px-3.5 py-2 rounded-xl bg-slate-900 border border-red-400/60 text-xs font-bold text-red-200 hover:bg-slate-800 transition flex items-center space-x-1.5">
-          <i class="fa-solid fa-file-shield text-red-400"></i>
-          <span>Export Statutory CBI Report</span>
-        </button>
+    <!-- LEFT ENTERPRISE SIDEBAR -->
+    <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between shrink-0 border-r border-slate-800 z-20">
+      <div class="py-4 overflow-y-auto">
+        
+        <!-- SECTION 1: OPERATIONS & MONITORING -->
+        <div class="px-4 pb-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Operational Monitoring</div>
+        <nav class="space-y-0.5 px-2 mb-4">
+          <button onclick="switchTab('tab-overview')" id="btn-tab-overview" class="tab-btn w-full flex items-center space-x-3 px-3 py-2 rounded text-xs font-medium bg-sky-600 text-white text-left transition">
+            <i class="fa-solid fa-chart-line w-4 text-center"></i>
+            <span>Executive Overview</span>
+          </button>
+
+          <button onclick="switchTab('tab-threats')" id="btn-tab-threats" class="tab-btn w-full flex items-center space-x-3 px-3 py-2 rounded text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-slate-200 text-left transition">
+            <i class="fa-solid fa-satellite-dish w-4 text-center"></i>
+            <span>Digital Threat Monitoring</span>
+          </button>
+
+          <button onclick="switchTab('tab-risk')" id="btn-tab-risk" class="tab-btn w-full flex items-center space-x-3 px-3 py-2 rounded text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-slate-200 text-left transition">
+            <i class="fa-solid fa-map-location-dot w-4 text-center"></i>
+            <span>Center Risk Intelligence</span>
+          </button>
+
+          <button onclick="switchTab('tab-vault')" id="btn-tab-vault" class="tab-btn w-full flex items-center space-x-3 px-3 py-2 rounded text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-slate-200 text-left transition">
+            <i class="fa-solid fa-lock w-4 text-center"></i>
+            <span>Cryptographic Escrow Vault</span>
+          </button>
+
+          <button onclick="switchTab('tab-incident')" id="btn-tab-incident" class="tab-btn w-full flex items-center space-x-3 px-3 py-2 rounded text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-slate-200 text-left transition">
+            <i class="fa-solid fa-network-wired w-4 text-center"></i>
+            <span>Automated Incident Response</span>
+          </button>
+        </nav>
+
+        <!-- SECTION 2: CUSTODY, EVIDENCE & FORENSICS -->
+        <div class="px-4 pb-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Custody & Verification</div>
+        <nav class="space-y-0.5 px-2 mb-4">
+          <button onclick="switchTab('tab-ledger')" id="btn-tab-ledger" class="tab-btn w-full flex items-center space-x-3 px-3 py-2 rounded text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-slate-200 text-left transition">
+            <i class="fa-solid fa-link w-4 text-center"></i>
+            <span>Custody Provenance Ledger</span>
+          </button>
+
+          <button onclick="switchTab('tab-forensic')" id="btn-tab-forensic" class="tab-btn w-full flex items-center space-x-3 px-3 py-2 rounded text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-slate-200 text-left transition">
+            <i class="fa-solid fa-fingerprint w-4 text-center"></i>
+            <span>Forensic Signature Analyzer</span>
+          </button>
+
+          <button onclick="switchTab('tab-sharded')" id="btn-tab-sharded" class="tab-btn w-full flex items-center space-x-3 px-3 py-2 rounded text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-slate-200 text-left transition">
+            <i class="fa-solid fa-user-check w-4 text-center"></i>
+            <span>Sharded Question Review</span>
+          </button>
+
+          <button onclick="switchTab('tab-hardware')" id="btn-tab-hardware" class="tab-btn w-full flex items-center space-x-3 px-3 py-2 rounded text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-slate-200 text-left transition">
+            <i class="fa-solid fa-microchip w-4 text-center"></i>
+            <span>Hardware Enclaves & Air-Gap</span>
+          </button>
+        </nav>
+
+        <!-- SECTION 3: GOVERNANCE & STATUTORY AUDIT -->
+        <div class="px-4 pb-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Statutory & Governance</div>
+        <nav class="space-y-0.5 px-2">
+          <button onclick="switchTab('tab-compliance')" id="btn-tab-compliance" class="tab-btn w-full flex items-center space-x-3 px-3 py-2 rounded text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-slate-200 text-left transition">
+            <i class="fa-solid fa-file-contract w-4 text-center"></i>
+            <span>Security Architecture & IP</span>
+          </button>
+          
+          <button onclick="openCbiDossier()" class="w-full flex items-center space-x-3 px-3 py-2 rounded text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-slate-200 text-left transition">
+            <i class="fa-solid fa-file-shield w-4 text-center"></i>
+            <span>Statutory Investigation Report</span>
+          </button>
+        </nav>
+
       </div>
-    </div>
 
-    <!-- Escrow Timed Lock Banner -->
-    <div class="mb-8 bg-slate-900 border border-red-500/40 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400">
-          <i class="fa-solid fa-clock-rotate-left"></i>
+      <!-- SIDEBAR BOTTOM STATUS -->
+      <div class="p-3.5 border-t border-slate-800 bg-slate-950/40 text-[11px] text-slate-400 space-y-1">
+        <div class="flex items-center justify-between text-slate-300">
+          <span class="font-medium">National Security Grid</span>
+          <span class="font-mono text-emerald-400 text-[10px]">SYNCED</span>
         </div>
-        <div>
-          <h4 class="font-bold text-white text-sm">TIMED CRYPTOGRAPHIC ESCROW VAULT (AES-256)</h4>
-          <p class="text-xs text-slate-400">Papers remain scrambled in ciphertext until 10:00:00 AM IST on exam day.</p>
-        </div>
+        <div class="text-[10px] text-slate-500 font-mono truncate">Last Sync: <span id="sidebar-sync-time">10:00:00 AM IST</span></div>
       </div>
-      <button onclick="toggleEscrowLock()" id="btn-toggle-escrow" class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs transition shadow-lg shadow-red-600/30">
-        Simulate 10:00 AM Release Key
-      </button>
-    </div>
+    </aside>
 
-    <!-- Navigation Tabs (7 Full Enterprise Tabs) -->
-    <div class="flex border-b border-slate-800 mb-8 space-x-4 text-xs font-semibold overflow-x-auto pb-1">
-      <button onclick="switchTab('tab-crawler')" id="btn-tab-crawler" class="tab-btn pb-4 font-bold text-emerald-400 border-b-2 border-emerald-500 flex items-center space-x-2 shrink-0">
-        <i class="fa-brands fa-telegram text-blue-400"></i>
-        <span>1. Telegram Auto-Crawler</span>
-      </button>
-      <button onclick="switchTab('tab-swarm')" id="btn-tab-swarm" class="tab-btn pb-4 font-bold text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center space-x-2 shrink-0">
-        <i class="fa-solid fa-network-wired text-cyan-400"></i>
-        <span>2. Autonomous Multi-Agent Swarm</span>
-      </button>
-      <button onclick="switchTab('tab-merkle')" id="btn-tab-merkle" class="tab-btn pb-4 font-bold text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center space-x-2 shrink-0">
-        <i class="fa-solid fa-link text-purple-400"></i>
-        <span>3. Sovereign Merkle Ledger</span>
-      </button>
-      <button onclick="switchTab('tab-heatmap')" id="btn-tab-heatmap" class="tab-btn pb-4 font-bold text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center space-x-2 shrink-0">
-        <i class="fa-solid fa-map-location-dot text-amber-400"></i>
-        <span>4. Predictive Threat Heatmap</span>
-      </button>
-      <button onclick="switchTab('tab-sharded')" id="btn-tab-sharded" class="tab-btn pb-4 font-bold text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center space-x-2 shrink-0">
-        <i class="fa-solid fa-user-graduate text-teal-400"></i>
-        <span>5. Blind Sharded Review</span>
-      </button>
-      <button onclick="switchTab('tab-generate')" id="btn-tab-generate" class="tab-btn pb-4 font-bold text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center space-x-2 shrink-0">
-        <i class="fa-solid fa-cubes-stacked text-yellow-400"></i>
-        <span>6. Zero-Overlap Sets</span>
-      </button>
-      <button onclick="switchTab('tab-forensic')" id="btn-tab-forensic" class="tab-btn pb-4 font-bold text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center space-x-2 shrink-0">
-        <i class="fa-solid fa-scale-balanced text-red-400"></i>
-        <span>7. Forensic Radar & CBI</span>
-      </button>
-      <button onclick="switchTab('tab-patent')" id="btn-tab-patent" class="tab-btn pb-4 font-bold text-slate-400 hover:text-slate-200 border-b-2 border-transparent flex items-center space-x-2 shrink-0">
-        <i class="fa-solid fa-award text-yellow-400"></i>
-        <span>8. Patent Innovations Lab</span>
-      </button>
-    </div>
+    <!-- MAIN DASHBOARD CONTENT AREA -->
+    <main class="flex-1 overflow-y-auto bg-slate-100 p-8 space-y-6">
 
-    <!-- TAB 1: Telegram Auto-Crawler -->
-    <div id="tab-crawler" class="tab-content block">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col h-[480px]">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
-            <div class="flex items-center space-x-2.5">
-              <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white">
-                <i class="fa-brands fa-telegram"></i>
-              </div>
-              <div>
-                <h4 class="font-bold text-xs text-white">@NeetPaperLeak2026</h4>
-                <span class="text-[10px] text-slate-400">42,810 subscribers • public channel</span>
-              </div>
+      <!-- ROTATION ALERT BANNER (CONTROLLED INCIDENT NOTIFICATION) -->
+      <div id="rotation-alert-banner" class="hidden bg-white border-l-4 border-emerald-600 rounded-lg p-4 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold text-base">
+              <i class="fa-solid fa-check"></i>
             </div>
-            <span class="px-2 py-0.5 text-[10px] font-mono bg-blue-500/20 text-blue-300 rounded border border-blue-500/30">MONITORED</span>
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs font-bold text-slate-900 uppercase tracking-wider font-mono">INCIDENT CONTAINMENT ACTIVE</span>
+                <span class="px-2 py-0.2 rounded text-[10px] bg-emerald-100 text-emerald-800 font-semibold font-mono">PROPAGATED IN 0.38s</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-0.5">
+                Primary Variant A revoked for compromised center CTR-104. Zero-overlap <strong>Variant B</strong> successfully pushed to all 6 national centers. Examination proceeding without national cancellation.
+              </p>
+            </div>
           </div>
-
-          <div id="telegram-feed-box" class="flex-1 overflow-y-auto space-y-3 pr-2 text-xs"></div>
-
-          <div class="pt-3 border-t border-slate-800 mt-2">
-            <button onclick="simulateTelegramPost()" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-2.5 rounded-xl transition text-xs flex items-center justify-center space-x-2 shadow-lg shadow-red-600/30">
-              <i class="fa-solid fa-bullhorn"></i>
-              <span>Simulate Rogue Leak Post on Telegram</span>
+          <div class="flex items-center space-x-2">
+            <button onclick="openCbiDossier()" class="px-3 py-1.5 rounded bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 text-xs font-semibold">
+              View Legal Dossier
             </button>
           </div>
         </div>
+      </div>
 
-        <div class="lg:col-span-2 space-y-4">
-          <div id="crawler-status-card" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 text-center">
-            <div class="w-16 h-16 rounded-full bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 text-2xl mx-auto mb-3">
-              <i class="fa-solid fa-satellite-dish animate-pulse"></i>
+      <!-- ========================================================================================= -->
+      <!-- TAB 1: EXECUTIVE OVERVIEW -->
+      <!-- ========================================================================================= -->
+      <div id="tab-overview" class="tab-content block space-y-6">
+
+        <!-- 10-SECOND EXECUTIVE INCIDENT BAROMETER -->
+        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-xs">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4 mb-4">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Executive Summary Barometer</span>
+              <h3 class="text-base font-bold text-slate-900 mt-0.5">National Examination Defense Status: <span class="text-emerald-700 font-semibold" id="executive-status-text">SECURE & CONTROLLED</span></h3>
+              <p class="text-xs text-slate-500 mt-0.5">Continuous cryptographic verification, darknet threat scraping, and dynamic paper substitution active.</p>
             </div>
-            <h4 class="font-bold text-white text-sm mb-1">Silent Telegram Crawler Active</h4>
-            <p class="text-xs text-slate-400 max-w-md mx-auto">
-              Scanning 150+ monitored channels every 500ms. Click <strong>"Simulate Rogue Leak Post"</strong> to watch the crawler intercept the leak in 0.04s!
-            </p>
+            <div class="flex items-center space-x-3 shrink-0">
+              <span class="px-3 py-1 bg-slate-100 border border-slate-200 rounded text-slate-700 text-xs font-mono font-medium">
+                Active Paper: <strong class="text-slate-900" id="executive-active-paper">Variant A (Primary)</strong>
+              </span>
+            </div>
           </div>
 
-          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
-            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-400 mb-3 flex items-center justify-between">
-              <span>National Centers Health Status (Real-Time Mesh)</span>
-              <button onclick="openCbiDossier()" class="text-xs text-emerald-400 hover:underline flex items-center space-x-1">
-                <i class="fa-solid fa-file-pdf"></i>
-                <span>Open CBI Statutory Dossier</span>
-              </button>
-            </h4>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-              <div id="card-CTR-101" class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
-                <div>
-                  <div class="font-bold text-white">CTR-101 (Mumbai)</div>
-                  <div class="text-[10px] text-slate-500">St. Xavier's Academy</div>
-                </div>
-                <span class="px-2 py-0.5 text-[10px] font-bold bg-emerald-500/20 text-emerald-300 rounded">HEALTHY</span>
-              </div>
-              <div id="card-CTR-104" class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
-                <div>
-                  <div class="font-bold text-white">CTR-104 (Chennai)</div>
-                  <div class="text-[10px] text-slate-500">Velammal Hub</div>
-                </div>
-                <span id="badge-CTR-104" class="px-2 py-0.5 text-[10px] font-bold bg-emerald-500/20 text-emerald-300 rounded">HEALTHY</span>
-              </div>
-              <div id="card-CTR-102" class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
-                <div>
-                  <div class="font-bold text-white">CTR-102 (Delhi)</div>
-                  <div class="text-[10px] text-slate-500">DPS R.K. Puram</div>
-                </div>
-                <span class="px-2 py-0.5 text-[10px] font-bold bg-emerald-500/20 text-emerald-300 rounded">HEALTHY</span>
-              </div>
+          <!-- Top-Level Enterprise KPIs -->
+          <div class="grid grid-cols-2 md:grid-cols-6 gap-3 pt-1">
+            <div class="bg-slate-50 p-3 rounded border border-slate-200">
+              <span class="text-[10px] font-medium text-slate-500 uppercase tracking-wider block">Papers Protected</span>
+              <div class="text-xl font-bold text-slate-900 mt-1 font-mono">499,480</div>
+              <span class="text-[10px] text-slate-500">Candidates in grid</span>
+            </div>
+
+            <div class="bg-slate-50 p-3 rounded border border-slate-200">
+              <span class="text-[10px] font-medium text-slate-500 uppercase tracking-wider block">Monitored Centers</span>
+              <div class="text-xl font-bold text-slate-900 mt-1 font-mono">6 Centers</div>
+              <span class="text-[10px] text-emerald-700 font-medium">100% Telemetry</span>
+            </div>
+
+            <div class="bg-slate-50 p-3 rounded border border-slate-200">
+              <span class="text-[10px] font-medium text-slate-500 uppercase tracking-wider block">Threats Detected</span>
+              <div class="text-xl font-bold text-amber-700 mt-1 font-mono" id="kpi-threats-detected">1 Incident</div>
+              <span class="text-[10px] text-slate-500">Telegram Intercept</span>
+            </div>
+
+            <div class="bg-slate-50 p-3 rounded border border-slate-200">
+              <span class="text-[10px] font-medium text-slate-500 uppercase tracking-wider block">Threats Contained</span>
+              <div class="text-xl font-bold text-emerald-700 mt-1 font-mono" id="kpi-threats-contained">100%</div>
+              <span class="text-[10px] text-emerald-700 font-medium">0.38s Resolution</span>
+            </div>
+
+            <div class="bg-slate-50 p-3 rounded border border-slate-200">
+              <span class="text-[10px] font-medium text-slate-500 uppercase tracking-wider block">Centers at Risk</span>
+              <div class="text-xl font-bold text-slate-900 mt-1 font-mono">1 (CTR-105)</div>
+              <span class="text-[10px] text-slate-500">Patna Hub (Elevated)</span>
+            </div>
+
+            <div class="bg-slate-50 p-3 rounded border border-slate-200">
+              <span class="text-[10px] font-medium text-slate-500 uppercase tracking-wider block">Financial Loss Saved</span>
+              <div class="text-xl font-bold text-slate-900 mt-1 font-mono">₹92.5 Cr</div>
+              <span class="text-[10px] text-slate-500">Logistics Preserved</span>
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- TAB 2: AUTONOMOUS MULTI-AGENT SWARM -->
-    <div id="tab-swarm" class="tab-content hidden">
-      <div class="space-y-6">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <!-- 2-COLUMN OPERATIONAL SUMMARY -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Recent Security Incidents Table (2 Cols) -->
+          <div class="lg:col-span-2 bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-3">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+              <div>
+                <h4 class="font-bold text-sm text-slate-900">Active Threat Intelligence Log</h4>
+                <p class="text-[11px] text-slate-500">Real-time signal interception from public web, social messaging, and center telemetry.</p>
+              </div>
+              <span class="px-2 py-0.5 text-[10px] font-mono bg-slate-100 text-slate-600 rounded border border-slate-200">SIMULATION TELEMETRY</span>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase text-[10px] font-semibold">
+                  <tr>
+                    <th class="py-2.5 px-3">Threat ID</th>
+                    <th class="py-2.5 px-3">Time</th>
+                    <th class="py-2.5 px-3">Source Channel</th>
+                    <th class="py-2.5 px-3">Attributed Target</th>
+                    <th class="py-2.5 px-3">Confidence</th>
+                    <th class="py-2.5 px-3">Status</th>
+                    <th class="py-2.5 px-3 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 font-mono text-[11px] text-slate-700">
+                  <tr class="hover:bg-slate-50 transition">
+                    <td class="py-2.5 px-3 font-bold text-slate-900">THR-2026-0844</td>
+                    <td class="py-2.5 px-3 text-slate-500">08:44:12 IST</td>
+                    <td class="py-2.5 px-3 font-sans">Telegram (@NeetPaperLeak2026)</td>
+                    <td class="py-2.5 px-3">CTR-104 (Velammal, Chennai)</td>
+                    <td class="py-2.5 px-3 text-emerald-700 font-bold">99.98%</td>
+                    <td class="py-2.5 px-3">
+                      <span class="px-2 py-0.5 text-[10px] font-semibold bg-emerald-100 text-emerald-800 rounded font-sans">CONTAINED</span>
+                    </td>
+                    <td class="py-2.5 px-3 text-right font-sans">
+                      <button onclick="openCbiDossier()" class="text-sky-600 hover:text-sky-800 font-semibold text-xs">View Evidence</button>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 transition">
+                    <td class="py-2.5 px-3 font-bold text-slate-900">THR-2026-0730</td>
+                    <td class="py-2.5 px-3 text-slate-500">07:30:00 IST</td>
+                    <td class="py-2.5 px-3 font-sans">Public Dark Web Forum</td>
+                    <td class="py-2.5 px-3">CTR-105 (Patna Hub)</td>
+                    <td class="py-2.5 px-3 text-amber-700 font-bold">78.40%</td>
+                    <td class="py-2.5 px-3">
+                      <span class="px-2 py-0.5 text-[10px] font-semibold bg-amber-100 text-amber-800 rounded font-sans">MONITORING</span>
+                    </td>
+                    <td class="py-2.5 px-3 text-right font-sans">
+                      <button onclick="switchTab('tab-risk')" class="text-sky-600 hover:text-sky-800 font-semibold text-xs">Inspect Risk</button>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 transition">
+                    <td class="py-2.5 px-3 font-bold text-slate-900">THR-2026-0615</td>
+                    <td class="py-2.5 px-3 text-slate-500">06:15:22 IST</td>
+                    <td class="py-2.5 px-3 font-sans">Social Forum Chatter</td>
+                    <td class="py-2.5 px-3">General Pool</td>
+                    <td class="py-2.5 px-3 text-slate-500">12.00%</td>
+                    <td class="py-2.5 px-3">
+                      <span class="px-2 py-0.5 text-[10px] font-semibold bg-slate-100 text-slate-700 rounded font-sans">CLEARED (NOISE)</span>
+                    </td>
+                    <td class="py-2.5 px-3 text-right font-sans">
+                      <span class="text-slate-400 text-xs">Archived</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Escrow Lifecycle & Quick Actions (1 Col) -->
+          <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-4">
+            <div class="border-b border-slate-100 pb-2">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono">Cryptographic Escrow</span>
+              <h4 class="font-bold text-sm text-slate-900">Scheduled Key Release</h4>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200 p-3.5 rounded space-y-2">
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-slate-500">Vault State:</span>
+                <span id="overview-escrow-badge" class="px-2 py-0.5 text-[10px] font-bold bg-emerald-100 text-emerald-800 rounded font-mono">SEALED (AES-256)</span>
+              </div>
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-slate-500">Scheduled Time:</span>
+                <span class="font-mono text-slate-900 font-bold">10:00:00 AM IST</span>
+              </div>
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-slate-500">Remaining Time:</span>
+                <span id="overview-countdown" class="font-mono text-slate-900 font-bold">00:14:22s</span>
+              </div>
+            </div>
+
+            <!-- Controlled Actions -->
+            <div class="space-y-2 pt-1">
+              <button onclick="switchTab('tab-threats')" class="w-full py-2 px-3 rounded bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-satellite-dish"></i>
+                <span>Open Threat Monitor</span>
+              </button>
+              <button onclick="openCbiDossier()" class="w-full py-2 px-3 rounded bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 text-xs font-semibold transition flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-file-shield"></i>
+                <span>Generate Statutory Dossier</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ========================================================================================= -->
+      <!-- TAB 2: DIGITAL THREAT MONITORING -->
+      <!-- ========================================================================================= -->
+      <div id="tab-threats" class="tab-content hidden space-y-6">
+        
+        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
           <div>
             <div class="flex items-center space-x-2">
-              <span class="text-xs font-mono text-cyan-400 font-bold uppercase tracking-wider">AUTONOMOUS MULTI-AGENT CYBERMESH</span>
-              <span class="px-2 py-0.5 text-[10px] bg-cyan-500/20 text-cyan-300 rounded-full font-bold">5 AGENTS ACTIVE</span>
+              <h3 class="font-bold text-sm text-slate-900">Digital Threat Monitoring Corridor</h3>
+              <span class="px-2 py-0.5 text-[10px] bg-sky-50 text-sky-800 border border-sky-200 rounded font-mono">150 CHANNELS SCANNED</span>
             </div>
-            <h3 class="text-lg font-bold text-white mt-1">Coordinated Threat Intelligence & Runbook Orchestration</h3>
-            <p class="text-xs text-slate-400 mt-0.5">Sentinel Crawler &rarr; Linguistic Stego &rarr; Isomorphic Balancer &rarr; Forensic Attribution &rarr; Incident Orchestrator.</p>
+            <p class="text-xs text-slate-500 mt-0.5">Continuous lexical search for leaked question tokens, mathematical formulas, and forensic watermarks.</p>
           </div>
-          <button onclick="runFullSwarmLive()" class="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition flex items-center space-x-2 shadow-lg shadow-cyan-500/20 shrink-0">
-            <i class="fa-solid fa-play"></i>
-            <span>Execute 5-Agent Swarm Audit</span>
+          <!-- Simulation Test Control -->
+          <button onclick="simulateTelegramPost()" class="px-4 py-2 rounded bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition flex items-center space-x-2 shadow-xs shrink-0">
+            <i class="fa-solid fa-play text-amber-400"></i>
+            <span>Run Simulated Attack Intercept (Demo)</span>
           </button>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs">
-          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-1.5">
-            <div class="text-cyan-400 font-bold font-mono text-[11px]">1. Sentinel Crawler</div>
-            <p class="text-slate-400 text-[11px]">Continuous 24/7 dark-web & Telegram scrape for high-entropy tokens.</p>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Monitored Channel Feed Stream -->
+          <div class="bg-white border border-slate-200 rounded-lg p-4 flex flex-col h-[480px] shadow-xs">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-2.5">
+              <div class="flex items-center space-x-2 font-mono text-xs">
+                <i class="fa-brands fa-telegram text-sky-600"></i>
+                <span class="font-bold text-slate-800">@NeetPaperLeak2026</span>
+              </div>
+              <span class="text-[10px] text-slate-400">42,810 members</span>
+            </div>
+
+            <div id="telegram-feed-box" class="flex-1 overflow-y-auto space-y-2 pr-1 text-xs"></div>
           </div>
-          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-1.5">
-            <div class="text-emerald-400 font-bold font-mono text-[11px]">2. Stego Engine</div>
-            <p class="text-slate-400 text-[11px]">Dual-vector zero-width Unicode + Barium Meal synonym hashing.</p>
-          </div>
-          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-1.5">
-            <div class="text-teal-400 font-bold font-mono text-[11px]">3. Balancer Agent</div>
-            <p class="text-slate-400 text-[11px]">0/1 Knapsack dynamic programming Bloom difficulty equivalence.</p>
-          </div>
-          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-1.5">
-            <div class="text-amber-400 font-bold font-mono text-[11px]">4. Forensic Agent</div>
-            <p class="text-slate-400 text-[11px]">Breach de-anonymization & regional center provenance attribution.</p>
-          </div>
-          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-1.5">
-            <div class="text-red-400 font-bold font-mono text-[11px]">5. Orchestrator</div>
-            <p class="text-slate-400 text-[11px]">0.38s autonomous hot-swap execution & CBI dossier compilation.</p>
+
+          <!-- Interception Diagnostic Card & Center Health -->
+          <div class="lg:col-span-2 space-y-6">
+            <div id="crawler-status-card" class="bg-white border border-slate-200 rounded-lg p-5 shadow-xs text-center">
+              <div class="w-12 h-12 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700 text-xl mx-auto mb-2">
+                <i class="fa-solid fa-satellite-dish"></i>
+              </div>
+              <h4 class="font-bold text-sm text-slate-900 mb-1">Threat Scraper Operational</h4>
+              <p class="text-xs text-slate-500 max-w-md mx-auto">
+                No active critical breach in progress. Click <strong>"Run Simulated Attack Intercept"</strong> to demonstrate automated 0.04s detection and center de-anonymization.
+              </p>
+            </div>
+
+            <!-- National Centers Health Matrix -->
+            <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-3">
+              <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500">Regional Examination Centers Status</h4>
+                <span class="text-[11px] text-slate-400">Automated Ping: Every 5s</span>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                <div id="card-CTR-101" class="bg-slate-50 p-3 rounded border border-slate-200 flex justify-between items-center">
+                  <div>
+                    <div class="font-bold text-slate-900">CTR-101 (Mumbai)</div>
+                    <div class="text-[10px] text-slate-500">St. Xavier's Academy</div>
+                  </div>
+                  <span class="px-2 py-0.5 text-[10px] font-semibold bg-emerald-100 text-emerald-800 rounded">HEALTHY</span>
+                </div>
+                <div id="card-CTR-104" class="bg-slate-50 p-3 rounded border border-slate-200 flex justify-between items-center">
+                  <div>
+                    <div class="font-bold text-slate-900">CTR-104 (Chennai)</div>
+                    <div class="text-[10px] text-slate-500">Velammal Hub</div>
+                  </div>
+                  <span id="badge-CTR-104" class="px-2 py-0.5 text-[10px] font-semibold bg-emerald-100 text-emerald-800 rounded">HEALTHY</span>
+                </div>
+                <div id="card-CTR-102" class="bg-slate-50 p-3 rounded border border-slate-200 flex justify-between items-center">
+                  <div>
+                    <div class="font-bold text-slate-900">CTR-102 (Delhi)</div>
+                    <div class="text-[10px] text-slate-500">DPS R.K. Puram</div>
+                  </div>
+                  <span class="px-2 py-0.5 text-[10px] font-semibold bg-emerald-100 text-emerald-800 rounded">HEALTHY</span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5 space-y-3 font-mono text-xs">
-          <div class="flex justify-between items-center text-slate-400 border-b border-slate-850 pb-2 text-[11px]">
-            <span>LIVE MULTI-AGENT EXECUTION TRAJECTORY TERMINAL</span>
-            <span id="swarm-status-pill" class="text-cyan-400">AWAITING TRIGGER</span>
-          </div>
-          <div id="swarm-trajectory-log" class="space-y-3 text-slate-300 max-h-[350px] overflow-y-auto pr-2">
-            <div class="text-slate-600 italic">Click 'Execute 5-Agent Swarm Audit' to stream live multi-agent reasoning steps...</div>
-          </div>
-        </div>
       </div>
-    </div>
 
-    <!-- TAB 3: SOVEREIGN MERKLE PROVENANCE LEDGER -->
-    <div id="tab-merkle" class="tab-content hidden">
-      <div class="space-y-6">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <!-- ========================================================================================= -->
+      <!-- TAB 3: CENTER RISK INTELLIGENCE -->
+      <!-- ========================================================================================= -->
+      <div id="tab-risk" class="tab-content hidden space-y-6">
+        
+        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
           <div>
             <div class="flex items-center space-x-2">
-              <span class="text-xs font-mono text-purple-400 font-bold uppercase tracking-wider">SOVEREIGN BLOCKCHAIN AUDIT LEDGER</span>
-              <span class="px-2 py-0.5 text-[10px] bg-emerald-500/20 text-emerald-300 rounded-full font-bold">SHA-256 PROVENANCE</span>
+              <h3 class="font-bold text-sm text-slate-900">Pre-Examination Vulnerability Assessment</h3>
+              <span class="px-2 py-0.5 text-[10px] font-mono bg-amber-50 text-amber-800 border border-amber-200 rounded font-semibold">RISK LEVEL: ELEVATED (54%)</span>
             </div>
-            <h3 class="text-lg font-bold text-white mt-1">Cryptographic Chain of Custody & Tamper Verification</h3>
-            <p class="text-xs text-slate-400 mt-0.5">Every custody state transition forms an immutable cryptographically linked block.</p>
+            <p class="text-xs text-slate-500 mt-0.5">Composite risk scoring evaluates coaching institute density, mobile jammer presence, and historical leak corridors.</p>
+          </div>
+          <button onclick="escalatePatnaRisk()" class="px-4 py-2 rounded bg-amber-700 hover:bg-amber-800 text-white font-bold text-xs transition shadow-xs shrink-0">
+            Simulate Threat Signal Spike (Patna CTR-105)
+          </button>
+        </div>
+
+        <!-- Regional Center Risk Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="risk-centers-grid">
+          
+          <!-- Patna Card -->
+          <div id="risk-card-CTR-105" class="bg-white border border-red-300 rounded-lg p-4 space-y-3 shadow-xs">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-[10px] font-mono text-red-700 font-bold">CTR-105 • PATNA (BIHAR)</span>
+                <h4 class="font-bold text-slate-900 text-sm">Aryabhatta Institute of Tech</h4>
+                <p class="text-[11px] text-slate-500">Kankarbagh Coaching Corridor</p>
+              </div>
+              <span id="risk-badge-CTR-105" class="px-2 py-0.5 text-[10px] font-bold bg-red-100 text-red-800 rounded">
+                88% CRITICAL
+              </span>
+            </div>
+
+            <div class="space-y-1">
+              <div class="flex justify-between text-[11px]">
+                <span class="text-slate-500">Vulnerability Score</span>
+                <span id="risk-score-CTR-105" class="text-red-700 font-mono font-bold">88 / 100</span>
+              </div>
+              <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                <div id="risk-bar-CTR-105" class="bg-red-600 h-1.5 rounded-full transition-all duration-500" style="width: 88%"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-50 p-2.5 rounded border border-slate-200 text-[11px] space-y-1">
+              <span class="text-slate-400 text-[10px] uppercase font-bold block">Assigned Security Countermeasure:</span>
+              <p id="countermeasure-CTR-105" class="text-slate-800 font-medium text-[11px]">Quad-Density Stego + Delayed Key Escrow (09:59 AM)</p>
+            </div>
+          </div>
+
+          <!-- Kota Card -->
+          <div class="bg-white border border-amber-300 rounded-lg p-4 space-y-3 shadow-xs">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-[10px] font-mono text-amber-700 font-bold">CTR-106 • KOTA (RAJASTHAN)</span>
+                <h4 class="font-bold text-slate-900 text-sm">Allen Global Testing Hub</h4>
+                <p class="text-[11px] text-slate-500">Talwandi Coaching Cluster</p>
+              </div>
+              <span class="px-2 py-0.5 text-[10px] font-bold bg-amber-100 text-amber-800 rounded">
+                76% ELEVATED
+              </span>
+            </div>
+
+            <div class="space-y-1">
+              <div class="flex justify-between text-[11px]">
+                <span class="text-slate-500">Vulnerability Score</span>
+                <span class="text-amber-700 font-mono font-bold">76 / 100</span>
+              </div>
+              <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                <div class="bg-amber-500 h-1.5 rounded-full" style="width: 76%"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-50 p-2.5 rounded border border-slate-200 text-[11px] space-y-1">
+              <span class="text-slate-400 text-[10px] uppercase font-bold block">Assigned Security Countermeasure:</span>
+              <p class="text-slate-800 font-medium text-[11px]">Dual-Density Watermark + Video Surveillance Audit</p>
+            </div>
+          </div>
+
+          <!-- Chennai Card -->
+          <div class="bg-white border border-slate-200 rounded-lg p-4 space-y-3 shadow-xs">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-[10px] font-mono text-slate-600 font-bold">CTR-104 • CHENNAI (TN)</span>
+                <h4 class="font-bold text-slate-900 text-sm">Velammal Vidyalaya Hub</h4>
+                <p class="text-[11px] text-slate-500">Standard Volume Center (800 Candidates)</p>
+              </div>
+              <span class="px-2 py-0.5 text-[10px] font-bold bg-slate-100 text-slate-700 rounded">
+                52% MODERATE
+              </span>
+            </div>
+
+            <div class="space-y-1">
+              <div class="flex justify-between text-[11px]">
+                <span class="text-slate-500">Vulnerability Score</span>
+                <span class="text-slate-700 font-mono font-bold">52 / 100</span>
+              </div>
+              <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                <div class="bg-slate-600 h-1.5 rounded-full" style="width: 52%"></div>
+              </div>
+            </div>
+
+            <div class="bg-slate-50 p-2.5 rounded border border-slate-200 text-[11px] space-y-1">
+              <span class="text-slate-400 text-[10px] uppercase font-bold block">Assigned Security Countermeasure:</span>
+              <p class="text-slate-800 font-medium text-[11px]">Standard Invisible Watermark + Dynamic Desk Allocation</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ========================================================================================= -->
+      <!-- TAB 4: CRYPTOGRAPHIC ESCROW VAULT -->
+      <!-- ========================================================================================= -->
+      <div id="tab-vault" class="tab-content hidden space-y-6">
+        
+        <!-- Vault Lifecycle Card -->
+        <div class="bg-white border border-slate-200 rounded-lg p-6 shadow-xs space-y-5">
+          <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+            <div>
+              <span class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Cryptographic Security Module</span>
+              <h3 class="font-bold text-base text-slate-900 mt-0.5">Examination Ciphertext Lifecycle & Key Custody</h3>
+              <p class="text-xs text-slate-500">Papers remain scrambled in AES-256-GCM ciphertext until automated 10:00:00 AM IST release.</p>
+            </div>
+            <button onclick="openEscrowOverrideModal()" class="px-4 py-2 rounded bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition shadow-xs">
+              Manual Key Release Override
+            </button>
+          </div>
+
+          <!-- Lifecycle Progression Bar -->
+          <div class="grid grid-cols-2 md:grid-cols-7 gap-2 text-center text-xs font-mono">
+            <div class="bg-emerald-50 border border-emerald-200 p-2.5 rounded text-emerald-800 font-semibold">1. Ingested</div>
+            <div class="bg-emerald-50 border border-emerald-200 p-2.5 rounded text-emerald-800 font-semibold">2. Encrypted</div>
+            <div class="bg-emerald-50 border border-emerald-200 p-2.5 rounded text-emerald-800 font-semibold">3. Distributed</div>
+            <div class="bg-slate-900 text-white p-2.5 rounded font-bold shadow-xs">4. Escrow (Locked)</div>
+            <div class="bg-slate-100 border border-slate-200 p-2.5 rounded text-slate-400">5. Key Release</div>
+            <div class="bg-slate-100 border border-slate-200 p-2.5 rounded text-slate-400">6. Active Exam</div>
+            <div class="bg-slate-100 border border-slate-200 p-2.5 rounded text-slate-400">7. Archived</div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
+            <div class="bg-slate-50 p-3.5 rounded border border-slate-200 space-y-1">
+              <span class="text-slate-500 text-[10px]">ENCRYPTION ALGORITHM</span>
+              <div class="font-bold text-slate-900">AES-256-GCM (Authenticated)</div>
+            </div>
+            <div class="bg-slate-50 p-3.5 rounded border border-slate-200 space-y-1">
+              <span class="text-slate-500 text-[10px]">KEY STORAGE ENCLAVE</span>
+              <div class="font-bold text-slate-900">FIPS 140-2 Level 3 HSM</div>
+            </div>
+            <div class="bg-slate-50 p-3.5 rounded border border-slate-200 space-y-1">
+              <span class="text-slate-500 text-[10px]">SCHEDULED RELEASE TIME</span>
+              <div class="font-bold text-slate-900">10:00:00 AM IST (Atomic Clock)</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ========================================================================================= -->
+      <!-- TAB 5: AUTOMATED INCIDENT RESPONSE -->
+      <!-- ========================================================================================= -->
+      <div id="tab-incident" class="tab-content hidden space-y-6">
+        
+        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-xs flex justify-between items-center">
+          <div>
+            <h3 class="font-bold text-sm text-slate-900">Automated Incident Response Workflow</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Standard operational runbook executing detection, verification, containment, and paper rotation.</p>
+          </div>
+          <button onclick="runFullSwarmLive()" class="px-4 py-2 rounded bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition flex items-center space-x-2 shadow-xs">
+            <i class="fa-solid fa-play text-sky-400"></i>
+            <span>Execute 7-Stage Incident Audit</span>
+          </button>
+        </div>
+
+        <!-- 7-Stage Workflow Step Progression -->
+        <div class="grid grid-cols-2 md:grid-cols-7 gap-2 text-center text-xs font-mono">
+          <div class="bg-slate-50 border border-slate-200 p-2.5 rounded font-medium">1. Detect (0.04s)</div>
+          <div class="bg-slate-50 border border-slate-200 p-2.5 rounded font-medium">2. Verify (Stego)</div>
+          <div class="bg-slate-50 border border-slate-200 p-2.5 rounded font-medium">3. Contain (Center)</div>
+          <div class="bg-slate-50 border border-slate-200 p-2.5 rounded font-medium">4. Assess (Risk)</div>
+          <div class="bg-slate-50 border border-slate-200 p-2.5 rounded font-medium">5. Rotate (0.38s)</div>
+          <div class="bg-slate-50 border border-slate-200 p-2.5 rounded font-medium">6. Notify (Grid)</div>
+          <div class="bg-slate-50 border border-slate-200 p-2.5 rounded font-medium">7. Audit (CBI)</div>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-lg p-5 space-y-3 font-mono text-xs shadow-xs">
+          <div class="flex justify-between items-center text-slate-500 border-b border-slate-100 pb-2 text-[11px]">
+            <span>INCIDENT TRAJECTORY & TELEMETRY LOG</span>
+            <span id="swarm-status-pill" class="text-slate-600 font-bold">READY</span>
+          </div>
+          <div id="swarm-trajectory-log" class="space-y-2 text-slate-700 max-h-[350px] overflow-y-auto pr-1">
+            <div class="text-slate-400 italic font-sans text-xs">Click 'Execute 7-Stage Incident Audit' to trigger full automated containment pipeline...</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ========================================================================================= -->
+      <!-- TAB 6: CUSTODY PROVENANCE LEDGER -->
+      <!-- ========================================================================================= -->
+      <div id="tab-ledger" class="tab-content hidden space-y-6">
+        
+        <div class="bg-white border border-slate-200 rounded-lg p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xs">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs font-mono text-slate-500 font-bold uppercase tracking-wider">Cryptographic Blockchain Custody</span>
+              <span class="px-2 py-0.5 text-[10px] bg-emerald-100 text-emerald-800 rounded font-bold font-mono">SHA-256 INTEGRITY</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mt-1">Immutable Custody Chain of Evidence</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Every state transition is recorded as an immutable, cryptographically chained ledger block.</p>
           </div>
           <div class="flex space-x-3 shrink-0">
-            <button onclick="verifyMerkleChain()" class="px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs hover:bg-emerald-500/30 transition">
+            <button onclick="verifyMerkleChain()" class="px-4 py-2 rounded bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 font-bold text-xs transition">
               Verify Chain Integrity
             </button>
-            <button onclick="tamperMerkleChain()" class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs transition shadow-lg shadow-red-600/30">
+            <button onclick="tamperMerkleChain()" class="px-4 py-2 rounded bg-red-700 hover:bg-red-800 text-white font-bold text-xs transition">
               Simulate Insider Tamper
             </button>
           </div>
         </div>
 
-        <div class="space-y-3" id="merkle-chain-container">
-          <!-- Populated by loadMerkleLedger() -->
-        </div>
+        <div class="space-y-3" id="merkle-chain-container"></div>
       </div>
-    </div>
 
-    <!-- TAB 4: Predictive Regional Threat Heatmap (NEW FEATURE 2!) -->
-    <div id="tab-heatmap" class="tab-content hidden">
-      <div class="space-y-6">
+      <!-- ========================================================================================= -->
+      <!-- TAB 7: FORENSIC SIGNATURE ANALYZER -->
+      <!-- ========================================================================================= -->
+      <div id="tab-forensic" class="tab-content hidden space-y-6">
         
-        <!-- National Threat Overview Banner -->
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div class="flex items-center space-x-4">
-            <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-2xl font-bold">
-              <i class="fa-solid fa-chart-line"></i>
-            </div>
-            <div>
-              <div class="flex items-center space-x-2">
-                <span class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">AI Predictive Vulnerability Engine</span>
-                <span class="px-2 py-0.5 text-[10px] bg-amber-500/20 text-amber-300 rounded-full font-bold">LIVE TELEMETRY</span>
-              </div>
-              <h3 class="text-xl font-extrabold text-white mt-0.5">National Examination Threat Index: <span class="text-amber-400">54% (ELEVATED)</span></h3>
-              <p class="text-xs text-slate-400 mt-1">Pre-exam risk scoring maps coaching corridors, mobile jammer density, and historical leak vectors to dynamically allocate security tiers.</p>
-            </div>
-          </div>
-
-          <div class="flex items-center space-x-3 shrink-0">
-            <button onclick="escalatePatnaRisk()" class="px-4 py-2.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs hover:bg-amber-500/30 transition flex items-center space-x-2 shadow-lg shadow-amber-500/10">
-              <i class="fa-solid fa-triangle-exclamation"></i>
-              <span>Simulate Threat Spike (Patna Hub)</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Regional Center Risk Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="risk-centers-grid">
-          
-          <!-- Patna Card (Critical) -->
-          <div id="risk-card-CTR-105" class="bg-slate-900 border-2 border-red-500/60 rounded-2xl p-5 space-y-4">
-            <div class="flex justify-between items-start">
-              <div>
-                <span class="text-[10px] font-mono text-red-400 font-bold">CTR-105 • PATNA (BIHAR)</span>
-                <h4 class="font-bold text-white text-sm">Aryabhatta Institute of Tech</h4>
-                <p class="text-[11px] text-slate-400">Kankarbagh Coaching Belt</p>
-              </div>
-              <span id="risk-badge-CTR-105" class="px-2 py-0.5 text-[10px] font-bold bg-red-500/20 text-red-300 rounded border border-red-500/40">
-                88% CRITICAL
-              </span>
-            </div>
-
-            <div class="space-y-1.5">
-              <div class="flex justify-between text-[11px]">
-                <span class="text-slate-400">Vulnerability Score</span>
-                <span id="risk-score-CTR-105" class="text-red-400 font-mono font-bold">88 / 100</span>
-              </div>
-              <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden">
-                <div id="risk-bar-CTR-105" class="bg-red-500 h-2 rounded-full transition-all duration-500" style="width: 88%"></div>
-              </div>
-            </div>
-
-            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] space-y-1 text-slate-300">
-              <div class="text-slate-500 text-[10px] uppercase tracking-wider font-bold">Automated Countermeasure:</div>
-              <p id="countermeasure-CTR-105" class="text-yellow-400 font-mono text-[10.5px]">Quad-Density Stego + Delayed Key Escrow (09:59 AM)</p>
-            </div>
-          </div>
-
-          <!-- Kota Card (Elevated) -->
-          <div class="bg-slate-900 border border-amber-500/40 rounded-2xl p-5 space-y-4">
-            <div class="flex justify-between items-start">
-              <div>
-                <span class="text-[10px] font-mono text-amber-400 font-bold">CTR-106 • KOTA (RAJASTHAN)</span>
-                <h4 class="font-bold text-white text-sm">Allen Global Testing Hub</h4>
-                <p class="text-[11px] text-slate-400">Talwandi Coaching Cluster</p>
-              </div>
-              <span class="px-2 py-0.5 text-[10px] font-bold bg-amber-500/20 text-amber-300 rounded border border-amber-500/40">
-                76% ELEVATED
-              </span>
-            </div>
-
-            <div class="space-y-1.5">
-              <div class="flex justify-between text-[11px]">
-                <span class="text-slate-400">Vulnerability Score</span>
-                <span class="text-amber-400 font-mono font-bold">76 / 100</span>
-              </div>
-              <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden">
-                <div class="bg-amber-500 h-2 rounded-full" style="width: 76%"></div>
-              </div>
-            </div>
-
-            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] space-y-1 text-slate-300">
-              <div class="text-slate-500 text-[10px] uppercase tracking-wider font-bold">Automated Countermeasure:</div>
-              <p class="text-amber-300 font-mono text-[10.5px]">Dual-Density Watermark + Camera Enclave Audit</p>
-            </div>
-          </div>
-
-          <!-- Lucknow Card (Elevated) -->
-          <div class="bg-slate-900 border border-amber-500/40 rounded-2xl p-5 space-y-4">
-            <div class="flex justify-between items-start">
-              <div>
-                <span class="text-[10px] font-mono text-amber-400 font-bold">CTR-107 • LUCKNOW (UP)</span>
-                <h4 class="font-bold text-white text-sm">Gomti Nagar Assessment Arena</h4>
-                <p class="text-[11px] text-slate-400">Police Recruitment Breach Belt</p>
-              </div>
-              <span class="px-2 py-0.5 text-[10px] font-bold bg-amber-500/20 text-amber-300 rounded border border-amber-500/40">
-                68% ELEVATED
-              </span>
-            </div>
-
-            <div class="space-y-1.5">
-              <div class="flex justify-between text-[11px]">
-                <span class="text-slate-400">Vulnerability Score</span>
-                <span class="text-amber-400 font-mono font-bold">68 / 100</span>
-              </div>
-              <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden">
-                <div class="bg-amber-500 h-2 rounded-full" style="width: 68%"></div>
-              </div>
-            </div>
-
-            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] space-y-1 text-slate-300">
-              <div class="text-slate-500 text-[10px] uppercase tracking-wider font-bold">Automated Countermeasure:</div>
-              <p class="text-amber-300 font-mono text-[10.5px]">Dual-Density Watermark + RFID Smart Seals</p>
-            </div>
-          </div>
-
-          <!-- Chennai Card (Moderate) -->
-          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
-            <div class="flex justify-between items-start">
-              <div>
-                <span class="text-[10px] font-mono text-teal-400 font-bold">CTR-104 • CHENNAI (TN)</span>
-                <h4 class="font-bold text-white text-sm">Velammal Vidyalaya Exam Hub</h4>
-                <p class="text-[11px] text-slate-400">High Volume Center (800+ Candidates)</p>
-              </div>
-              <span class="px-2 py-0.5 text-[10px] font-bold bg-teal-500/20 text-teal-300 rounded border border-teal-500/40">
-                52% MODERATE
-              </span>
-            </div>
-
-            <div class="space-y-1.5">
-              <div class="flex justify-between text-[11px]">
-                <span class="text-slate-400">Vulnerability Score</span>
-                <span class="text-teal-400 font-mono font-bold">52 / 100</span>
-              </div>
-              <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden">
-                <div class="bg-teal-500 h-2 rounded-full" style="width: 52%"></div>
-              </div>
-            </div>
-
-            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] space-y-1 text-slate-300">
-              <div class="text-slate-500 text-[10px] uppercase tracking-wider font-bold">Automated Countermeasure:</div>
-              <p class="text-teal-300 font-mono text-[10.5px]">Standard Watermark + Dynamic Desk Hash</p>
-            </div>
-          </div>
-
-          <!-- Delhi Card (Low) -->
-          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
-            <div class="flex justify-between items-start">
-              <div>
-                <span class="text-[10px] font-mono text-emerald-400 font-bold">CTR-102 • NEW DELHI</span>
-                <h4 class="font-bold text-white text-sm">Delhi Public School, R.K. Puram</h4>
-                <p class="text-[11px] text-slate-400">High Government Oversight Zone</p>
-              </div>
-              <span class="px-2 py-0.5 text-[10px] font-bold bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/40">
-                24% LOW
-              </span>
-            </div>
-
-            <div class="space-y-1.5">
-              <div class="flex justify-between text-[11px]">
-                <span class="text-slate-400">Vulnerability Score</span>
-                <span class="text-emerald-400 font-mono font-bold">24 / 100</span>
-              </div>
-              <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden">
-                <div class="bg-emerald-500 h-2 rounded-full" style="width: 24%"></div>
-              </div>
-            </div>
-
-            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] space-y-1 text-slate-300">
-              <div class="text-slate-500 text-[10px] uppercase tracking-wider font-bold">Automated Countermeasure:</div>
-              <p class="text-emerald-300 font-mono text-[10.5px]">Standard Baseline Security Protocol</p>
-            </div>
-          </div>
-
-          <!-- Mumbai Card (Minimal) -->
-          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
-            <div class="flex justify-between items-start">
-              <div>
-                <span class="text-[10px] font-mono text-emerald-400 font-bold">CTR-101 • MUMBAI</span>
-                <h4 class="font-bold text-white text-sm">St. Xavier's Academy</h4>
-                <p class="text-[11px] text-slate-400">Zero Historical Incident Records</p>
-              </div>
-              <span class="px-2 py-0.5 text-[10px] font-bold bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/40">
-                14% MINIMAL
-              </span>
-            </div>
-
-            <div class="space-y-1.5">
-              <div class="flex justify-between text-[11px]">
-                <span class="text-slate-400">Vulnerability Score</span>
-                <span class="text-emerald-400 font-mono font-bold">14 / 100</span>
-              </div>
-              <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden">
-                <div class="bg-emerald-500 h-2 rounded-full" style="width: 14%"></div>
-              </div>
-            </div>
-
-            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] space-y-1 text-slate-300">
-              <div class="text-slate-500 text-[10px] uppercase tracking-wider font-bold">Automated Countermeasure:</div>
-              <p class="text-emerald-300 font-mono text-[10.5px]">Standard Baseline Security Protocol</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 3: Blind Sharded Human Review Portal -->
-    <div id="tab-sharded" class="tab-content hidden">
-      <div class="max-w-3xl mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-5">
-          <div class="flex items-center space-x-3">
-            <div class="w-11 h-11 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-400 font-bold text-xl">
-              <i class="fa-solid fa-user-tie"></i>
-            </div>
-            <div>
-              <div class="flex items-center space-x-2">
-                <h3 class="font-bold text-white text-base">Prof. Rajesh Sharma</h3>
-                <span class="px-2 py-0.5 rounded text-[10px] bg-purple-500/20 text-purple-300 border border-purple-500/30">Verified Reviewer</span>
-              </div>
-              <p class="text-xs text-slate-400">Department of Physics, IIT Delhi • Shard #14 of 180</p>
-            </div>
-          </div>
-          <div class="text-right">
-            <span class="text-[10px] uppercase tracking-wider text-slate-500 block">Session Expiry</span>
-            <span id="review-timer" class="text-sm font-mono font-extrabold text-yellow-400">00:54s</span>
-          </div>
-        </div>
-
-        <div class="mb-4 bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs flex items-center justify-between text-slate-400">
-          <div class="flex items-center space-x-2">
-            <i class="fa-solid fa-eye-slash text-purple-400"></i>
-            <span><strong>Zero-Context Security:</strong> You are reviewing 1 isolated question. Other 179 questions are concealed.</span>
-          </div>
-          <span class="px-2 py-0.5 text-[10px] font-bold font-mono bg-yellow-500/20 text-yellow-400 rounded border border-yellow-500/30">
-            🍯 CANARY DECOY TRAP ACTIVE
-          </span>
-        </div>
-
-        <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 mb-5">
-          <div class="flex justify-between items-center text-xs text-slate-400 mb-2 font-mono">
-            <span>QUESTION ID: <strong class="text-purple-400">EM-1 (Electromagnetism)</strong></span>
-            <span>BLOOM'S LEVEL: APPLICATION (78%)</span>
-          </div>
-          <p class="text-sm text-slate-200 leading-relaxed font-sans font-medium">
-            "State Faraday's law of electromagnetic induction and derive the mathematical expression for induced electromotive force in a closed loop."
-          </p>
-        </div>
-
-        <div id="review-action-panel" class="flex items-center space-x-3">
-          <button onclick="submitReview('APPROVED')" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 rounded-xl text-xs transition flex items-center justify-center space-x-2 shadow-lg shadow-emerald-500/20">
-            <i class="fa-solid fa-check-circle"></i>
-            <span>Approve Mathematical Accuracy</span>
-          </button>
-          <button onclick="submitReview('FLAGGED')" class="px-5 bg-slate-800 hover:bg-slate-700 text-red-400 font-bold py-3 rounded-xl text-xs transition border border-slate-700 flex items-center space-x-2">
-            <i class="fa-solid fa-flag"></i>
-            <span>Flag Ambiguity</span>
-          </button>
-        </div>
-
-        <div id="review-sealed-card" class="hidden mt-4 bg-emerald-950/40 border border-emerald-500/40 p-3.5 rounded-xl text-xs text-emerald-300 flex items-center justify-between">
-          <span>✅ <strong>Review Sealed & Signed:</strong> Recorded into Cryptographic Master Escrow with Zero Full-Paper Visibility.</span>
-          <span class="font-mono text-[10px] text-emerald-400 font-bold">SIG-IITD-8842-OK</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 4: Zero-Overlap Sets -->
-    <div id="tab-generate" class="tab-content hidden">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="font-bold text-white text-base">Isomorphic Question Permutation (0/1 Knapsack Balancer)</h3>
-        <button onclick="runGenerateSets()" class="bg-emerald-500 text-black font-bold px-4 py-2 rounded-xl text-xs">
-          Generate 3 Balanced Sets
-        </button>
-      </div>
-      <div id="sets-container" class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs"></div>
-    </div>
-
-    <!-- TAB 5: Watermark Matrix -->
-    <div id="tab-watermark" class="tab-content hidden">
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-        <button onclick="runWatermarkCenter()" class="bg-teal-500 text-black font-bold px-4 py-2 rounded-xl text-xs mb-3">
-          Inject Invisible Watermark (CTR-104)
-        </button>
-        <div id="watermarked-preview-box" class="bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono text-xs text-slate-300 leading-relaxed">
-          State Faraday's law of electromagnetic induction and derive EMF in a closed loop.
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 6: Forensic Radar Decoder -->
-    <div id="tab-forensic" class="tab-content hidden">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
-          <textarea id="forensic-input" rows="6" class="w-full bg-slate-950 p-3 rounded-xl text-xs font-mono border border-slate-800" placeholder="Paste leaked snippet here..."></textarea>
-          <div class="flex space-x-2 mt-3">
-            <button onclick="runForensicScan()" class="flex-1 bg-red-600 text-white font-bold py-2.5 rounded-xl text-xs">
-              Scan Forensic Signature
-            </button>
-            <button onclick="openCbiDossier()" class="px-4 bg-slate-800 text-red-300 border border-red-500/40 font-bold rounded-xl text-xs flex items-center space-x-1.5">
-              <i class="fa-solid fa-file-shield"></i>
-              <span>CBI Report</span>
-            </button>
-          </div>
-        </div>
-        <div id="forensic-result-card" class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center justify-center text-xs text-slate-500">
-          Awaiting suspicious text input...
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 8: PATENT INNOVATIONS & DEEPTECH LAB (PATENT CLAIMS 1, 2, 3) -->
-    <div id="tab-patent" class="tab-content hidden space-y-8">
-      
-      <!-- Patent Overview Banner -->
-      <div class="bg-gradient-to-r from-amber-950/50 via-slate-900 to-purple-950/50 border-2 border-amber-500/40 rounded-3xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
-        <div class="flex items-center space-x-4">
-          <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/50 flex items-center justify-center text-amber-400 text-3xl font-bold">
-            <i class="fa-solid fa-award"></i>
-          </div>
-          <div>
-            <div class="flex items-center space-x-2">
-              <span class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">INTELLECTUAL PROPERTY & DEEP-TECH VAULT</span>
-              <span class="px-2 py-0.5 text-[10px] bg-amber-500/20 text-amber-300 rounded-full font-bold">3 PATENT CLAIMS LIVE</span>
-            </div>
-            <h3 class="text-xl font-extrabold text-white mt-0.5">Sovereign Cryptographic & Hardware-Coupled Innovations</h3>
-            <p class="text-xs text-slate-400 mt-1">Novel technical methods filed for Indian & International patent protection under Section 3(k) / USPTO 101.</p>
-          </div>
-        </div>
-        <div class="flex space-x-3 shrink-0">
-          <span class="px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono text-slate-300 flex items-center space-x-2">
-            <i class="fa-solid fa-certificate text-emerald-400"></i>
-            <span>IPO / USPTO Ready</span>
-          </span>
-        </div>
-      </div>
-
-      <!-- CLAIM 1: OPTICAL MICRO-DOT STEGANOGRAPHY LAB -->
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-5">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 border-b border-slate-800 pb-4">
-          <div>
-            <div class="flex items-center space-x-2">
-              <span class="px-2 py-0.5 text-[10px] font-mono bg-yellow-500/20 text-yellow-300 rounded font-bold">PATENT CLAIM #1</span>
-              <h4 class="font-bold text-white text-base">Optical Micro-Dot & Perspective-Invariant Physical Steganography</h4>
-            </div>
-            <p class="text-xs text-slate-400 mt-0.5">Survives 240p blurry angled smartphone photos of printed desk papers via sub-pixel dither & fiducial homography.</p>
-          </div>
-          <button onclick="loadOpticalMicrodots()" class="px-3.5 py-1.5 rounded-xl bg-yellow-500/20 text-yellow-300 border border-yellow-500/40 text-xs font-bold hover:bg-yellow-500/30 transition">
-            <i class="fa-solid fa-arrows-rotate mr-1"></i> Refresh 256-Bit Matrix
-          </button>
-        </div>
-
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <!-- Matrix Visualizer -->
-          <div class="bg-slate-950 border border-slate-850 p-4 rounded-xl space-y-3">
-            <div class="flex justify-between items-center text-[11px] font-mono text-slate-400">
-              <span>SUB-PIXEL DITHER RASTER (16x16 = 256 BITS)</span>
-              <span class="text-yellow-400">0.05mm Sub-Visual Offset</span>
-            </div>
-            <div id="microdot-matrix-grid" class="grid grid-cols-16 gap-1 bg-slate-900/60 p-3 rounded-lg border border-slate-800 h-48 overflow-hidden items-center justify-center">
-              <!-- Rendered by JS -->
-            </div>
-            <div class="flex justify-between text-[10px] font-mono text-slate-500">
-              <span>Fiducial Sync: 4 Corners</span>
-              <span>Payload: CTR-104 | Hall B | Desk 42</span>
-            </div>
-          </div>
-
-          <!-- Distortion Controls & Decoder -->
-          <div class="space-y-4">
-            <div class="bg-slate-950 border border-slate-850 p-4 rounded-xl space-y-3 text-xs font-mono">
-              <div class="text-slate-300 font-bold">Simulate Rogue Smartphone Camera Capture:</div>
-              <div>
-                <div class="flex justify-between text-[11px] text-slate-400 mb-1">
-                  <span>Camera Optical Blur:</span>
-                  <span id="label-blur-val" class="text-yellow-400">0.30 (Medium)</span>
-                </div>
-                <input type="range" id="slider-camera-blur" min="0" max="1" step="0.05" value="0.3" class="w-full accent-yellow-500" oninput="document.getElementById('label-blur-val').innerText = this.value">
-              </div>
-              <div>
-                <div class="flex justify-between text-[11px] text-slate-400 mb-1">
-                  <span>Perspective Tilt Angle:</span>
-                  <span id="label-tilt-val" class="text-yellow-400">+12.5° (Tilted Photo)</span>
-                </div>
-                <input type="range" id="slider-camera-tilt" min="-30" max="30" step="2.5" value="12.5" class="w-full accent-yellow-500" oninput="document.getElementById('label-tilt-val').innerText = (this.value > 0 ? '+' : '') + this.value + '°'">
-              </div>
-              <button onclick="runOpticalDecodeSim()" class="w-full bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-bold py-2.5 rounded-xl transition text-xs flex items-center justify-center space-x-2 shadow-lg shadow-yellow-500/20">
-                <i class="fa-solid fa-camera"></i>
-                <span>Capture & Run Homography Rectification Decoder</span>
+          <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-3">
+            <h4 class="font-bold text-slate-900 text-sm">Forensic Text & Signature Analyzer</h4>
+            <p class="text-xs text-slate-500">Paste leaked text or upload snippet to extract embedded Unicode bitstreams and semantic synonym markers.</p>
+            <textarea id="forensic-input" rows="6" class="w-full bg-slate-50 p-3 rounded text-xs font-mono border border-slate-300 focus:outline-sky-600 text-slate-900" placeholder="Paste leaked snippet here..."></textarea>
+            <div class="flex space-x-2">
+              <button onclick="runForensicScan()" class="flex-1 bg-slate-900 hover:bg-slate-800 text-white font-bold py-2 rounded text-xs transition shadow-xs">
+                Scan Forensic Signature
+              </button>
+              <button onclick="openCbiDossier()" class="px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-bold rounded text-xs flex items-center space-x-1.5">
+                <i class="fa-solid fa-file-shield"></i>
+                <span>CBI Report</span>
               </button>
             </div>
+          </div>
 
-            <div id="optical-decode-result" class="bg-slate-950 border border-slate-850 p-3.5 rounded-xl text-xs font-mono text-slate-400">
-              Click 'Capture & Run Decoder' to simulate mobile photo extraction...
-            </div>
+          <div id="forensic-result-card" class="bg-white border border-slate-200 rounded-lg p-5 flex items-center justify-center text-xs text-slate-500 shadow-xs">
+            Awaiting suspicious text input...
           </div>
         </div>
+
       </div>
 
-      <!-- CLAIM 3: DECENTRALIZED MPC THRESHOLD ESCROW CEREMONY -->
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-5">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 border-b border-slate-800 pb-4">
-          <div>
-            <div class="flex items-center space-x-2">
-              <span class="px-2 py-0.5 text-[10px] font-mono bg-purple-500/20 text-purple-300 rounded font-bold">PATENT CLAIM #3</span>
-              <h4 class="font-bold text-white text-base">Decentralized Sovereign MPC (3-of-5 Shamir Threshold Escrow Ceremony)</h4>
+      <!-- ========================================================================================= -->
+      <!-- TAB 8: SHARDED QUESTION REVIEW -->
+      <!-- ========================================================================================= -->
+      <div id="tab-sharded" class="tab-content hidden space-y-6">
+        
+        <div class="max-w-3xl mx-auto bg-white border border-slate-200 rounded-lg p-6 shadow-xs space-y-5">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div>
+              <h3 class="font-bold text-sm text-slate-900">Prof. Rajesh Sharma (Department of Physics, IIT Delhi)</h3>
+              <p class="text-xs text-slate-500">Assigned Shard #14 of 180 • Zero-Knowledge Single Question Isolation</p>
             </div>
-            <p class="text-xs text-slate-400 mt-0.5">Master AES-256 Vault Key split across 5 independent constitutional nodes. Reconstructed only in ephemeral RAM with 60s auto-zeroization.</p>
+            <div class="text-right font-mono text-xs">
+              <span class="text-[10px] text-slate-400 block font-bold">SESSION EXPIRY</span>
+              <span id="review-timer" class="font-bold text-slate-900">00:54s</span>
+            </div>
           </div>
-          <div class="flex space-x-2">
-            <button onclick="resetMPCCeremony()" class="px-3 py-1.5 rounded-xl bg-slate-800 text-slate-400 text-xs font-bold hover:text-white transition">
-              Reset Ceremony
+
+          <div class="bg-slate-50 border border-slate-200 p-4 rounded text-xs text-slate-600 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <i class="fa-solid fa-eye-slash text-slate-500"></i>
+              <span><strong>Zero-Context Review:</strong> You can review 1 isolated question. Remaining 179 questions are concealed.</span>
+            </div>
+            <span class="px-2 py-0.5 text-[10px] font-bold font-mono bg-amber-100 text-amber-800 rounded">
+              CANARY DECOY ACTIVE
+            </span>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded p-4 font-mono text-xs space-y-2">
+            <div class="flex justify-between text-slate-500 text-[11px]">
+              <span>QUESTION ID: EM-1</span>
+              <span>BLOOM TAXONOMY: APPLICATION (78%)</span>
+            </div>
+            <p class="text-sm font-sans font-medium text-slate-900 leading-relaxed">
+              "State Faraday's law of electromagnetic induction and derive the mathematical expression for induced electromotive force in a closed loop."
+            </p>
+          </div>
+
+          <div id="review-action-panel" class="flex items-center space-x-3">
+            <button onclick="submitReview('APPROVED')" class="flex-1 bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2.5 rounded text-xs transition shadow-xs">
+              Approve Mathematical Accuracy
+            </button>
+            <button onclick="submitReview('FLAGGED')" class="px-5 bg-slate-100 hover:bg-slate-200 text-red-700 font-bold py-2.5 rounded text-xs transition border border-slate-300">
+              Flag Ambiguity
             </button>
           </div>
-        </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-3" id="mpc-custodians-grid">
-          <!-- Populated by JS -->
-        </div>
-
-        <div class="bg-slate-950 border border-slate-850 p-4 rounded-xl flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-xs">
-          <div>
-            <div class="text-slate-400 text-[11px]">SOVEREIGN QUORUM STATUS:</div>
-            <div id="mpc-quorum-text" class="text-white font-bold text-sm">0 / 3 Key Shares Registered (LOCKED)</div>
+          <div id="review-sealed-card" class="hidden bg-emerald-50 border border-emerald-200 p-3 rounded text-xs text-emerald-800 flex justify-between items-center">
+            <span>✅ <strong>Verdict Recorded:</strong> Sealed into Escrow Master Vault with zero leaker exposure.</span>
+            <span class="font-mono font-bold text-[10px]">SIG-IITD-8842-OK</span>
           </div>
-          <button onclick="reconstructMPCKey()" id="btn-mpc-reconstruct" class="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition shadow-lg shadow-purple-600/30 flex items-center space-x-2">
-            <i class="fa-solid fa-key"></i>
-            <span>Reconstruct Master Key (Requires 3 Shares)</span>
-          </button>
         </div>
 
-        <div id="mpc-vault-result" class="hidden bg-purple-950/40 border border-purple-500/50 rounded-xl p-4 text-xs font-mono space-y-2">
-          <!-- Populated when reconstructed -->
-        </div>
       </div>
 
-      <!-- CLAIM 2: ZERO-KNOWLEDGE ISOMORPHIC EQUIVALENCE VERIFIER -->
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-5">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 border-b border-slate-800 pb-4">
-          <div>
-            <div class="flex items-center space-x-2">
-              <span class="px-2 py-0.5 text-[10px] font-mono bg-cyan-500/20 text-cyan-300 rounded font-bold">PATENT CLAIM #2</span>
-              <h4 class="font-bold text-white text-base">Zero-Knowledge Proofs for Isomorphic Exam Equivalence (zk-Fairness)</h4>
+      <!-- ========================================================================================= -->
+      <!-- TAB 9: HARDWARE ENCLAVES & AIR-GAP (DEEPTECH) -->
+      <!-- ========================================================================================= -->
+      <div id="tab-hardware" class="tab-content hidden space-y-6">
+        
+        <!-- Optical Micro-Dot Stego Lab -->
+        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-4">
+          <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+            <div>
+              <span class="text-[10px] font-mono font-bold text-slate-400">PATENT CLAIM #1</span>
+              <h4 class="font-bold text-sm text-slate-900">Optical Micro-Dot & Perspective-Invariant Physical Steganography</h4>
+              <p class="text-xs text-slate-500">Survives 240p blurry angled smartphone photos of printed desk papers.</p>
             </div>
-            <p class="text-xs text-slate-400 mt-0.5">Mathematically proves Set A == Set B == Set C difficulty & syllabus fairness publicly with 0% question text disclosed.</p>
-          </div>
-          <div class="flex space-x-2">
-            <button onclick="verifyZKPProof()" class="px-4 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition shadow-lg shadow-cyan-500/20 flex items-center space-x-1.5">
-              <i class="fa-solid fa-shield-halved"></i>
-              <span>Verify Public zk-Proof</span>
+            <button onclick="loadOpticalMicrodots()" class="px-3 py-1 rounded bg-slate-100 text-slate-700 text-xs font-bold border border-slate-300">
+              Refresh Matrix
             </button>
           </div>
-        </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
-          <div class="bg-slate-950 p-4 rounded-xl border border-slate-850 space-y-2">
-            <div class="text-cyan-400 font-bold">SET A PEDERSEN COMMITMENT</div>
-            <div class="text-[11px] text-slate-400 break-all">0x8fa1c94b32de9910a28fbe4309a1c24e883b4c1029384756abdef0192837465a</div>
-            <div class="text-emerald-400 text-[10px]">Cognitive Difficulty: 74.5%</div>
-          </div>
-          <div class="bg-slate-950 p-4 rounded-xl border border-slate-850 space-y-2">
-            <div class="text-teal-400 font-bold">SET B PEDERSEN COMMITMENT</div>
-            <div class="text-[11px] text-slate-400 break-all">0x3bc71029e847a1c94b32de9910a28fbe4309a1c24e883b4c1029384756abdef0</div>
-            <div class="text-emerald-400 text-[10px]">Cognitive Difficulty: 74.5%</div>
-          </div>
-          <div class="bg-slate-950 p-4 rounded-xl border border-slate-850 space-y-2">
-            <div class="text-purple-400 font-bold">SET C PEDERSEN COMMITMENT</div>
-            <div class="text-[11px] text-slate-400 break-all">0x910a28fbe4309a1c24e883b4c1029384756abdef08fa1c94b32de9910a28fbe4</div>
-            <div class="text-emerald-400 text-[10px]">Cognitive Difficulty: 74.5%</div>
-          </div>
-        </div>
-
-        <div id="zkp-verification-box" class="bg-slate-950 border border-slate-850 p-4 rounded-xl text-xs font-mono space-y-2 text-slate-300">
-          <div class="flex justify-between items-center text-slate-400 text-[11px]">
-            <span>CIRCUIT: Groth16 / BN254 (142,850 R1CS Constraints)</span>
-            <span class="text-emerald-400 font-bold">ZERO INFORMATION DISCLOSED</span>
-          </div>
-          <p class="text-slate-400">Click 'Verify Public zk-Proof' to cryptographically check isomorphic syllabus and cognitive balance across all sets.</p>
-        </div>
-      </div>
-
-      <!-- CLAIM 4: OFFLINE AIR-GAPPED OPTICAL HARDWARE ENCLAVE -->
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-5">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 border-b border-slate-800 pb-4">
-          <div>
-            <div class="flex items-center space-x-2">
-              <span class="px-2 py-0.5 text-[10px] font-mono bg-emerald-500/20 text-emerald-300 rounded font-bold">PATENT CLAIM #4</span>
-              <h4 class="font-bold text-white text-base">Offline Air-Gapped Optical QR-Chaff Token & Zero-Memory Hardware Enclave</h4>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-slate-900 p-4 rounded space-y-2">
+              <div class="flex justify-between text-[11px] font-mono text-slate-400">
+                <span>SUB-PIXEL DITHER RASTER (16x16 = 256 BITS)</span>
+                <span class="text-yellow-400">0.05mm Offset</span>
+              </div>
+              <div id="microdot-matrix-grid" class="grid grid-cols-16 gap-1 bg-slate-950 p-2.5 rounded h-40 overflow-hidden items-center justify-center"></div>
+              <div class="flex justify-between text-[10px] font-mono text-slate-400">
+                <span>Fiducial Corners: Active</span>
+                <span>Payload: CTR-104 | Hall B | Desk 42</span>
+              </div>
             </div>
-            <p class="text-xs text-slate-400 mt-0.5">Solves the rural zero-internet exam center problem. Biometric key fob emits dynamic rolling 2D optical chaff with 0x00 RAM zeroization.</p>
-          </div>
-          <div class="flex space-x-2">
-            <button onclick="openPatentForm2Modal()" class="px-4 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition shadow-lg shadow-amber-500/20 flex items-center space-x-1.5">
-              <i class="fa-solid fa-file-contract"></i>
-              <span>View Form 2 Patent Draft</span>
-            </button>
+
+            <div class="space-y-3 text-xs font-mono">
+              <div class="bg-slate-50 p-3 rounded border border-slate-200 space-y-2">
+                <div class="text-slate-700 font-bold">Smartphone Camera Distortion Simulator:</div>
+                <div>
+                  <div class="flex justify-between text-[11px] text-slate-500 mb-1">
+                    <span>Optical Blur:</span>
+                    <span id="label-blur-val" class="text-slate-800 font-bold">0.30</span>
+                  </div>
+                  <input type="range" id="slider-camera-blur" min="0" max="1" step="0.05" value="0.3" class="w-full accent-slate-800" oninput="document.getElementById('label-blur-val').innerText = this.value">
+                </div>
+                <div>
+                  <div class="flex justify-between text-[11px] text-slate-500 mb-1">
+                    <span>Perspective Tilt Angle:</span>
+                    <span id="label-tilt-val" class="text-slate-800 font-bold">+12.5°</span>
+                  </div>
+                  <input type="range" id="slider-camera-tilt" min="-30" max="30" step="2.5" value="12.5" class="w-full accent-slate-800" oninput="document.getElementById('label-tilt-val').innerText = (this.value > 0 ? '+' : '') + this.value + '°'">
+                </div>
+                <button onclick="runOpticalDecodeSim()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2 rounded text-xs transition">
+                  Capture & Run Homography Rectification Decoder
+                </button>
+              </div>
+
+              <div id="optical-decode-result" class="bg-slate-50 border border-slate-200 p-2.5 rounded text-slate-500">
+                Click 'Capture & Run Decoder' to test extraction...
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <!-- Hardware Key Fob Visualizer -->
-          <div class="bg-slate-950 border border-slate-850 p-5 rounded-xl space-y-4 font-mono text-xs">
-            <div class="flex justify-between items-center border-b border-slate-850 pb-2">
-              <span class="text-slate-400 text-[11px] font-bold">TAMPER-PROOF HARDWARE FOB (RTC-SYNCED)</span>
-              <span class="text-emerald-400 font-bold">CTR-109 (Remote Ladakh)</span>
-            </div>
-            
-            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-center space-y-2">
-              <div class="text-[10px] text-slate-500 uppercase tracking-wider">Dynamic 2D Optical QR-Chaff Stream (Rotates every 15s):</div>
-              <div id="airgap-fob-display" class="bg-slate-950 p-3 rounded-lg border border-emerald-500/40 text-emerald-300 text-xs break-all select-all font-bold">
+        <!-- Offline Air-Gapped Optical Token & Enclave -->
+        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-4">
+          <div class="border-b border-slate-100 pb-2">
+            <span class="text-[10px] font-mono font-bold text-slate-400">PATENT CLAIM #4</span>
+            <h4 class="font-bold text-sm text-slate-900">Offline Air-Gapped Optical Token & Hardware Enclave Zeroization</h4>
+            <p class="text-xs text-slate-500">Solves rural zero-internet exam center printing via dynamic optical chaff.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs font-mono">
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded space-y-3">
+              <div class="flex justify-between items-center text-slate-700 font-bold">
+                <span>HARDWARE FOB (CTR-109 Ladakh)</span>
+                <span id="airgap-timer-display" class="text-slate-900">TTL: 15s</span>
+              </div>
+              <div id="airgap-fob-display" class="bg-white p-2.5 rounded border border-slate-300 text-slate-900 text-xs break-all font-bold">
                 PV-AIRGAP|CTR-109|SUP-LDK-8821|AWAITING_BIOMETRIC_TOUCH
               </div>
-              <div class="flex justify-between text-[10px] text-slate-500 pt-1">
-                <span>Center Superintendent: SUP-LDK-8821</span>
-                <span id="airgap-timer-display" class="text-yellow-400 font-bold">TTL: 15s</span>
-              </div>
-            </div>
-
-            <button onclick="generateAirGapToken()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl transition text-xs flex items-center justify-center space-x-2 shadow-lg shadow-emerald-600/20">
-              <i class="fa-solid fa-fingerprint"></i>
-              <span>Press Biometric Thumbprint & Generate Rolling Optical Chaff</span>
-            </button>
-          </div>
-
-          <!-- Air-Gapped Printer Enclave Terminal -->
-          <div class="space-y-4">
-            <div class="bg-slate-950 border border-slate-850 p-4 rounded-xl space-y-3 font-mono text-xs">
-              <div class="flex justify-between items-center text-slate-300 font-bold">
-                <span>OFFLINE PRINTER ENCLAVE (ARM TRUSTZONE)</span>
-                <span class="text-emerald-400 text-[10px] bg-emerald-500/10 px-2 py-0.5 rounded">AIR-GAPPED (NO INTERNET)</span>
-              </div>
-              <div class="text-[11px] text-slate-400">
-                The optical camera on the printer reads the rolling QR-chaff off the superintendent's screen, decrypts directly inside TrustZone RAM, and prints 400 unique watermarked desk papers.
-              </div>
-              <button onclick="runAirGapPrintSim()" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2.5 rounded-xl transition text-xs flex items-center justify-center space-x-2 shadow-lg shadow-cyan-600/20">
-                <i class="fa-solid fa-print"></i>
-                <span>Optical Scanner: Ingest Token & Execute Direct-to-Print</span>
+              <button onclick="generateAirGapToken()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2 rounded text-xs transition">
+                Authenticate Biometric Thumbprint & Generate Dynamic Chaff
               </button>
             </div>
 
-            <div id="airgap-print-result" class="bg-slate-950 border border-slate-850 p-3.5 rounded-xl text-xs font-mono text-slate-400">
-              Awaiting optical token ingestion from biometric fob...
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded space-y-3">
+              <div class="flex justify-between items-center text-slate-700 font-bold">
+                <span>OFFLINE TRUSTZONE PRINTER</span>
+                <span class="text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded text-[10px]">100% AIR-GAPPED</span>
+              </div>
+              <button onclick="runAirGapPrintSim()" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2 rounded text-xs transition">
+                Optical Scanner: Ingest Token & Decrypt-to-Print
+              </button>
+              <div id="airgap-print-result" class="bg-white border border-slate-200 p-2.5 rounded text-slate-500 text-xs">
+                Awaiting optical token ingestion...
+              </div>
             </div>
           </div>
         </div>
+
       </div>
 
-    </div>
-
-  </main>
-
-  <!-- 🏛️ STATUTORY PATENT SPECIFICATION (FORM 2) MODAL -->
-  <div id="patent-form2-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="bg-slate-900 border-2 border-amber-500/60 rounded-3xl max-w-4xl w-full p-8 text-slate-100 shadow-2xl max-h-[90vh] overflow-y-auto font-mono">
-      <div class="border-b-2 border-slate-700 pb-4 mb-6 flex justify-between items-start">
-        <div class="flex items-center space-x-4">
-          <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/50 flex items-center justify-center text-amber-400 text-3xl font-bold">
-            <i class="fa-solid fa-file-contract"></i>
-          </div>
+      <!-- ========================================================================================= -->
+      <!-- TAB 10: SECURITY ARCHITECTURE & COMPLIANCE (STATUS TABLE) -->
+      <!-- ========================================================================================= -->
+      <div id="tab-compliance" class="tab-content hidden space-y-6">
+        
+        <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-xs flex justify-between items-center">
           <div>
-            <span class="text-[11px] tracking-widest uppercase text-amber-400 font-bold">GOVERNMENT OF INDIA • PATENT OFFICE</span>
-            <h2 class="text-lg font-extrabold text-white">FORM 2: COMPLETE PATENT SPECIFICATION</h2>
-            <p class="text-xs text-slate-400">Filed under Section 10 & Rule 13 of The Patents Act, 1970</p>
+            <h3 class="text-sm font-bold text-slate-900">Security Architecture & Patent Compliance Matrix</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Statutory compliance status under the Public Examinations Act 2024 & Patent Claims.</p>
           </div>
+          <button onclick="openPatentForm2Modal()" class="px-4 py-2 rounded bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition flex items-center space-x-1.5 shadow-xs">
+            <i class="fa-solid fa-file-contract"></i>
+            <span>Export Complete Form 2 Patent Specification</span>
+          </button>
         </div>
-        <button onclick="closePatentForm2Modal()" class="text-slate-400 hover:text-white no-print text-xl">
+
+        <div class="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-xs">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase font-semibold text-[10px]">
+              <tr>
+                <th class="py-3 px-4">Feature / Module Name</th>
+                <th class="py-3 px-4">Target Risk / Threat Vector</th>
+                <th class="py-3 px-4">Protection & Legal Status</th>
+                <th class="py-3 px-4">Verification Audit</th>
+                <th class="py-3 px-4 text-right">Operational Action</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-slate-700">
+              <tr class="hover:bg-slate-50 transition">
+                <td class="py-3 px-4 font-bold text-slate-900">Optical Micro-Dot Steganography</td>
+                <td class="py-3 px-4 text-slate-500">Covert smartphone camera photos of printed papers</td>
+                <td class="py-3 px-4 font-mono font-semibold text-[11px] text-amber-800">Patent Claim #1</td>
+                <td class="py-3 px-4 text-emerald-700 font-mono text-[11px]">Recoverable at +/- 30° tilt</td>
+                <td class="py-3 px-4 text-right">
+                  <button onclick="switchTab('tab-hardware')" class="text-sky-600 hover:underline font-semibold text-xs">Launch Lab</button>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="py-3 px-4 font-bold text-slate-900">Zero-Knowledge Isomorphic Equivalence</td>
+                <td class="py-3 px-4 text-slate-500">Student litigations / Claims of unfair set difficulty</td>
+                <td class="py-3 px-4 font-mono font-semibold text-[11px] text-sky-800">Patent Claim #2</td>
+                <td class="py-3 px-4 text-emerald-700 font-mono text-[11px]">100% Bloom Match (Groth16)</td>
+                <td class="py-3 px-4 text-right">
+                  <button onclick="verifyZKPProof()" class="text-sky-600 hover:underline font-semibold text-xs">Verify zk-Proof</button>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="py-3 px-4 font-bold text-slate-900">(3, 5) Shamir Threshold Escrow</td>
+                <td class="py-3 px-4 text-slate-500">Single corrupt administrator or super-admin compromise</td>
+                <td class="py-3 px-4 font-mono font-semibold text-[11px] text-purple-800">Patent Claim #3</td>
+                <td class="py-3 px-4 text-emerald-700 font-mono text-[11px]">Ephemeral 60s RAM Zeroization</td>
+                <td class="py-3 px-4 text-right">
+                  <button onclick="switchTab('tab-hardware')" class="text-sky-600 hover:underline font-semibold text-xs">Inspect Enclave</button>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="py-3 px-4 font-bold text-slate-900">Offline Air-Gapped Optical Printing</td>
+                <td class="py-3 px-4 text-slate-500">Rural centers with zero internet or active jamming</td>
+                <td class="py-3 px-4 font-mono font-semibold text-[11px] text-emerald-800">Patent Claim #4</td>
+                <td class="py-3 px-4 text-emerald-700 font-mono text-[11px]">Direct-to-Thermal TrustZone</td>
+                <td class="py-3 px-4 text-right">
+                  <button onclick="switchTab('tab-hardware')" class="text-sky-600 hover:underline font-semibold text-xs">Test Fob</button>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="py-3 px-4 font-bold text-slate-900">Controlled 0.38s Paper Rotation</td>
+                <td class="py-3 px-4 text-slate-500">Catastrophic nationwide exam cancellations</td>
+                <td class="py-3 px-4 font-mono font-semibold text-[11px] text-slate-700">Statutory Runbook</td>
+                <td class="py-3 px-4 text-emerald-700 font-mono text-[11px]">₹92.5 Cr Logistics Saved</td>
+                <td class="py-3 px-4 text-right">
+                  <button onclick="openRotationModal()" class="text-red-600 hover:underline font-semibold text-xs">Initiate</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ========================================================================================= -->
+  <!-- MODALS (CONTROLLED ACTION, CONFIRMATION & STATUTORY EVIDENCE) -->
+  <!-- ========================================================================================= -->
+
+  <!-- CONTROLLED PAPER ROTATION AUTHORIZATION MODAL -->
+  <div id="rotation-auth-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-300 rounded-lg max-w-lg w-full p-6 text-slate-900 shadow-xl space-y-4">
+      <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
+        <div class="w-9 h-9 rounded bg-red-100 text-red-700 flex items-center justify-center font-bold text-base">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-sm text-slate-900">Controlled Paper Rotation Authorization</h3>
+          <p class="text-[11px] text-slate-500">Statutory Emergency Response Protocol • Level 4 Authorization</p>
+        </div>
+      </div>
+
+      <div class="bg-slate-50 p-3.5 rounded border border-slate-200 text-xs space-y-2 font-mono">
+        <div class="flex justify-between">
+          <span class="text-slate-500">Reason for Rotation:</span>
+          <span class="text-red-700 font-bold">Detected Social Channel Leak</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Affected Examination:</span>
+          <span class="text-slate-900 font-bold">NEET-UG-2026-MAIN</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Current Active Variant:</span>
+          <span class="text-slate-700 font-bold">Variant A (Revoking)</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Promoted Replacement:</span>
+          <span class="text-emerald-700 font-bold">Variant B (Zero Overlap)</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Estimated Propagation:</span>
+          <span class="text-slate-900 font-bold">0.38 Seconds (National Grid)</span>
+        </div>
+      </div>
+
+      <p class="text-xs text-slate-600 leading-relaxed">
+        Executing this command will blacklist Variant A and push fresh cryptographic keys and Variant B to all 6 national examination centers. This action is permanently recorded on the immutable custody ledger.
+      </p>
+
+      <div class="flex justify-end space-x-2 pt-2 border-t border-slate-100">
+        <button onclick="closeRotationModal()" class="px-4 py-2 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">
+          Cancel
+        </button>
+        <button onclick="confirmPaperRotation()" class="px-4 py-2 rounded bg-red-700 hover:bg-red-800 text-white text-xs font-bold shadow-xs">
+          Authorize & Execute Rotation
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESCROW MANUAL OVERRIDE MODAL -->
+  <div id="escrow-override-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-300 rounded-lg max-w-md w-full p-6 text-slate-900 shadow-xl space-y-4">
+      <div class="flex items-center space-x-3 border-b border-slate-100 pb-3">
+        <div class="w-9 h-9 rounded bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-base">
+          <i class="fa-solid fa-key"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-sm">Manual Key Release Override</h3>
+          <p class="text-[11px] text-slate-500">Security Clearance Level 4 Required</p>
+        </div>
+      </div>
+      <p class="text-xs text-slate-600 leading-relaxed">
+        You are requesting manual release of the master examination decryption key prior to the scheduled 10:00:00 AM IST window. This action will be recorded in the immutable audit ledger.
+      </p>
+      <div class="flex justify-end space-x-2 pt-2">
+        <button onclick="closeEscrowOverrideModal()" class="px-4 py-2 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">
+          Cancel
+        </button>
+        <button onclick="confirmEscrowRelease()" class="px-4 py-2 rounded bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold">
+          Confirm Key Release
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATUTORY PATENT SPECIFICATION (FORM 2) MODAL -->
+  <div id="patent-form2-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-300 rounded-xl max-w-4xl w-full p-8 text-slate-900 shadow-2xl max-h-[90vh] overflow-y-auto font-mono">
+      <div class="border-b border-slate-200 pb-4 mb-4 flex justify-between items-start">
+        <div>
+          <span class="text-[10px] tracking-widest uppercase text-slate-500 font-bold">GOVERNMENT OF INDIA • PATENT OFFICE</span>
+          <h2 class="text-base font-extrabold text-slate-900">FORM 2: COMPLETE PATENT SPECIFICATION</h2>
+          <p class="text-xs text-slate-500 font-sans">The Patents Act, 1970 (Section 10; Rule 13)</p>
+        </div>
+        <button onclick="closePatentForm2Modal()" class="text-slate-400 hover:text-slate-700 no-print text-xl">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <div id="patent-spec-content" class="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-xs text-slate-300 leading-relaxed whitespace-pre-wrap max-h-[55vh] overflow-y-auto select-all">
+      <div id="patent-spec-content" class="bg-slate-50 p-6 rounded border border-slate-200 text-xs text-slate-800 leading-relaxed whitespace-pre-wrap max-h-[55vh] overflow-y-auto select-all">
         Loading statutory patent specification...
       </div>
 
-      <div class="flex justify-between items-center pt-4 border-t border-slate-800 mt-6 no-print">
-        <span class="text-[10px] text-slate-500">ParikshaVault IP Consortium • 4 Independent Claims</span>
-        <div class="flex space-x-3">
-          <button onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition flex items-center space-x-1.5 shadow-lg shadow-amber-500/20">
+      <div class="flex justify-between items-center pt-4 border-t border-slate-200 mt-4 no-print">
+        <span class="text-[11px] text-slate-500 font-sans">ParikshaVault IP Consortium • 4 Independent Claims</span>
+        <div class="flex space-x-2">
+          <button onclick="window.print()" class="px-4 py-2 rounded bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition flex items-center space-x-1.5">
             <i class="fa-solid fa-print"></i>
-            <span>Print Patent Specification</span>
+            <span>Print Specification</span>
           </button>
-          <button onclick="closePatentForm2Modal()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition">
+          <button onclick="closePatentForm2Modal()" class="px-4 py-2 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition border border-slate-300">
             Close
           </button>
         </div>
@@ -874,95 +1070,95 @@
     </div>
   </div>
 
-  <!-- 🏛️ STATUTORY CBI FORENSIC EVIDENCE DOSSIER MODAL -->
-  <div id="cbi-dossier-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="bg-slate-900 border-2 border-slate-700 rounded-3xl max-w-3xl w-full p-8 text-slate-100 shadow-2xl max-h-[90vh] overflow-y-auto">
-      <div class="border-b-2 border-slate-700 pb-4 mb-6 flex justify-between items-start">
-        <div class="flex items-center space-x-4">
-          <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 text-2xl font-bold">
+  <!-- STATUTORY CBI FORENSIC EVIDENCE DOSSIER MODAL -->
+  <div id="cbi-dossier-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-300 rounded-xl max-w-3xl w-full p-8 text-slate-900 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="border-b border-slate-200 pb-4 mb-5 flex justify-between items-start">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-800 text-xl font-bold">
             <i class="fa-solid fa-scale-balanced"></i>
           </div>
           <div>
-            <span class="text-[11px] font-mono tracking-widest uppercase text-amber-400 font-bold">GOVERNMENT OF INDIA • STATUTORY INVESTIGATION REPORT</span>
-            <h2 class="text-xl font-extrabold text-white">FORENSIC BREACH PROVENANCE DOSSIER</h2>
-            <p class="text-xs text-slate-400">Filed under Section 10(2) of Public Examinations (Prevention of Unfair Means) Act 2024</p>
+            <span class="text-[10px] font-mono tracking-widest uppercase text-slate-500 font-bold">GOVERNMENT OF INDIA • STATUTORY INVESTIGATION REPORT</span>
+            <h2 class="text-base font-extrabold text-slate-900">FORENSIC BREACH PROVENANCE DOSSIER</h2>
+            <p class="text-xs text-slate-500">Filed under Section 10(2) of Public Examinations (Prevention of Unfair Means) Act 2024</p>
           </div>
         </div>
-        <button onclick="closeCbiDossier()" class="text-slate-400 hover:text-white no-print text-lg">
+        <button onclick="closeCbiDossier()" class="text-slate-400 hover:text-slate-700 no-print text-lg">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs font-mono mb-6 bg-slate-950 p-4 rounded-2xl border border-slate-800">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs font-mono mb-5 bg-slate-50 p-3.5 rounded border border-slate-200">
         <div>
-          <span class="text-slate-500 block text-[10px]">CASE FILE NO.</span>
-          <span class="text-white font-bold">CBI-CYBER-2026-09</span>
+          <span class="text-slate-400 block text-[10px]">CASE FILE NO.</span>
+          <span class="text-slate-900 font-bold">CBI-CYBER-2026-09</span>
         </div>
         <div>
-          <span class="text-slate-500 block text-[10px]">EXAMINATION</span>
-          <span class="text-amber-300 font-bold">NEET-UG-2026</span>
+          <span class="text-slate-400 block text-[10px]">EXAMINATION</span>
+          <span class="text-slate-900 font-bold">NEET-UG-2026</span>
         </div>
         <div>
-          <span class="text-slate-500 block text-[10px]">INCIDENT TIME</span>
-          <span class="text-white font-bold">08:44:12 AM IST</span>
+          <span class="text-slate-400 block text-[10px]">INCIDENT TIME</span>
+          <span class="text-slate-900 font-bold">08:44:12 AM IST</span>
         </div>
         <div>
-          <span class="text-slate-500 block text-[10px]">CONFIDENCE</span>
-          <span class="text-emerald-400 font-bold">99.98% Cryptographic</span>
+          <span class="text-slate-400 block text-[10px]">CONFIDENCE</span>
+          <span class="text-emerald-700 font-bold">99.98% Exact</span>
         </div>
       </div>
 
-      <div class="space-y-3 text-xs mb-6">
-        <h4 class="font-bold text-amber-300 uppercase tracking-wider text-xs">I. Breach Coordinates & Target Attribution</h4>
-        <div class="bg-red-950/30 border border-red-500/30 rounded-xl p-4 space-y-2">
+      <div class="space-y-3 text-xs mb-5">
+        <h4 class="font-bold text-slate-900 uppercase tracking-wider text-[11px]">I. Breach Coordinates & Target Attribution</h4>
+        <div class="bg-slate-50 border border-slate-200 rounded p-3.5 space-y-1.5 font-mono text-[11px]">
           <div class="flex justify-between">
-            <span class="text-slate-400">Breached Exam Center:</span>
-            <strong class="text-white font-mono">CTR-104 (Velammal Vidyalaya Exam Hub, Chennai)</strong>
+            <span class="text-slate-500">Breached Exam Center:</span>
+            <strong class="text-slate-900 font-sans">CTR-104 (Velammal Vidyalaya Exam Hub, Chennai)</strong>
           </div>
           <div class="flex justify-between">
-            <span class="text-slate-400">Physical Location:</span>
-            <strong class="text-yellow-400 font-mono">Hall B - Desk 42 (Terminal IP: 192.168.104.42)</strong>
+            <span class="text-slate-500">Physical Location:</span>
+            <strong class="text-slate-900">Hall B - Desk 42 (Terminal IP: 192.168.104.42)</strong>
           </div>
           <div class="flex justify-between">
-            <span class="text-slate-400">Leaked Variant:</span>
-            <strong class="text-red-300 font-mono">Set A (Physics Electromagnetism Q1)</strong>
+            <span class="text-slate-500">Leaked Variant:</span>
+            <strong class="text-slate-900">Set A (Physics Electromagnetism Q1)</strong>
           </div>
           <div class="flex justify-between">
-            <span class="text-slate-400">Interception Channel:</span>
-            <strong class="text-blue-400 font-mono">Telegram Channel (@NeetPaperLeak2026)</strong>
+            <span class="text-slate-500">Interception Source:</span>
+            <strong class="text-sky-700 font-sans">Telegram Channel (@NeetPaperLeak2026)</strong>
           </div>
         </div>
       </div>
 
-      <div class="space-y-3 text-xs mb-6">
-        <h4 class="font-bold text-amber-300 uppercase tracking-wider text-xs">II. Cryptographic Forensic Signatures</h4>
-        <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono space-y-1.5 text-[11px]">
-          <div><span class="text-slate-500">SHA-256 SESSION HASH:</span> <span class="text-emerald-400">d981a2f47c0b2981ae4291882a178bc9</span></div>
-          <div><span class="text-slate-500">STEGO BYTE ALGORITHM:</span> <span class="text-slate-300">Unicode Zero-Width Bitstream (\\u200B / \\u200C)</span></div>
-          <div><span class="text-slate-500">HSM DISPATCH KEY ID:</span> <span class="text-purple-300">HSM-KEY-CTR104-084412-SEALED</span></div>
+      <div class="space-y-3 text-xs mb-5">
+        <h4 class="font-bold text-slate-900 uppercase tracking-wider text-[11px]">II. Cryptographic Forensic Signatures</h4>
+        <div class="bg-slate-50 border border-slate-200 rounded p-3.5 font-mono space-y-1 text-[11px]">
+          <div><span class="text-slate-400">SHA-256 SESSION HASH:</span> <span class="text-slate-900 font-bold">d981a2f47c0b2981ae4291882a178bc9</span></div>
+          <div><span class="text-slate-400">STEGO BYTE ALGORITHM:</span> <span class="text-slate-700">Unicode Zero-Width Bitstream (\\u200B / \\u200C)</span></div>
+          <div><span class="text-slate-400">HSM DISPATCH KEY ID:</span> <span class="text-slate-700">HSM-KEY-CTR104-084412-SEALED</span></div>
         </div>
       </div>
 
-      <div class="bg-emerald-950/40 border border-emerald-500/40 rounded-xl p-4 text-xs mb-6">
+      <div class="bg-emerald-50 border border-emerald-200 rounded p-3.5 text-xs mb-5">
         <div class="flex justify-between items-center mb-1">
-          <span class="font-bold text-emerald-400 uppercase tracking-wider">III. Disaster Containment & Financial Metric</span>
-          <span class="text-sm font-extrabold text-emerald-300">₹92.5 Crores Saved</span>
+          <span class="font-bold text-emerald-800 uppercase tracking-wider text-[11px]">III. Disaster Containment & Financial Metric</span>
+          <span class="text-sm font-bold text-emerald-900">₹92.5 Crores Saved</span>
         </div>
-        <p class="text-slate-300 leading-relaxed">
+        <p class="text-slate-700 leading-relaxed text-xs">
           <strong>Surgical Quarantine Executed:</strong> Law enforcement dispatched strictly to <em>Velammal Vidyalaya Exam Hub</em>. 
-          Dynamic Panic Mode promoted <strong>Variant B</strong> to all other national centers in <strong>0.38 seconds</strong>. 
-          <strong>499,480 honest students protected from exam cancellation!</strong>
+          Dynamic Paper Rotation promoted <strong>Variant B</strong> to all other national centers in <strong>0.38 seconds</strong>. 
+          <strong>499,480 honest candidates protected from examination cancellation.</strong>
         </p>
       </div>
 
-      <div class="flex justify-between items-center pt-2 border-t border-slate-800 no-print">
-        <span class="text-[10px] text-slate-500 font-mono">Certified Authentic by ParikshaVault Sovereign Security Node</span>
-        <div class="flex space-x-3">
-          <button onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition flex items-center space-x-1.5 shadow-lg shadow-amber-500/20">
+      <div class="flex justify-between items-center pt-3 border-t border-slate-200 no-print">
+        <span class="text-[10px] text-slate-400 font-mono">Certified Authentic by ParikshaVault Node</span>
+        <div class="flex space-x-2">
+          <button onclick="window.print()" class="px-4 py-2 rounded bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition flex items-center space-x-1.5 shadow-xs">
             <i class="fa-solid fa-print"></i>
-            <span>Print / Save as PDF</span>
+            <span>Print Dossier</span>
           </button>
-          <button onclick="closeCbiDossier()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition">
+          <button onclick="closeCbiDossier()" class="px-4 py-2 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition border border-slate-300">
             Close
           </button>
         </div>
@@ -970,53 +1166,99 @@
     </div>
   </div>
 
+  <!-- ========================================================================================= -->
+  <!-- JAVASCRIPT LOGIC (CLEAN, ROBUST, ERROR-FREE) -->
+  <!-- ========================================================================================= -->
   <script>
     let currentWatermarkedText = "";
     let isVaultLocked = true;
+    let currentAirGapTokenPayload = "";
 
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.tab-btn').forEach(el => {
-        el.classList.remove('text-emerald-400', 'border-emerald-500');
-        el.classList.add('text-slate-400', 'border-transparent');
+        el.classList.remove('bg-sky-600', 'text-white');
+        el.classList.add('text-slate-400');
       });
 
-      document.getElementById(tabId).classList.remove('hidden');
+      const activeSection = document.getElementById(tabId);
+      if (activeSection) {
+        activeSection.classList.remove('hidden');
+      }
       const activeBtn = document.getElementById('btn-' + tabId);
-      activeBtn.classList.add('text-emerald-400', 'border-emerald-500');
-      activeBtn.classList.remove('text-slate-400', 'border-transparent');
+      if (activeBtn) {
+        activeBtn.classList.add('bg-sky-600', 'text-white');
+        activeBtn.classList.remove('text-slate-400');
+      }
     }
 
-    async function toggleEscrowLock() {
-      const btn = document.getElementById('btn-toggle-escrow');
+    function openRotationModal() {
+      document.getElementById('rotation-auth-modal').classList.remove('hidden');
+    }
+
+    function closeRotationModal() {
+      document.getElementById('rotation-auth-modal').classList.add('hidden');
+    }
+
+    async function confirmPaperRotation() {
+      closeRotationModal();
+      const res = await fetch('/api/panic/emergency-swap', {method: 'POST'});
+      const data = await res.json();
+
+      document.getElementById('rotation-alert-banner').classList.remove('hidden');
+      document.getElementById('executive-active-paper').innerText = "Variant B (Emergency Hot-Swap Active)";
+      document.getElementById('executive-active-paper').className = "text-emerald-700 font-bold";
+
+      const headerBtn = document.getElementById('btn-header-rotate');
+      headerBtn.className = "px-3.5 py-1.5 rounded bg-emerald-700 text-white text-xs font-semibold flex items-center space-x-1.5 shadow-xs";
+      headerBtn.innerHTML = `<i class="fa-solid fa-check mr-1"></i><span>Variant B Deployed (0.38s)</span>`;
+
+      alert("✅ CONTROLLED ROTATION EXECUTED!\n\n" + data.action_summary);
+    }
+
+    function openEscrowOverrideModal() {
+      document.getElementById('escrow-override-modal').classList.remove('hidden');
+    }
+
+    function closeEscrowOverrideModal() {
+      document.getElementById('escrow-override-modal').classList.add('hidden');
+    }
+
+    async function confirmEscrowRelease() {
+      closeEscrowOverrideModal();
+      const badge = document.getElementById('overview-escrow-badge');
       if (isVaultLocked) {
         const res = await fetch('/api/vault/release-key', {method: 'POST'});
         const d = await res.json();
-        btn.innerText = "Re-Lock Vault";
-        btn.className = "px-4 py-2 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs";
+        badge.innerText = "RELEASED (MANUAL OVERRIDE)";
+        badge.className = "px-2 py-0.5 text-[10px] font-bold bg-amber-100 text-amber-800 rounded font-mono";
         isVaultLocked = false;
-        alert("10:00 AM IST! Hardware Key Released to Centers:\n" + d.decryption_key);
+        alert("10:00:00 AM Window Override!\nHardware Decryption Key Released to Centers:\n" + d.decryption_key);
       } else {
         await fetch('/api/vault/lock', {method: 'POST'});
-        btn.innerText = "Simulate 10:00 AM Release Key";
-        btn.className = "px-4 py-2 rounded-xl bg-red-600 text-white font-bold text-xs";
+        badge.innerText = "SEALED (AES-256)";
+        badge.className = "px-2 py-0.5 text-[10px] font-bold bg-emerald-100 text-emerald-800 rounded font-mono";
         isVaultLocked = true;
       }
     }
 
     async function loadTelegramFeed() {
-      const res = await fetch('/api/crawler/feed');
-      const data = await res.json();
-      const box = document.getElementById('telegram-feed-box');
-      box.innerHTML = data.feed.map(m => `
-        <div class="p-2.5 rounded-lg ${m.is_leak ? 'bg-red-950/80 border border-red-500/50' : 'bg-slate-950 border border-slate-850'}">
-          <div class="flex justify-between items-center text-[10px] mb-1">
-            <span class="font-bold ${m.is_leak ? 'text-red-400' : 'text-blue-400'}">${m.sender}</span>
-            <span class="text-slate-500">${m.time}</span>
+      try {
+        const res = await fetch('/api/crawler/feed');
+        const data = await res.json();
+        const box = document.getElementById('telegram-feed-box');
+        box.innerHTML = data.feed.map(m => `
+          <div class="p-2.5 rounded ${m.is_leak ? 'bg-red-50 border border-red-200 text-red-900' : 'bg-slate-50 border border-slate-200 text-slate-800'}">
+            <div class="flex justify-between items-center text-[10px] mb-1 font-mono">
+              <span class="font-bold ${m.is_leak ? 'text-red-700' : 'text-sky-700'}">${m.sender}</span>
+              <span class="text-slate-400">${m.time}</span>
+            </div>
+            <p class="text-xs leading-relaxed font-sans">${m.text}</p>
           </div>
-          <p class="text-slate-300 leading-relaxed">${m.text}</p>
-        </div>
-      `).join('');
+        `).join('');
+      } catch (e) {
+        console.error("Feed error:", e);
+      }
     }
 
     async function simulateTelegramPost() {
@@ -1025,84 +1267,70 @@
       await loadTelegramFeed();
 
       const card = document.getElementById('crawler-status-card');
-      card.className = "bg-slate-900 border-2 border-red-500 rounded-2xl p-6 neon-red text-left";
+      card.className = "bg-red-50 border border-red-200 rounded-lg p-4 text-left text-red-900 shadow-xs";
       card.innerHTML = `
-        <div class="flex justify-between items-center border-b border-red-500/40 pb-3 mb-3">
+        <div class="flex justify-between items-center border-b border-red-200 pb-2 mb-2.5">
           <div class="flex items-center space-x-2">
-            <span class="w-3 h-3 rounded-full bg-red-500 animate-ping"></span>
-            <span class="font-extrabold text-red-400 text-sm">🚨 TELEGRAM LEAK AUTO-INTERCEPTED IN 0.04s</span>
+            <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
+            <span class="font-bold text-red-800 text-xs">UNAUTHORIZED DISSEMINATION DETECTED (0.04s)</span>
           </div>
-          <button onclick="openCbiDossier()" class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 font-mono text-[11px] border border-amber-500/40 hover:bg-amber-500/30">
-            <i class="fa-solid fa-file-pdf mr-1"></i> View CBI Dossier
+          <button onclick="openCbiDossier()" class="px-2 py-1 rounded bg-white text-red-800 font-mono text-[10px] border border-red-300 hover:bg-red-100 font-semibold">
+            View Evidence Dossier
           </button>
         </div>
-        <div class="grid grid-cols-3 gap-3 text-xs font-mono mb-3">
-          <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
-            <span class="text-slate-500 block text-[10px]">BREACH CENTER</span>
-            <span class="text-white font-bold">${data.intercepted_post.intercepted_watermark.cid}</span>
-            <p class="text-slate-400 text-[10px]">${data.intercepted_post.intercepted_watermark.name}</p>
+        <div class="grid grid-cols-3 gap-2 text-xs font-mono mb-2">
+          <div class="bg-white p-2 rounded border border-red-200">
+            <span class="text-slate-400 block text-[9px]">ATTRIBUTED CENTER</span>
+            <span class="text-slate-900 font-bold">${data.intercepted_post.intercepted_watermark.cid}</span>
           </div>
-          <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
-            <span class="text-slate-500 block text-[10px]">LOCALIZED ROOM</span>
-            <span class="text-yellow-400 font-bold">${data.intercepted_post.intercepted_watermark.room}</span>
+          <div class="bg-white p-2 rounded border border-red-200">
+            <span class="text-slate-400 block text-[9px]">ROOM / DESK</span>
+            <span class="text-slate-900 font-bold">${data.intercepted_post.intercepted_watermark.room}</span>
           </div>
-          <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
-            <span class="text-slate-500 block text-[10px]">TIMESTAMP</span>
-            <span class="text-white font-bold">${data.intercepted_post.intercepted_watermark.ts}</span>
+          <div class="bg-white p-2 rounded border border-red-200">
+            <span class="text-slate-400 block text-[9px]">TIMESTAMP</span>
+            <span class="text-slate-900 font-bold">${data.intercepted_post.intercepted_watermark.ts}</span>
           </div>
         </div>
-        <div class="flex items-center justify-between bg-emerald-950/40 border border-emerald-500/30 p-2.5 rounded-lg text-xs">
-          <span class="text-emerald-300"><strong>Action Required:</strong> Click "PANIC MODE: SWAP PAPER" to execute 0.38s hot-swap!</span>
+        <div class="flex justify-between items-center pt-1 text-[11px]">
+          <span class="text-slate-600">Action: Click "Controlled Paper Rotation" to execute hot-swap.</span>
+          <button onclick="openRotationModal()" class="px-3 py-1 rounded bg-red-700 hover:bg-red-800 text-white font-bold text-xs shadow-2xs">
+            Initiate Rotation
+          </button>
         </div>
       `;
 
       const centerCard = document.getElementById('card-CTR-104');
-      centerCard.className = "bg-red-950/60 p-3 rounded-xl border border-red-500 flex justify-between items-center";
-      document.getElementById('badge-CTR-104').className = "px-2 py-0.5 text-[10px] font-bold bg-red-500 text-white rounded animate-pulse";
-      document.getElementById('badge-CTR-104').innerText = "BREACHED";
+      if (centerCard) {
+        centerCard.className = "bg-red-50 p-3 rounded border border-red-300 flex justify-between items-center text-red-900";
+        document.getElementById('badge-CTR-104').className = "px-2 py-0.5 text-[10px] font-bold bg-red-600 text-white rounded";
+        document.getElementById('badge-CTR-104').innerText = "FLAGGED";
+      }
     }
 
-    async function triggerEmergencySwap() {
-      const res = await fetch('/api/panic/emergency-swap', {method: 'POST'});
-      const data = await res.json();
-
-      document.getElementById('panic-alert-banner').classList.remove('hidden');
-      document.getElementById('current-variant-text').innerText = "Variant B (Emergency Hot-Swap)";
-      document.getElementById('current-variant-text').className = "text-yellow-400";
-
-      const btn = document.getElementById('btn-panic-mode');
-      btn.className = "px-3.5 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-bold transition flex items-center space-x-1.5";
-      btn.innerHTML = `<i class="fa-solid fa-check"></i><span>SWAP SUCCESSFUL (0.38s)</span>`;
-
-      alert("🚨 EMERGENCY SWAP SUCCESSFUL!\n" + data.action_summary);
-    }
-
-    // Predictive Risk Escalation (NEW FEATURE 2 LOGIC)
     async function escalatePatnaRisk() {
       const res = await fetch('/api/risk/escalate/CTR-105', {method: 'POST'});
       const data = await res.json();
 
-      document.getElementById('risk-score-CTR-105').innerText = `${data.new_risk_score} / 100 (CRITICAL LOCKDOWN)`;
+      document.getElementById('risk-score-CTR-105').innerText = `${data.new_risk_score} / 100 (CRITICAL)`;
       document.getElementById('risk-badge-CTR-105').innerText = "100% LOCKDOWN";
-      document.getElementById('risk-badge-CTR-105').className = "px-2 py-0.5 text-[10px] font-bold bg-red-600 text-white rounded animate-pulse";
+      document.getElementById('risk-badge-CTR-105').className = "px-2 py-0.5 text-[10px] font-bold bg-red-600 text-white rounded";
       document.getElementById('risk-bar-CTR-105').style.width = "100%";
       document.getElementById('countermeasure-CTR-105').innerText = data.new_countermeasure;
-      document.getElementById('risk-card-CTR-105').className = "bg-slate-900 border-2 border-red-500 rounded-2xl p-5 space-y-4 neon-red";
+      document.getElementById('risk-card-CTR-105').className = "bg-white border-2 border-red-400 rounded-lg p-4 space-y-3 shadow-xs";
 
-      alert(`🚨 PREDICTIVE AI RISK ALERT!\n${data.message}`);
+      alert(`🚨 RISK ESCALATION DETECTED!\n\n${data.message}`);
     }
 
     async function submitReview(verdict) {
-      const res = await fetch('/api/review/submit', {
+      await fetch('/api/review/submit', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ verdict: verdict })
       });
-      const data = await res.json();
-
       document.getElementById('review-action-panel').classList.add('hidden');
       document.getElementById('review-sealed-card').classList.remove('hidden');
-      alert(`Veritas Confirmed!\nReviewer verdict [${verdict}] cryptographically signed and sealed into the Master Vault.`);
+      alert(`Reviewer verdict [${verdict}] cryptographically signed and sealed.`);
     }
 
     function openCbiDossier() {
@@ -1113,34 +1341,24 @@
       document.getElementById('cbi-dossier-modal').classList.add('hidden');
     }
 
-    async function runGenerateSets() {
-      const res = await fetch('/api/exam/generate', {method: 'POST'});
-      const d = await res.json();
-      let html = '';
-      for (const [name, s] of Object.entries(d.sets)) {
-        html += `<div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
-          <div class="font-bold text-emerald-400 text-sm mb-1">${name} (${s.set_id})</div>
-          <div class="text-[10px] text-teal-400 mb-2 font-mono">0% Overlap | ${s.difficulty_score}</div>
-          <div class="space-y-2">${s.questions.map(q => `<div class="bg-slate-950 p-2 rounded text-[11px] text-slate-300">${q.question}</div>`).join('')}</div>
-        </div>`;
-      }
-      document.getElementById('sets-container').innerHTML = html;
-    }
-
     async function runWatermarkCenter() {
-      const res = await fetch('/api/exam/watermark', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          center_id: 'CTR-104',
-          room_number: 'Hall B - Room 12',
-          questions: [{question: "State Faraday's law of electromagnetic induction and derive EMF in a closed loop."}]
-        })
-      });
-      const d = await res.json();
-      currentWatermarkedText = d.watermarked_questions[0].question;
-      document.getElementById('watermarked-preview-box').innerText = currentWatermarkedText;
-      document.getElementById('forensic-input').value = currentWatermarkedText;
+      try {
+        const res = await fetch('/api/exam/watermark', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            center_id: 'CTR-104',
+            room_number: 'Hall B - Room 12',
+            questions: [{question: "State Faraday's law of electromagnetic induction and derive EMF in a closed loop."}]
+          })
+        });
+        const d = await res.json();
+        currentWatermarkedText = d.watermarked_questions[0].question;
+        const fInput = document.getElementById('forensic-input');
+        if (fInput) fInput.value = currentWatermarkedText;
+      } catch (e) {
+        console.error("Watermark init error:", e);
+      }
     }
 
     async function runForensicScan() {
@@ -1153,17 +1371,23 @@
       const d = await res.json();
       const out = document.getElementById('forensic-result-card');
       if (d.leak_detected) {
-        out.className = "bg-slate-900 border border-red-500 rounded-xl p-5 text-left text-xs font-mono";
+        out.className = "bg-white border border-red-300 rounded-lg p-5 text-left text-xs font-mono shadow-xs space-y-2";
         out.innerHTML = `
-          <div class="text-red-400 font-bold text-sm mb-2">🚨 LEAK SOURCE IDENTIFIED (99.98% Match)</div>
-          <div class="text-white">CENTER: <strong>${d.forensic_report.center_id} (${d.forensic_report.center_name})</strong></div>
-          <div class="text-yellow-400">ROOM: ${d.forensic_report.room} | TIME: ${d.forensic_report.print_timestamp}</div>
-          <div class="mt-3 bg-emerald-950/60 p-2.5 rounded text-emerald-300 flex justify-between items-center">
-            <span>SAVINGS: <strong>${d.business_value.loss_prevented}</strong></span>
-            <button onclick="openCbiDossier()" class="bg-amber-500 text-slate-950 font-bold px-2.5 py-1 rounded text-[11px]">
-              View CBI Report
+          <div class="text-red-700 font-bold text-sm">🚨 LEAK ATTRIBUTION CONFIRMED (${d.forensic_report.forensic_confidence})</div>
+          <div class="text-slate-900">CENTER: <strong>${d.forensic_report.center_id} (${d.forensic_report.center_name})</strong></div>
+          <div class="text-slate-700">LOCATION: ${d.forensic_report.room} | TIME: ${d.forensic_report.print_timestamp}</div>
+          <div class="mt-3 bg-emerald-50 border border-emerald-200 p-2.5 rounded text-emerald-900 flex justify-between items-center font-sans">
+            <span>PREVENTED LOSS: <strong>${d.business_value.loss_prevented}</strong></span>
+            <button onclick="openCbiDossier()" class="bg-slate-900 text-white font-bold px-2.5 py-1 rounded text-xs">
+              View Legal Report
             </button>
           </div>
+        `;
+      } else {
+        out.className = "bg-white border border-emerald-300 rounded-lg p-5 text-left text-xs font-mono shadow-xs space-y-1";
+        out.innerHTML = `
+          <div class="text-emerald-700 font-bold text-sm">✅ CLEAN / UNTAMPERED CONTENT</div>
+          <p class="text-slate-600 font-sans">No watermark anomaly detected. Baseline integrity confirmed.</p>
         `;
       }
     }
@@ -1171,9 +1395,9 @@
     async function runFullSwarmLive() {
       const pill = document.getElementById('swarm-status-pill');
       const log = document.getElementById('swarm-trajectory-log');
-      pill.innerText = "EXECUTING 5-AGENT SWARM...";
-      pill.className = "text-yellow-400 animate-pulse font-bold";
-      log.innerHTML = '<div class="text-cyan-400 font-mono text-xs"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Initializing Multi-Agent Mesh & telemetry consensus...</div>';
+      pill.innerText = "EXECUTING PIPELINE AUDIT...";
+      pill.className = "text-amber-700 font-bold";
+      log.innerHTML = '<div class="text-slate-600 font-mono text-xs"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Running coordinated security pipeline...</div>';
 
       try {
         const res = await fetch('/api/agents/swarm/execute', {
@@ -1186,40 +1410,25 @@
         });
         const data = await res.json();
         
-        pill.innerText = `SWARM COMPLETED (${data.total_latency_ms}ms) • STATUS: RESOLVED`;
-        pill.className = "text-emerald-400 font-bold";
+        pill.innerText = `AUDIT RESOLVED (${data.total_latency_ms}ms)`;
+        pill.className = "text-emerald-700 font-bold";
 
         log.innerHTML = data.swarm_trajectory.map((step, idx) => `
-          <div class="bg-slate-900 border border-slate-800 rounded-xl p-3.5 space-y-1.5 transition hover:border-cyan-500/40">
+          <div class="bg-slate-50 border border-slate-200 rounded p-2.5 space-y-1">
             <div class="flex justify-between items-center text-[11px]">
               <div class="flex items-center space-x-2">
-                <span class="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-300 flex items-center justify-center font-bold text-[10px]">${idx + 1}</span>
-                <span class="font-bold text-white uppercase">${step.agent}</span>
-                <span class="px-1.5 py-0.5 rounded text-[9px] bg-slate-800 text-cyan-300 font-mono">${step.action}</span>
+                <span class="w-4 h-4 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-bold text-[9px]">${idx + 1}</span>
+                <span class="font-bold text-slate-900 uppercase">${step.agent}</span>
+                <span class="px-1.5 py-0.2 rounded text-[9px] bg-slate-200 text-slate-700 font-mono">${step.action}</span>
               </div>
-              <span class="text-slate-500 font-mono text-[10px]">${step.timestamp || '0.04s'}</span>
+              <span class="text-slate-400 font-mono text-[10px]">${step.timestamp || '0.04s'}</span>
             </div>
-            <p class="text-slate-300 text-xs pl-7">${step.details}</p>
+            <p class="text-slate-600 text-xs pl-6 font-sans">${step.details}</p>
           </div>
         `).join('');
-
-        if (data.cbi_dossier_ready) {
-          log.innerHTML += `
-            <div class="bg-emerald-950/40 border border-emerald-500/50 rounded-xl p-3.5 flex justify-between items-center text-xs">
-              <div class="flex items-center space-x-2 text-emerald-300">
-                <i class="fa-solid fa-shield-check text-base"></i>
-                <span><strong>Sovereign Mesh Containment Achieved:</strong> CBI Dossier compiled & Zero-Overlap Set B deployed.</span>
-              </div>
-              <button onclick="openCbiDossier()" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] shadow">
-                <i class="fa-solid fa-file-pdf mr-1"></i> Open CBI Dossier
-              </button>
-            </div>
-          `;
-        }
       } catch (err) {
-        pill.innerText = "SWARM EXECUTION FAILED";
-        pill.className = "text-red-400 font-bold";
-        log.innerHTML = `<div class="text-red-400 font-mono text-xs">Error executing swarm: ${err.message}</div>`;
+        pill.innerText = "AUDIT FAILED";
+        pill.className = "text-red-700 font-bold";
       }
     }
 
@@ -1230,48 +1439,45 @@
         const data = await res.json();
         
         container.innerHTML = data.blocks.map((b, i) => `
-          <div class="relative bg-slate-900 border ${b.is_tampered ? 'border-red-500 neon-red bg-red-950/30' : 'border-slate-800'} rounded-2xl p-5 transition">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 border-b border-slate-800 pb-3 mb-3">
-              <div class="flex items-center space-x-3">
-                <span class="px-2.5 py-1 rounded-lg ${b.is_tampered ? 'bg-red-500 text-white' : 'bg-purple-500/20 text-purple-300 border border-purple-500/30'} font-mono font-bold text-xs">
+          <div class="bg-white border ${b.is_tampered ? 'border-red-400 bg-red-50/40' : 'border-slate-200'} rounded-lg p-3.5 shadow-2xs space-y-2">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-1.5">
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 rounded font-mono font-bold text-[11px] ${b.is_tampered ? 'bg-red-600 text-white' : 'bg-slate-100 text-slate-700'}">
                   BLOCK #${b.index} ${b.index === 0 ? '(GENESIS)' : ''}
                 </span>
-                <span class="font-bold text-white text-sm">${b.event}</span>
-                ${b.is_tampered ? '<span class="px-2 py-0.5 text-[10px] font-bold bg-red-600 text-white rounded animate-pulse">TAMPER DETECTED</span>' : '<span class="px-2 py-0.5 text-[10px] font-bold bg-emerald-500/20 text-emerald-300 rounded">VALIDATED</span>'}
+                <span class="font-bold text-slate-900 text-xs">${b.event}</span>
+                ${b.is_tampered ? '<span class="px-2 py-0.2 text-[10px] font-bold bg-red-600 text-white rounded">TAMPER DETECTED</span>' : '<span class="px-2 py-0.2 text-[10px] font-bold bg-emerald-100 text-emerald-800 rounded">VALID</span>'}
               </div>
-              <div class="text-slate-400 font-mono text-xs flex items-center space-x-2">
-                <i class="fa-solid fa-user-shield text-purple-400"></i>
-                <span>ACTOR: <strong class="text-slate-200">${b.actor}</strong></span>
-                <span class="text-slate-600">•</span>
-                <span>${b.timestamp}</span>
+              <div class="text-slate-400 font-mono text-[11px]">
+                ACTOR: <strong class="text-slate-700">${b.actor}</strong> • ${b.timestamp}
               </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs font-mono">
-              <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-850">
-                <span class="text-slate-500 block text-[10px]">PAYLOAD HASH</span>
-                <span class="text-cyan-400 break-all text-[11px]">${b.payload_hash}</span>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-[10px] font-mono">
+              <div class="bg-slate-50 p-1.5 rounded border border-slate-200">
+                <span class="text-slate-400 block text-[9px]">PAYLOAD HASH</span>
+                <span class="text-slate-700 break-all">${b.payload_hash}</span>
               </div>
-              <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-850">
-                <span class="text-slate-500 block text-[10px]">PREVIOUS BLOCK HASH</span>
-                <span class="text-slate-400 break-all text-[11px]">${b.prev_hash}</span>
+              <div class="bg-slate-50 p-1.5 rounded border border-slate-200">
+                <span class="text-slate-400 block text-[9px]">PREVIOUS BLOCK HASH</span>
+                <span class="text-slate-700 break-all">${b.prev_hash}</span>
               </div>
-              <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-850">
-                <span class="text-slate-500 block text-[10px]">BLOCK MERKLE ROOT</span>
-                <span class="${b.is_tampered ? 'text-red-400' : 'text-purple-300'} break-all text-[11px] font-bold">${b.block_hash}</span>
+              <div class="bg-slate-50 p-1.5 rounded border border-slate-200">
+                <span class="text-slate-400 block text-[9px]">BLOCK MERKLE ROOT</span>
+                <span class="text-slate-900 font-bold break-all">${b.block_hash}</span>
               </div>
             </div>
-            
-            <div class="mt-3 pt-2 border-t border-slate-850 flex justify-between items-center text-[11px] font-mono text-slate-500">
-              <div class="truncate mr-4">ECDSA SIGNATURE: <span class="text-emerald-400">${b.signature}</span></div>
-              <button onclick="tamperSpecificBlock(${b.index})" class="text-red-400 hover:text-red-300 text-[10px] font-bold shrink-0">
+
+            <div class="pt-1 flex justify-between items-center text-[10px] font-mono text-slate-400">
+              <span>ECDSA SIGNATURE: <strong class="text-slate-600">${b.signature}</strong></span>
+              <button onclick="tamperSpecificBlock(${b.index})" class="text-red-700 hover:underline font-bold">
                 [Tamper Block #${b.index}]
               </button>
             </div>
           </div>
         `).join('');
       } catch (err) {
-        container.innerHTML = `<div class="text-red-400 text-xs">Failed to load Merkle ledger: ${err.message}</div>`;
+        console.error(err);
       }
     }
 
@@ -1279,9 +1485,9 @@
       const res = await fetch('/api/provenance/verify');
       const d = await res.json();
       if (d.is_valid) {
-        alert(`✅ MERKLE INTEGRITY CONFIRMED!\n\nAll ${d.chain_length} blocks cryptographically verified.\nSHA-256 chained hashes and ECDSA signatures match Sovereign HSM Root.`);
+        alert(`✅ CUSTODY LEDGER VERIFIED!\n\nAll ${d.chain_length} blocks cryptographically match Sovereign Root.`);
       } else {
-        alert(`🚨 INTEGRITY BREACH DETECTED!\n\nCorrupted Block: #${d.tampered_block_index}\nHash mismatch between block header and calculated payload.`);
+        alert(`🚨 INTEGRITY BREACH DETECTED!\n\nCorrupted Block: #${d.tampered_block_index}`);
       }
       await loadMerkleLedger();
     }
@@ -1294,10 +1500,8 @@
       const res = await fetch(`/api/provenance/tamper/${blockIdx}`, {method: 'POST'});
       const d = await res.json();
       await loadMerkleLedger();
-      alert(`⚠️ INSIDER TAMPER SIMULATED ON BLOCK #${blockIdx}!\n\n${d.message}\nRun 'Verify Chain Integrity' to confirm cryptographic detection.`);
+      alert(`⚠️ INSIDER TAMPER SIMULATED ON BLOCK #${blockIdx}!\n\n${d.message}`);
     }
-
-    // --- PATENT INNOVATIONS: DEEPTECH CLIENT LOGIC ---
 
     async function loadOpticalMicrodots() {
       const grid = document.getElementById('microdot-matrix-grid');
@@ -1314,13 +1518,13 @@
         });
         const data = await res.json();
         grid.innerHTML = data.microdot_matrix.map(d => `
-          <div title="Bit: ${d.bit} | (${d.x}, ${d.y})" 
-               class="w-2.5 h-2.5 rounded-full flex items-center justify-center transition" 
-               style="background-color: ${d.color_rgba}; ${d.is_fiducial ? 'border: 1px solid #eab308; box-shadow: 0 0 4px #eab308;' : ''}">
+          <div title="Bit: ${d.bit}" 
+               class="w-2 h-2 rounded-full" 
+               style="background-color: ${d.color_rgba}; ${d.is_fiducial ? 'border: 1px solid #eab308;' : ''}">
           </div>
         `).join('');
       } catch (err) {
-        console.error("Optical stego matrix err:", err);
+        console.error(err);
       }
     }
 
@@ -1329,7 +1533,7 @@
       const tilt = parseFloat(document.getElementById('slider-camera-tilt').value);
       const resBox = document.getElementById('optical-decode-result');
       
-      resBox.innerHTML = '<div class="text-yellow-400 font-mono"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Applying Homography perspective transform & Reed-Solomon parity check...</div>';
+      resBox.innerHTML = '<div class="text-slate-700 font-mono"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Running Homography rectification & Reed-Solomon parity check...</div>';
       
       const res = await fetch('/api/patent/optical-stego/decode', {
         method: 'POST',
@@ -1344,126 +1548,30 @@
       });
       const data = await res.json();
 
-      resBox.className = "bg-slate-950 border border-yellow-500/50 p-3.5 rounded-xl text-xs font-mono space-y-2";
+      resBox.className = "bg-white border border-slate-200 p-3 rounded text-xs font-mono space-y-1.5 text-slate-800 shadow-2xs";
       resBox.innerHTML = `
-        <div class="flex justify-between items-center text-yellow-400 font-bold border-b border-slate-800 pb-1.5">
-          <span>🎯 OPTICAL STEGO RECOVERY: ${data.confidence_score}% CONFIDENCE</span>
-          <span class="text-emerald-400">SNR: ${data.snr_db} dB</span>
+        <div class="flex justify-between items-center text-slate-900 font-bold border-b border-slate-100 pb-1">
+          <span>🎯 RECOVERY CONFIDENCE: ${data.confidence_score}%</span>
+          <span class="text-emerald-700">SNR: ${data.snr_db} dB</span>
         </div>
-        <div class="grid grid-cols-3 gap-2 text-slate-300 text-[11px]">
-          <div>CENTER: <strong class="text-white">${data.recovered_identity.center_id}</strong></div>
-          <div>ROOM: <strong class="text-yellow-400">${data.recovered_identity.room}</strong></div>
-          <div>DESK: <strong class="text-white">${data.recovered_identity.desk_no}</strong></div>
-        </div>
-        <div class="flex justify-between text-[10px] text-slate-500 pt-1">
-          <span>Homography Rectification: ${data.perspective_rectification_angle}°</span>
-          <span class="text-emerald-400">✅ Statutory Physical Evidence Sealed</span>
+        <div class="grid grid-cols-3 gap-2 text-slate-600 text-[10px]">
+          <div>CENTER: <strong class="text-slate-900">${data.recovered_identity.center_id}</strong></div>
+          <div>ROOM: <strong class="text-slate-900">${data.recovered_identity.room}</strong></div>
+          <div>DESK: <strong class="text-slate-900">${data.recovered_identity.desk_no}</strong></div>
         </div>
       `;
-    }
-
-    async function loadMPCCustodians() {
-      const container = document.getElementById('mpc-custodians-grid');
-      const qText = document.getElementById('mpc-quorum-text');
-      try {
-        const res = await fetch('/api/patent/mpc/custodians');
-        const d = await res.json();
-
-        qText.innerText = `${d.submitted_count} / ${d.threshold_required} Key Shares Registered (${d.is_threshold_met ? 'THRESHOLD UNLOCKED' : 'LOCKED'})`;
-        qText.className = d.is_threshold_met ? 'text-emerald-400 font-bold text-sm' : 'text-yellow-400 font-bold text-sm';
-
-        container.innerHTML = d.custodians.map(c => `
-          <div class="bg-slate-950 border ${c.submitted ? 'border-emerald-500/60 bg-emerald-950/20' : 'border-slate-850'} p-3.5 rounded-xl space-y-2.5 text-xs font-mono">
-            <div class="flex justify-between items-start">
-              <span class="text-[10px] text-slate-500 font-bold">NODE #${c.id}</span>
-              ${c.submitted ? '<span class="px-1.5 py-0.5 text-[9px] bg-emerald-500/20 text-emerald-300 rounded font-bold">REGISTERED</span>' : '<span class="px-1.5 py-0.5 text-[9px] bg-slate-800 text-slate-500 rounded">PENDING</span>'}
-            </div>
-            <div>
-              <div class="font-bold text-white text-[11px] leading-tight">${c.name}</div>
-              <div class="text-slate-500 text-[10px]">${c.role}</div>
-            </div>
-            <div class="text-[10px] text-purple-300 truncate">FP: ${c.key_fingerprint}...</div>
-            <button onclick="submitMPCCustodian(${c.id})" class="w-full py-1.5 rounded-lg ${c.submitted ? 'bg-slate-800 text-slate-500 cursor-not-allowed' : 'bg-purple-600 hover:bg-purple-500 text-white font-bold'} text-[10px] transition" ${c.submitted ? 'disabled' : ''}>
-              ${c.submitted ? '✓ Key Share Submitted' : 'Submit Hardware Share'}
-            </button>
-          </div>
-        `).join('');
-      } catch (err) {
-        console.error("MPC load err:", err);
-      }
-    }
-
-    async function submitMPCCustodian(cid) {
-      await fetch('/api/patent/mpc/submit-share', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({custodian_id: cid})
-      });
-      await loadMPCCustodians();
-    }
-
-    async function reconstructMPCKey() {
-      const res = await fetch('/api/patent/mpc/reconstruct', {method: 'POST'});
-      const d = await res.json();
-      const out = document.getElementById('mpc-vault-result');
-      out.classList.remove('hidden');
-
-      if (d.success) {
-        out.className = "bg-purple-950/40 border-2 border-purple-500 rounded-xl p-4 text-xs font-mono space-y-2";
-        out.innerHTML = `
-          <div class="flex justify-between items-center text-purple-300 font-bold border-b border-purple-500/30 pb-2">
-            <span>🔓 EPHEMERAL AES-256 MASTER KEY RECONSTRUCTED IN HARDWARE RAM</span>
-            <span class="text-yellow-400 font-bold animate-pulse">ZEROIZATION: 60s ACTIVE</span>
-          </div>
-          <div class="text-white text-sm bg-slate-950 p-2.5 rounded-lg border border-purple-500/40 select-all font-bold">
-            ${d.ephemeral_aes256_key}
-          </div>
-          <div class="flex justify-between text-[11px] text-slate-400 pt-1">
-            <span>Participating Custodians: Nodes ${d.custodians_participated.join(', ')}</span>
-            <span class="text-emerald-400 font-bold">Zero Single Point of Compromise</span>
-          </div>
-        `;
-      } else {
-        out.className = "bg-red-950/40 border border-red-500 rounded-xl p-4 text-xs font-mono text-red-300";
-        out.innerHTML = `🚨 RECONSTRUCTION BLOCKED: ${d.error}`;
-      }
-    }
-
-    async function resetMPCCeremony() {
-      await fetch('/api/patent/mpc/reset', {method: 'POST'});
-      document.getElementById('mpc-vault-result').classList.add('hidden');
-      await loadMPCCustodians();
     }
 
     async function verifyZKPProof() {
       const res = await fetch('/api/patent/zkp/verify');
       const d = await res.json();
-      const box = document.getElementById('zkp-verification-box');
-      box.className = "bg-emerald-950/40 border-2 border-emerald-500/60 p-4 rounded-xl text-xs font-mono space-y-2 text-emerald-300";
-      box.innerHTML = `
-        <div class="flex justify-between items-center font-bold text-sm">
-          <span>✅ ZERO-KNOWLEDGE PROOF VERIFIED (1.24ms)</span>
-          <span class="text-emerald-400">100.00% ISOMORPHIC EQUIVALENCE</span>
-        </div>
-        <p class="text-slate-200">
-          Mathematical Groth16 / BN254 circuit verification confirms <strong>Set A, Set B, and Set C</strong> have identical syllabus coverage, Bloom cognitive weights, and formula complexity.
-        </p>
-        <div class="flex justify-between text-[10px] text-emerald-400 font-bold pt-1 border-t border-emerald-500/30">
-          <span>Information Leaked: 0 Bits (Completely Confidential)</span>
-          <span>Statutory Court Certificate: VERIFIED</span>
-        </div>
-      `;
-      alert("✅ Zero-Knowledge Proof verified with 0% question text disclosed!");
+      alert(`✅ ZERO-KNOWLEDGE PROOF VERIFIED (${d.verifier_time_ms}ms)!\n\n${d.message}\nCognitive Equivalence: ${d.cognitive_equivalence}\nInformation Disclosed: ${d.questions_revealed}`);
     }
-
-    // --- CLAIM 4: AIR-GAP OFFLINE HARDWARE ENCLAVE & PATENT SPEC MODAL ---
-
-    let currentAirGapTokenPayload = "";
 
     async function generateAirGapToken() {
       const display = document.getElementById('airgap-fob-display');
       const timer = document.getElementById('airgap-timer-display');
-      display.innerHTML = '<span class="text-yellow-400"><i class="fa-solid fa-spinner fa-spin mr-1"></i>Verifying hardware thumbprint sensor...</span>';
+      display.innerHTML = '<span class="text-slate-500"><i class="fa-solid fa-spinner fa-spin mr-1"></i>Verifying biometric sensor...</span>';
 
       const res = await fetch('/api/airgap/generate-fob-token', {
         method: 'POST',
@@ -1476,8 +1584,8 @@
       const d = await res.json();
       currentAirGapTokenPayload = d.optical_qr_chaff_payload;
       display.innerText = currentAirGapTokenPayload;
-      timer.innerText = `TTL: ${d.token_ttl_seconds}s (Dynamic Chaff)`;
-      alert(`🔐 BIOMETRIC HARDWARE THUMBPRINT VERIFIED!\n\nDynamic Optical QR-Chaff token generated on FOB.\nValid for ${d.token_ttl_seconds}s without internet connectivity.`);
+      timer.innerText = `TTL: ${d.token_ttl_seconds}s`;
+      alert(`🔐 BIOMETRIC THUMBPRINT AUTHENTICATED!\n\nDynamic Optical QR-Chaff token generated on FOB.\nValid for ${d.token_ttl_seconds}s without internet connection.`);
     }
 
     async function runAirGapPrintSim() {
@@ -1486,7 +1594,7 @@
         await generateAirGapToken();
       }
 
-      out.innerHTML = '<div class="text-cyan-400 font-mono"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Optical Camera scanning 2D Chaff • Decrypting inside TrustZone RAM...</div>';
+      out.innerHTML = '<div class="text-slate-700 font-mono"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Optical scanner reading 2D Chaff • Decrypting in TrustZone RAM...</div>';
 
       const res = await fetch('/api/airgap/scan-and-print', {
         method: 'POST',
@@ -1500,25 +1608,17 @@
       const d = await res.json();
 
       if (d.success) {
-        out.className = "bg-emerald-950/40 border-2 border-emerald-500 rounded-xl p-4 text-xs font-mono space-y-2 text-slate-200";
+        out.className = "bg-emerald-50 border border-emerald-200 rounded p-3 text-xs font-mono space-y-1 text-slate-800";
         out.innerHTML = `
-          <div class="flex justify-between items-center text-emerald-400 font-bold border-b border-emerald-500/30 pb-1.5">
-            <span>✅ OFFLINE AIR-GAP PRINT EXECUTED (${d.optical_scan_time_ms}ms)</span>
-            <span class="text-white">${d.copies_printed} PAPERS EJECTED</span>
+          <div class="flex justify-between items-center text-emerald-800 font-bold border-b border-emerald-200 pb-1">
+            <span>✅ OFFLINE PRINT COMPLETED (${d.optical_scan_time_ms}ms)</span>
+            <span>${d.copies_printed} PAPERS EJECTED</span>
           </div>
-          <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-300">
-            <div>CENTER: <strong class="text-white">${d.center_verified}</strong></div>
-            <div>AUTH: <strong class="text-emerald-300">${d.superintendent_authenticated}</strong></div>
-          </div>
-          <div class="bg-slate-950 p-2 rounded border border-slate-800 text-[10px] space-y-1 text-slate-400">
-            <div class="text-yellow-400 font-bold">🔒 HARDWARE SECURITY RECORD:</div>
-            <div>• Decrypted in Isolated ARM TrustZone RAM (Zero HDD File Spooling)</div>
-            <div>• <strong class="text-emerald-400">${d.memory_zeroization_status}</strong></div>
+          <div class="text-[10px] text-slate-600">
+            • Decrypted in isolated ARM TrustZone RAM (Zero file spooling)<br>
+            • <strong class="text-emerald-800">${d.memory_zeroization_status}</strong>
           </div>
         `;
-      } else {
-        out.className = "bg-red-950/40 border border-red-500 rounded-xl p-3.5 text-xs font-mono text-red-300";
-        out.innerHTML = `🚨 AIR-GAP REJECTION: ${d.error}`;
       }
     }
 
@@ -1526,7 +1626,7 @@
       const modal = document.getElementById('patent-form2-modal');
       const content = document.getElementById('patent-spec-content');
       modal.classList.remove('hidden');
-      content.innerText = "Loading official Complete Patent Specification from Sovereign Generator...";
+      content.innerText = "Loading official Complete Patent Specification...";
 
       const res = await fetch('/api/patent/generate-form2-draft');
       const d = await res.json();
@@ -1537,13 +1637,11 @@
       document.getElementById('patent-form2-modal').classList.add('hidden');
     }
 
-    // Init
+    // Init on load
     loadTelegramFeed();
     runWatermarkCenter();
-    runGenerateSets();
     loadMerkleLedger();
     loadOpticalMicrodots();
-    loadMPCCustodians();
   </script>
 </body>
 </html>
