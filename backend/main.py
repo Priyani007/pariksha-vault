@@ -26,6 +26,9 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from engine.stego import embed_watermark, extract_watermark
 from engine.agents import agent_mesh
 from engine.merkle import merkle_ledger
+from engine.optical_stego import optical_stego_engine
+from engine.mpc_escrow import mpc_vault
+from engine.zkp_verifier import zkp_engine
 
 app = FastAPI(title="ParikshaVault API", version="4.0.0")
 
@@ -609,9 +612,89 @@ def scan_vision_leak(req: VisionScanRequest):
     }
 
 
+# --- PATENT INNOVATIONS: DEEPTECH ENDPOINTS (PATENT CLAIMS 1, 2, 3) ---
+
+class OpticalStegoEncodeRequest(BaseModel):
+    center_id: str = "CTR-104"
+    room: str = "Hall B"
+    desk_no: str = "Desk 42"
+    timestamp: str = "08:44:12 IST"
+
+class OpticalStegoDecodeRequest(BaseModel):
+    simulated_blur: float = 0.3
+    rotation_deg: float = 12.5
+    center_id: Optional[str] = "CTR-104"
+    room: Optional[str] = "Hall B"
+    desk_no: Optional[str] = "Desk 42"
+
+class MPCSendShareRequest(BaseModel):
+    custodian_id: int
+
+@app.post("/api/patent/optical-stego/encode")
+def encode_optical_microdots(req: OpticalStegoEncodeRequest):
+    """
+    Patent Claim #1: Generates sub-pixel optical micro-dot matrix & kerning vectors
+    to survive low-res smartphone photos and screen captures.
+    """
+    return optical_stego_engine.generate_microdot_pattern(
+        req.center_id, req.room, req.desk_no, req.timestamp
+    )
+
+@app.post("/api/patent/optical-stego/decode")
+def decode_optical_microdots(req: OpticalStegoDecodeRequest):
+    """
+    Patent Claim #1: Homography-rectified decoder extracting 256-bit provenance
+    from rotated, blurred smartphone camera captures.
+    """
+    return optical_stego_engine.decode_from_distorted_capture(
+        req.simulated_blur, req.rotation_deg, req.center_id or "CTR-104", req.room or "Hall B", req.desk_no or "Desk 42"
+    )
+
+@app.get("/api/patent/mpc/custodians")
+def get_mpc_custodians():
+    """
+    Patent Claim #3: Returns sovereign threshold custodian nodes and current share quorum.
+    """
+    return mpc_vault.get_custodians_status()
+
+@app.post("/api/patent/mpc/submit-share")
+def submit_mpc_share(req: MPCSendShareRequest):
+    """
+    Patent Claim #3: Submits a hardware-backed partial share from a sovereign custodian.
+    """
+    return mpc_vault.submit_custodian_share(req.custodian_id)
+
+@app.post("/api/patent/mpc/reconstruct")
+def reconstruct_mpc_key():
+    """
+    Patent Claim #3: Reconstructs ephemeral Master AES-256 Vault Key via Lagrange polynomial
+    interpolation inside isolated volatile memory with auto-zeroization.
+    """
+    return mpc_vault.reconstruct_ephemeral_vault_key()
+
+@app.post("/api/patent/mpc/reset")
+def reset_mpc_ceremony():
+    return mpc_vault.reset_ceremony()
+
+@app.post("/api/patent/zkp/generate-proof")
+def generate_zkp_fairness_proof():
+    """
+    Patent Claim #2: Generates zero-knowledge isomorphic difficulty & syllabus equivalence proof.
+    """
+    return zkp_engine.generate_zero_knowledge_equivalence_proof()
+
+@app.get("/api/patent/zkp/verify")
+def verify_zkp_fairness_proof():
+    """
+    Patent Claim #2: Public verifier proving mathematical fairness with 0 knowledge disclosure.
+    """
+    return zkp_engine.verify_proof()
+
+
 # Mount static frontend
 static_dir = os.path.join(os.path.dirname(__file__), "static")
 if os.path.exists(static_dir):
     app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
+
 
 
