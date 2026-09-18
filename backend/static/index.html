@@ -81,6 +81,11 @@
 
     <!-- Right Controls -->
     <div class="flex items-center space-x-3">
+      <button onclick="openWarRoomModal()" id="btn-header-warroom" class="px-3.5 py-1.5 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white text-xs font-semibold transition shadow-sm flex items-center space-x-1.5">
+        <i class="fa-solid fa-play text-[10px]"></i>
+        <span>Exam Day War Room</span>
+      </button>
+
       <button onclick="openRotationModal()" id="btn-header-rotate" class="px-3.5 py-1.5 rounded-full bg-white hover:bg-slate-50 border border-black/10 text-xs font-medium text-[#FF3B30] transition shadow-xs flex items-center space-x-1.5">
         <i class="fa-solid fa-arrows-rotate text-[11px]"></i>
         <span>Paper Rotation</span>
@@ -123,6 +128,10 @@
             <button onclick="switchTab('tab-vault')" id="btn-tab-vault" class="apple-sidebar-btn w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs text-[#86868B] text-left transition hover:bg-black/[0.04] hover:text-[#1D1D1F]">
               <i class="fa-solid fa-lock w-4 text-center"></i>
               <span>Timed Escrow Vault</span>
+            </button>
+            <button onclick="switchTab('tab-jumble')" id="btn-tab-jumble" class="apple-sidebar-btn w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs text-[#86868B] text-left transition hover:bg-black/[0.04] hover:text-[#1D1D1F]">
+              <i class="fa-solid fa-shuffle w-4 text-center"></i>
+              <span>Isomorphic Jumbling</span>
             </button>
             <button onclick="switchTab('tab-ledger')" id="btn-tab-ledger" class="apple-sidebar-btn w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs text-[#86868B] text-left transition hover:bg-black/[0.04] hover:text-[#1D1D1F]">
               <i class="fa-solid fa-link w-4 text-center"></i>
@@ -491,6 +500,86 @@
       </div>
 
       <!-- ========================================================================================= -->
+      <!-- VIEW: ISOMORPHIC QUESTION JUMBLING & COGNITIVE EQUIVALENCE -->
+      <!-- ========================================================================================= -->
+      <div id="tab-jumble" class="tab-content hidden space-y-6">
+        
+        <div class="flex justify-between items-center">
+          <div>
+            <h2 class="text-2xl font-bold tracking-tight text-[#1D1D1F]">Isomorphic Question Jumbling Engine</h2>
+            <p class="text-xs text-[#86868B] mt-0.5">Parametric seat-level variant generator with mathematical Bloom's taxonomy equivalence verification.</p>
+          </div>
+          <button onclick="generateJumbleVariantsUI()" class="px-4 py-2 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white text-xs font-semibold transition shadow-sm flex items-center space-x-1.5">
+            <i class="fa-solid fa-shuffle text-[10px]"></i>
+            <span>Generate & Prove Parity</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="jumble-cards-container">
+          <!-- Candidate 1 -->
+          <div class="apple-card p-5 space-y-4">
+            <div class="flex justify-between items-center border-b border-black/5 pb-3">
+              <div>
+                <span class="text-[10px] font-mono text-[#0071E3] font-semibold" id="jumble-seed-1">ISO-SEED-7A9B</span>
+                <h4 class="font-semibold text-sm text-[#1D1D1F]">Candidate A (Seat #01 • Patna)</h4>
+              </div>
+              <span class="px-2.5 py-1 text-[10px] font-bold bg-[#34C759]/10 text-[#34C759] rounded-full">Difficulty: 0.6072</span>
+            </div>
+            <div class="p-4 rounded-xl bg-[#F5F5F7] text-xs space-y-3 font-mono">
+              <div class="text-[#1D1D1F] font-sans font-medium" id="jumble-qtext-1">Q1: A projectile is launched from ground level at 42 m/s at 45° to horizontal. Calculate max height.</div>
+              <div class="grid grid-cols-2 gap-2 text-[11px] text-[#86868B]" id="jumble-options-1">
+                <div>A: 44.10 m</div><div>B: 22.05 m</div>
+                <div>C: 88.20 m</div><div>D: 31.50 m</div>
+              </div>
+            </div>
+            <div class="flex justify-between text-[11px] text-[#86868B]">
+              <span>Bloom Level: <strong class="text-[#1D1D1F]">Application</strong></span>
+              <span>Answer Key: <strong class="text-[#0071E3]">Option A</strong></span>
+            </div>
+          </div>
+
+          <!-- Candidate 2 -->
+          <div class="apple-card p-5 space-y-4">
+            <div class="flex justify-between items-center border-b border-black/5 pb-3">
+              <div>
+                <span class="text-[10px] font-mono text-[#0071E3] font-semibold" id="jumble-seed-2">ISO-SEED-F10C</span>
+                <h4 class="font-semibold text-sm text-[#1D1D1F]">Candidate B (Seat #02 • Patna)</h4>
+              </div>
+              <span class="px-2.5 py-1 text-[10px] font-bold bg-[#34C759]/10 text-[#34C759] rounded-full">Difficulty: 0.6081</span>
+            </div>
+            <div class="p-4 rounded-xl bg-[#F5F5F7] text-xs space-y-3 font-mono">
+              <div class="text-[#1D1D1F] font-sans font-medium" id="jumble-qtext-2">Q1: A circular coil of 120 turns and radius 8 cm has dB/dt = 1.2 T/s. Calculate induced EMF.</div>
+              <div class="grid grid-cols-2 gap-2 text-[11px] text-[#86868B]" id="jumble-options-2">
+                <div>A: 2.89 V</div><div>B: 1.45 V</div>
+                <div>C: 5.78 V</div><div>D: 0.72 V</div>
+              </div>
+            </div>
+            <div class="flex justify-between text-[11px] text-[#86868B]">
+              <span>Bloom Level: <strong class="text-[#1D1D1F]">Application</strong></span>
+              <span>Answer Key: <strong class="text-[#0071E3]">Option A</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Equivalence Proof Card -->
+        <div class="apple-card p-5 flex flex-col md:flex-row items-center justify-between gap-4 border-l-4 border-[#34C759]">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-full bg-[#34C759]/10 text-[#34C759] flex items-center justify-center font-bold text-sm">
+              <i class="fa-solid fa-check-double"></i>
+            </div>
+            <div>
+              <h4 class="font-semibold text-xs text-[#1D1D1F]">Zero-Variance Difficulty Invariance Proof</h4>
+              <p class="text-[11px] text-[#86868B]">Standard Deviation: <span class="font-mono text-[#1D1D1F]" id="jumble-std-dev">0.00045</span> (Strict &lt; 0.01) • Uniqueness: <span class="font-mono text-[#0071E3]" id="jumble-uniq">100.0%</span></p>
+            </div>
+          </div>
+          <div class="px-3 py-1.5 rounded-lg bg-[#F5F5F7] font-mono text-[10px] text-[#86868B]" id="jumble-proof-hash">
+            PROOF-HASH: #4353CA3DB49DCF27
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ========================================================================================= -->
       <!-- VIEW 5: CUSTODY PROVENANCE LEDGER -->
       <!-- ========================================================================================= -->
       <div id="tab-ledger" class="tab-content hidden space-y-6">
@@ -762,11 +851,179 @@
     </div>
   </div>
 
+  <!-- WAR ROOM SIMULATION MODAL -->
+  <div id="war-room-modal" class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="apple-card max-w-3xl w-full p-7 max-h-[90vh] flex flex-col shadow-2xl overflow-hidden bg-white">
+      <div class="flex justify-between items-center border-b border-black/5 pb-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-xl bg-[#0071E3] text-white flex items-center justify-center text-xs font-bold shadow-sm">
+            <i class="fa-solid fa-play"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-base text-[#1D1D1F]">Exam Day War Room — Autonomous Defense Lifecycle</h3>
+            <p class="text-xs text-[#86868B]">End-to-end chronological simulation of threat detection, attribution & automatic swap.</p>
+          </div>
+        </div>
+        <button onclick="closeWarRoomModal()" class="text-[#86868B] hover:text-[#1D1D1F] text-lg no-print">&times;</button>
+      </div>
+
+      <!-- Step List Container -->
+      <div class="flex-1 overflow-y-auto py-5 space-y-3 custom-scrollbar" id="war-room-steps-container"></div>
+
+      <!-- Controls Footer -->
+      <div class="pt-4 border-t border-black/5 flex items-center justify-between">
+        <div class="text-xs text-[#86868B]">
+          Status: <strong class="text-[#0071E3]" id="war-room-status-badge">READY TO START</strong>
+        </div>
+        <div class="flex space-x-2">
+          <button onclick="resetWarRoomSim()" class="px-4 py-2 rounded-full bg-black/5 hover:bg-black/10 text-xs font-medium text-[#1D1D1F]">Reset</button>
+          <button onclick="startWarRoomAutoPlay()" id="war-room-play-btn" class="px-5 py-2 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white text-xs font-semibold shadow-sm flex items-center space-x-2">
+            <i class="fa-solid fa-play text-[10px]"></i>
+            <span>Start Automated Simulation</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- JAVASCRIPT ENGINE -->
   <script>
     let currentWatermarkedText = "";
     let isVaultLocked = true;
     let currentAirGapTokenPayload = "";
+    let warRoomData = null;
+    let warRoomTimer = null;
+
+    // War Room Simulation Functions
+    async function openWarRoomModal() {
+      document.getElementById('war-room-modal').classList.remove('hidden');
+      if (!warRoomData) {
+        try {
+          const res = await fetch('/api/war-room/simulate', { method: 'POST' });
+          warRoomData = await res.json();
+          renderWarRoomStepCards(warRoomData.steps, 0);
+        } catch (e) {
+          console.error('War room error:', e);
+        }
+      }
+    }
+
+    function closeWarRoomModal() {
+      document.getElementById('war-room-modal').classList.add('hidden');
+      if (warRoomTimer) clearInterval(warRoomTimer);
+    }
+
+    function renderWarRoomStepCards(steps, activeIdx) {
+      const container = document.getElementById('war-room-steps-container');
+      container.innerHTML = steps.map((s, idx) => {
+        const isPast = idx < activeIdx;
+        const isCurrent = idx === activeIdx;
+
+        let badgeBg = 'bg-black/5 text-[#86868B]';
+        let cardBg = 'bg-[#F5F5F7] opacity-50';
+        let borderStyle = 'border-transparent';
+
+        if (isCurrent) {
+          cardBg = 'bg-white shadow-sm opacity-100 scale-[1.01] transition-all';
+          if (s.severity === 'danger') {
+            badgeBg = 'bg-[#FF3B30]/10 text-[#FF3B30] border border-[#FF3B30]/30';
+            borderStyle = 'border-[#FF3B30]/40';
+          } else if (s.severity === 'warning') {
+            badgeBg = 'bg-[#FF9500]/10 text-[#FF9500] border border-[#FF9500]/30';
+            borderStyle = 'border-[#FF9500]/40';
+          } else {
+            badgeBg = 'bg-[#0071E3]/10 text-[#0071E3] border border-[#0071E3]/30';
+            borderStyle = 'border-[#0071E3]/40';
+          }
+        } else if (isPast) {
+          cardBg = 'bg-white opacity-95';
+          badgeBg = 'bg-[#34C759]/10 text-[#34C759]';
+        }
+
+        return `
+          <div class="p-4 rounded-xl ${cardBg} border ${borderStyle} space-y-1.5 transition-all">
+            <div class="flex justify-between items-center">
+              <div class="flex items-center space-x-2">
+                <span class="font-mono text-[11px] font-bold px-2 py-0.5 rounded-md bg-black/5 text-[#1D1D1F]">${s.timeline_tag}</span>
+                <h4 class="font-semibold text-xs text-[#1D1D1F]">${s.phase_name}</h4>
+              </div>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${badgeBg}">${s.status}</span>
+            </div>
+            <div class="text-xs font-medium text-[#1D1D1F]">${s.headline}</div>
+            <p class="text-[11px] text-[#86868B]">${s.details}</p>
+            <div class="pt-2 border-t border-black/5 flex items-center space-x-4 text-[10px] font-mono text-[#86868B]">
+              ${Object.entries(s.metrics).map(([k, v]) => `<div>${k}: <b class="text-[#1D1D1F]">${v}</b></div>`).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function startWarRoomAutoPlay() {
+      let stepIdx = 0;
+      const total = warRoomData.steps.length;
+      document.getElementById('war-room-status-badge').innerText = 'EXECUTING PLAYBACK...';
+      document.getElementById('war-room-play-btn').disabled = true;
+
+      renderWarRoomStepCards(warRoomData.steps, stepIdx);
+
+      warRoomTimer = setInterval(() => {
+        stepIdx++;
+        if (stepIdx < total) {
+          renderWarRoomStepCards(warRoomData.steps, stepIdx);
+        } else {
+          clearInterval(warRoomTimer);
+          document.getElementById('war-room-status-badge').innerText = 'LIFECYCLE RESOLVED — AUTO DEFENSE SEALED';
+          document.getElementById('war-room-play-btn').disabled = false;
+        }
+      }, 1500);
+    }
+
+    function resetWarRoomSim() {
+      if (warRoomTimer) clearInterval(warRoomTimer);
+      document.getElementById('war-room-status-badge').innerText = 'READY TO START';
+      document.getElementById('war-room-play-btn').disabled = false;
+      if (warRoomData) renderWarRoomStepCards(warRoomData.steps, 0);
+    }
+
+    // Isomorphic Jumbling Generator
+    async function generateJumbleVariantsUI() {
+      try {
+        const res = await fetch('/api/jumble/generate-variants', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            exam_code: 'NEET-UG-2026',
+            center_id: 'CTR-105-PATNA',
+            room_no: 'Hall-3B',
+            seats: ['Seat-01', 'Seat-02']
+          })
+        });
+        const d = await res.json();
+        const p1 = d.papers[0];
+        const p2 = d.papers[1];
+
+        document.getElementById('jumble-seed-1').innerText = p1.seed_id;
+        document.getElementById('jumble-qtext-1').innerText = `Q1: ${p1.questions[0].question_text}`;
+        document.getElementById('jumble-options-1').innerHTML = Object.entries(p1.questions[0].options).map(([k, v]) => `<div>${k}: ${v}</div>`).join('');
+
+        document.getElementById('jumble-seed-2').innerText = p2.seed_id;
+        document.getElementById('jumble-qtext-2').innerText = `Q1: ${p2.questions[0].question_text}`;
+        document.getElementById('jumble-options-2').innerHTML = Object.entries(p2.questions[0].options).map(([k, v]) => `<div>${k}: ${v}</div>`).join('');
+
+        const eqRes = await fetch('/api/jumble/verify-equivalence', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ papers: d.papers })
+        });
+        const eqData = await eqRes.json();
+        document.getElementById('jumble-std-dev').innerText = eqData.standard_deviation;
+        document.getElementById('jumble-uniq').innerText = eqData.uniqueness_percentage;
+        document.getElementById('jumble-proof-hash').innerText = `PROOF-HASH: #${eqData.mathematical_proof_hash}`;
+      } catch (e) {
+        console.error('Jumble error:', e);
+      }
+    }
 
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));

@@ -31,6 +31,8 @@ from engine.mpc_escrow import mpc_vault
 from engine.zkp_verifier import zkp_engine
 from engine.airgap_hardware import airgap_enclave
 from engine.patent_spec_generator import patent_spec_generator
+from engine.isomorphic_jumble import jumble_engine
+from engine.war_room_simulator import war_room_engine
 
 app = FastAPI(title="ParikshaVault API", version="4.0.0")
 
@@ -737,6 +739,42 @@ def get_statutory_patent_specification():
     Generates a complete, ready-to-file Form 2 Patent Specification Document with Claims.
     """
     return patent_spec_generator.generate_full_patent_document()
+
+
+class JumbleGenerateRequest(BaseModel):
+    exam_code: str = "NEET-UG-2026"
+    center_id: str = "CTR-105-PATNA"
+    room_no: str = "Hall-3B"
+    seats: List[str] = ["Seat-01", "Seat-02", "Seat-03", "Seat-04"]
+
+@app.post("/api/jumble/generate-variants")
+def generate_jumble_variants(req: JumbleGenerateRequest):
+    """
+    Generates personalized isomorphic exam sets for each candidate seat with zero repetition
+    and mathematically balanced cognitive load.
+    """
+    papers = []
+    for s in req.seats:
+        p = jumble_engine.generate_candidate_paper(req.exam_code, req.center_id, req.room_no, s, f"Candidate ({s})")
+        papers.append(p)
+    return {"exam_code": req.exam_code, "center_id": req.center_id, "room_no": req.room_no, "papers": papers}
+
+class JumbleEquivalenceRequest(BaseModel):
+    papers: List[Dict[str, Any]]
+
+@app.post("/api/jumble/verify-equivalence")
+def verify_jumble_equivalence(req: JumbleEquivalenceRequest):
+    """
+    Validates Bloom's taxonomy difficulty equivalence and IRT metric invariance across papers.
+    """
+    return jumble_engine.verify_cognitive_equivalence(req.papers)
+
+@app.post("/api/war-room/simulate")
+def run_war_room_simulation():
+    """
+    Executes the 7-phase end-to-end exam day lifecycle simulation.
+    """
+    return war_room_engine.get_full_lifecycle()
 
 
 # Mount static frontend
