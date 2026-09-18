@@ -80,7 +80,7 @@ Question papers remain locked in **scrambled AES-256-GCM ciphertext** until **10
 Invisibly encodes forensic metadata (`Center ID`, `Hall`, `Desk Number`, `Timestamp`, and `Session Hash`) into **invisible Unicode zero-width characters** (`\u200B` for 0, `\u200C` for 1) injected between normal English words. It is completely invisible to human eyes on screen, on paper printouts, and **survives copy-pasting into Telegram or forwarding across WhatsApp**!
 
 ### 4. Telegram / Dark Web Auto-Crawler & Silent Alert System
-A background monitoring agent continuously crawls mock social media and Telegram channels (`@NeetPaperLeak2026`). The second a rogue invigilator posts a question snippet, the crawler **intercepts it in 0.04 seconds**, decodes the invisible watermark, and alerts administrators.
+A background automated worker continuously crawls mock social media and Telegram channels (`@NeetPaperLeak2026`). The second a rogue invigilator posts a question snippet, the crawler **intercepts it in 0.04 seconds**, decodes the invisible watermark, and alerts administrators.
 
 ### 5. "Panic Mode" Dynamic Paper Swap Engine
 If an early breach is detected 15 minutes before exam commencement, the administrator clicks **`PANIC MODE: SWAP PAPER`**. In **0.38 seconds**, the system revokes and blacklists Variant A, pushes fresh zero-overlap **Variant B** to all regional printing terminals, and updates encryption keys—ensuring **100% exam continuity with ZERO national cancellations**.
