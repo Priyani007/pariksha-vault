@@ -777,6 +777,88 @@ def run_war_room_simulation():
     return war_room_engine.get_full_lifecycle()
 
 
+class AssistantQueryRequest(BaseModel):
+    query: str
+
+@app.post("/api/assistant/ask")
+def ask_pariksha_assistant(req: AssistantQueryRequest):
+    """
+    Intelligent Pariksha Assistant guide engine with structured explanations and interactive app actions.
+    """
+    q = req.query.lower().strip()
+    
+    if any(k in q for k in ["simulation", "war room", "demo", "story", "lifecycle", "attack", "how it work"]):
+        return {
+            "answer": "The **Exam Day Simulation** walks you through a real exam morning in 7 chronological steps: from master paper synthesis at T-72h and air-gapped unlock at T-30m, to detecting a simulated Telegram leak at T+15m, attributing the culprit room in 0.42s, and automatically swapping to Backup Set B in 1.4s.",
+            "action_label": "▶ Run Simulation",
+            "action_type": "open_modal",
+            "action_target": "war_room"
+        }
+    elif any(k in q for k in ["jumble", "isomorphic", "unique", "same question", "different", "fair", "cheating", "seat"]):
+        return {
+            "answer": "The **Isomorphic Question Engine** creates personalized exam sets for every student. Numerical parameters (e.g. 42 m/s vs 58 m/s) and answer choices (A/B/C/D) are scrambled per seat. A **Zero-Knowledge Proof (ZKP)** mathematically guarantees that all papers have the exact same Bloom's taxonomy difficulty level (Std Dev < 0.001).",
+            "action_label": "Open Isomorphic Engine",
+            "action_type": "switch_tab",
+            "action_target": "tab-jumble"
+        }
+    elif any(k in q for k in ["airgap", "air-gap", "internet", "offline", "rural", "ladakh", "village", "network", "zero internet"]):
+        return {
+            "answer": "For remote rural centers with **zero internet connection**, our **Air-Gap Hardware Enclave (Patent Claim #4)** uses an authorized hardware fob that generates a dynamic optical QR-chaff token rotating every 15 seconds. The isolated printer scans the token, decrypts strictly inside volatile RAM, prints the papers, and immediately wipes its memory to 0x00.",
+            "action_label": "Open Air-Gap Vault",
+            "action_type": "switch_tab",
+            "action_target": "tab-hardware"
+        }
+    elif any(k in q for k in ["stego", "watermark", "microdot", "dot", "photo", "camera", "phone", "image"]):
+        return {
+            "answer": "Our **Sub-Pixel Micro-Dot Steganography (Patent Claim #1)** embeds an invisible grid of microscopic dots on every printed page encoding the Center ID, Room, Desk, and Officer Badge. Even if someone takes a blurry, rotated smartphone photo in a bathroom, our algorithm decodes it in **0.42 seconds**.",
+            "action_label": "Open Forensic Scanner",
+            "action_type": "switch_tab",
+            "action_target": "tab-forensic"
+        }
+    elif any(k in q for k in ["retype", "type", "handwrite", "write", "whatsapp", "text", "memorize"]):
+        return {
+            "answer": "If someone types or handwrites questions into WhatsApp instead of taking a photo: (1) **Semantic Synonym Watermarks** (e.g. 'closed loop' vs 'complete circuit') trace the exact center; (2) **Unique Math Numbers** (e.g. 42 m/s, 191 turns) match that seat's seed; and (3) **Isomorphic Jumbling** ensures the typed leak is 100% useless to students in other rooms.",
+            "action_label": "View Threat Intelligence",
+            "action_type": "switch_tab",
+            "action_target": "tab-threats"
+        }
+    elif any(k in q for k in ["omr", "answer key", "grading", "evaluate", "check", "eval", "ans key"]):
+        return {
+            "answer": "Because questions and numbers are generated algorithmically, the system **automatically computes the exact mathematical answer key** for every candidate indexed by the OMR seed barcode (`ISO-SEED-7A9B`). When the OMR sheet is scanned, grading happens in 0.01s with zero human labor, completely eliminating answer-key leak mafias.",
+            "action_label": "Explore Isomorphic Papers",
+            "action_type": "switch_tab",
+            "action_target": "tab-jumble"
+        }
+    elif any(k in q for k in ["escrow", "shamir", "key", "vault", "lock", "3 of 5", "quorum", "principal", "police"]):
+        return {
+            "answer": "The **Timed Cryptographic Escrow Vault (Patent Claim #3)** uses Shamir's Secret Sharing to split the master AES-256 key into 5 pieces. Unlocking requires a **3-of-5 quorum** (Superintendent + Observer + Police Escort) simultaneously at 09:30 AM, preventing any single corrupt official from stealing the exam.",
+            "action_label": "Open Escrow Vault",
+            "action_type": "switch_tab",
+            "action_target": "tab-vault"
+        }
+    elif any(k in q for k in ["patent", "claim", "form 2", "ipr", "invention"]):
+        return {
+            "answer": "PARIKSHA-VAULT includes a complete, statutory **Indian Patent Act 1970 Form 2 Specification** covering 4 patentable claims: (1) Optical micro-steganography, (2) ZKP isomorphic difficulty equivalence, (3) (3, 5) Threshold escrow with RAM zeroization, and (4) Air-gapped dynamic optical chaff tokens.",
+            "action_label": "View Patent Form 2",
+            "action_type": "open_modal",
+            "action_target": "patent_spec"
+        }
+    elif any(k in q for k in ["professor", "reviewer", "canary", "trap", "honeypot", "sharma"]):
+        return {
+            "answer": "To catch corrupt professors who leak drafts weeks before the exam, we use **Blind Sharded Review & Canary Traps**: (1) Prof. Sharma only sees Question 1 for 60 seconds; (2) The system injects unique decoy words (`CANARY-TRAP-8842`). If that wording appears on Telegram, he is flagged immediately!",
+            "action_label": "View Threat Intelligence",
+            "action_type": "switch_tab",
+            "action_target": "tab-threats"
+        }
+    else:
+        return {
+            "answer": "I am **Pariksha Assistant**, your intelligent interactive guide for PARIKSHA-VAULT. You can ask me about **Exam Day Simulation**, **Isomorphic Question Jumbling**, **Air-Gap Offline Vaults**, **Invisible Micro-Dots**, **Professor Canary Traps**, or **Patent Claims**!",
+            "action_label": "▶ Run Simulation",
+            "action_type": "open_modal",
+            "action_target": "war_room"
+        }
+
+
 # Mount static frontend
 static_dir = os.path.join(os.path.dirname(__file__), "static")
 if os.path.exists(static_dir):

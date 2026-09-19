@@ -1329,6 +1329,123 @@
     runWatermarkCenter();
     loadMerkleLedger();
     loadOpticalMicrodots();
+
+    // =========================================================================
+    // PARIKSHA ASSISTANT INTERACTIVE AI GUIDE CONTROLLER
+    // =========================================================================
+    function toggleParikshaAssistant() {
+      const modal = document.getElementById('pariksha-assistant-modal');
+      modal.classList.toggle('hidden');
+      if (!modal.classList.contains('hidden')) {
+        document.getElementById('assistant-input-box').focus();
+      }
+    }
+
+    async function sendAssistantQuery(text) {
+      const container = document.getElementById('assistant-messages-container');
+      
+      // User Chat Bubble
+      container.innerHTML += `
+        <div class="flex justify-end">
+          <div class="p-3 rounded-2xl bg-[#0071E3] text-white max-w-[80%] leading-relaxed shadow-xs">${text}</div>
+        </div>
+      `;
+      container.scrollTop = container.scrollHeight;
+
+      try {
+        const res = await fetch('/api/assistant/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: text })
+        });
+        const data = await res.json();
+
+        let actionBtnHtml = '';
+        if (data.action_label && data.action_target) {
+          if (data.action_type === 'open_modal') {
+            if (data.action_target === 'war_room') {
+              actionBtnHtml = `<button onclick="openWarRoomModal(); toggleParikshaAssistant();" class="mt-2.5 px-3.5 py-1.5 rounded-xl bg-[#0071E3] text-white text-[11px] font-semibold hover:bg-[#0077ED] transition shadow-xs flex items-center space-x-1.5"><i class="fa-solid fa-play text-[9px]"></i><span>${data.action_label}</span></button>`;
+            } else if (data.action_target === 'patent_spec') {
+              actionBtnHtml = `<button onclick="openPatentForm2Modal(); toggleParikshaAssistant();" class="mt-2.5 px-3.5 py-1.5 rounded-xl bg-black text-white text-[11px] font-semibold hover:bg-slate-800 transition shadow-xs flex items-center space-x-1.5"><i class="fa-solid fa-file-contract text-[9px]"></i><span>${data.action_label}</span></button>`;
+            }
+          } else if (data.action_type === 'switch_tab') {
+            actionBtnHtml = `<button onclick="switchTab('${data.action_target}'); toggleParikshaAssistant();" class="mt-2.5 px-3.5 py-1.5 rounded-xl bg-[#0071E3] text-white text-[11px] font-semibold hover:bg-[#0077ED] transition shadow-xs flex items-center space-x-1.5"><i class="fa-solid fa-arrow-right text-[9px]"></i><span>${data.action_label}</span></button>`;
+          }
+        }
+
+        const formattedAnswer = data.answer.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+        container.innerHTML += `
+          <div class="flex justify-start">
+            <div class="p-3.5 rounded-2xl bg-[#F5F5F7] text-[#1D1D1F] max-w-[88%] space-y-1">
+              <div class="leading-relaxed font-sans">${formattedAnswer}</div>
+              ${actionBtnHtml}
+            </div>
+          </div>
+        `;
+        container.scrollTop = container.scrollHeight;
+      } catch (e) {
+        console.error('Assistant error:', e);
+      }
+    }
+
+    function sendAssistantMessage() {
+      const input = document.getElementById('assistant-input-box');
+      const txt = input.value.trim();
+      if (!txt) return;
+      input.value = '';
+      sendAssistantQuery(txt);
+    }
   </script>
+
+  <!-- FLOATING PARIKSHA ASSISTANT BUTTON -->
+  <button onclick="toggleParikshaAssistant()" id="btn-pariksha-assistant-trigger" class="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white text-xs font-semibold shadow-lg apple-blur flex items-center space-x-2 transition-all hover:scale-105 active:scale-95">
+    <div class="w-2 h-2 rounded-full bg-[#34C759] animate-pulse"></div>
+    <i class="fa-solid fa-wand-magic-sparkles text-xs"></i>
+    <span>Pariksha Assistant</span>
+  </button>
+
+  <!-- PARIKSHA ASSISTANT CHAT WINDOW MODAL -->
+  <div id="pariksha-assistant-modal" class="hidden fixed bottom-20 right-6 z-50 w-96 max-w-[calc(100vw-3rem)] apple-card shadow-2xl overflow-hidden border border-black/10 flex flex-col bg-white rounded-3xl" style="height: 520px;">
+    <!-- Header -->
+    <div class="p-4 border-b border-black/5 bg-[#F5F5F7]/80 apple-blur flex justify-between items-center">
+      <div class="flex items-center space-x-2.5">
+        <div class="w-7 h-7 rounded-xl bg-[#0071E3] text-white flex items-center justify-center text-xs font-bold shadow-sm">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </div>
+        <div>
+          <h3 class="font-semibold text-xs text-[#1D1D1F]">Pariksha Assistant</h3>
+          <p class="text-[10px] text-[#86868B]">Interactive AI Platform Guide</p>
+        </div>
+      </div>
+      <button onclick="toggleParikshaAssistant()" class="w-6 h-6 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-[#86868B] text-xs transition">&times;</button>
+    </div>
+
+    <!-- Messages Scroll Area -->
+    <div id="assistant-messages-container" class="flex-1 p-4 overflow-y-auto custom-scrollbar space-y-3 text-xs">
+      <!-- Welcome Message -->
+      <div class="p-3.5 rounded-2xl bg-[#F5F5F7] text-[#1D1D1F] space-y-2.5">
+        <p class="leading-relaxed">Hi! I am your <strong>Pariksha Assistant</strong>. Ask me anything about how the platform works or choose a topic below:</p>
+        <!-- Quick Topic Chips -->
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <button onclick="sendAssistantQuery('How does simulation work?')" class="px-2.5 py-1 rounded-full bg-white border border-black/10 text-[11px] text-[#0071E3] hover:bg-black/[0.03] transition font-medium">🎬 Run Simulation</button>
+          <button onclick="sendAssistantQuery('Tell me about isomorphic jumbling')" class="px-2.5 py-1 rounded-full bg-white border border-black/10 text-[11px] text-[#0071E3] hover:bg-black/[0.03] transition font-medium">🎲 Unique Papers</button>
+          <button onclick="sendAssistantQuery('What if there is no internet in village?')" class="px-2.5 py-1 rounded-full bg-white border border-black/10 text-[11px] text-[#0071E3] hover:bg-black/[0.03] transition font-medium">📶 Zero Internet</button>
+          <button onclick="sendAssistantQuery('What if someone types or retypes the questions?')" class="px-2.5 py-1 rounded-full bg-white border border-black/10 text-[11px] text-[#0071E3] hover:bg-black/[0.03] transition font-medium">✍️ Retyped Leaks</button>
+          <button onclick="sendAssistantQuery('How to catch corrupt professors?')" class="px-2.5 py-1 rounded-full bg-white border border-black/10 text-[11px] text-[#0071E3] hover:bg-black/[0.03] transition font-medium">🕵️ Professor Traps</button>
+          <button onclick="sendAssistantQuery('What are the 4 patent claims?')" class="px-2.5 py-1 rounded-full bg-white border border-black/10 text-[11px] text-[#0071E3] hover:bg-black/[0.03] transition font-medium">📜 4 Patent Claims</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="p-3 border-t border-black/5 bg-[#F5F5F7]/80 apple-blur flex items-center space-x-2">
+      <input type="text" id="assistant-input-box" onkeydown="if(event.key==='Enter') sendAssistantMessage()" placeholder="Ask anything about ParikshaVault..." class="flex-1 bg-white px-3.5 py-2 rounded-full text-xs border border-black/10 focus:outline-[#0071E3] text-[#1D1D1F]" />
+      <button onclick="sendAssistantMessage()" class="w-8 h-8 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white flex items-center justify-center text-xs transition shadow-sm">
+        <i class="fa-solid fa-arrow-up"></i>
+      </button>
+    </div>
+  </div>
+
 </body>
 </html>
